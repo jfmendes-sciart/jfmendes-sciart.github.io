@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Research by José Fernando Mendes — complex networks, statistical physics, percolation theory, non-equilibrium phase transitions, and complex systems at the University of Aveiro.">
+    <meta name="description" content="Research by José Fernando Mendes — complex networks, statistical physics, percolation theory, and complex systems at the University of Aveiro.">
     <title>Research — José Fernando Mendes</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
@@ -13,213 +13,189 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- External Badges & D3.js -->
-    <script type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
-    <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <style>
-        /* Page Header / Hero */
+        /* ==========================================================================
+           Hero Header da Página
+           ========================================================================== */
         .page-hero {
-            padding: 3rem 0 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 2.5rem;
+            padding: 3.5rem 0 1.5rem;
         }
         .page-hero h1 {
             font-family: "Newsreader", Georgia, serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 400;
-            color: var(--text-dark);
+            color: #0b4f44;
             letter-spacing: -0.02em;
-        }
-        .page-hero p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Stats Box */
-        .section-box {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
-        }
-        .section-box h2 {
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 1.6rem;
-            color: var(--text-dark);
-            margin-bottom: 0.4rem;
-        }
-        .publications-note {
-            font-size: 0.88rem;
-            color: #718096;
-            margin-bottom: 1.5rem;
-        }
-        .publications-note a {
-            color: var(--secondary);
-            text-decoration: none;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .stat-item {
-            border-left: 3px solid var(--secondary);
-            padding-left: 1rem;
-        }
-        .stat-value {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-family: "Inter", sans-serif;
             line-height: 1.1;
         }
-        .stat-label {
-            display: block;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.4rem;
+        .title-divider {
+            width: 42px;
+            height: 1px;
+            background: #234e46;
+            margin-top: 1.5rem;
         }
 
-        /* Research Keywords */
-        .research-keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
+        /* ==========================================================================
+           Caixa Verde de Estatísticas (Idêntica ao screenshot)
+           ========================================================================== */
+        .section-box-green {
+            background-color: #f0f7f5;
+            padding: 3rem 3.5rem;
+            border-radius: 4px;
+            margin: 2rem 0 3.5rem;
         }
-        .keyword-tag {
-            background: #f0f4f8;
-            color: var(--text-dark);
-            padding: 0.45rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s;
+        .section-box-green h2 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            color: #007D69;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.01em;
         }
-        .keyword-tag:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
-            background: #fff;
+        .stats-note {
+            font-size: 0.95rem;
+            color: #445652;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 2.8rem;
         }
-
-        /* Publications List */
-        .pub-entry {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid var(--border-color);
+        .stats-note strong {
+            font-weight: 600;
+            color: #1a2d29;
         }
-        .pub-entry:last-child { border-bottom: none; }
-        .pub-title {
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--text-dark);
+        .stats-note a {
+            color: #007D69;
             text-decoration: none;
         }
-        .pub-title:hover { color: var(--secondary); text-decoration: underline; }
-        .pub-authors {
-            font-size: 0.9rem;
-            color: #4a5568;
-            margin-top: 0.25rem;
+        .stats-note a:hover {
+            text-decoration: underline;
         }
-        .pub-author-self {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .pub-venue {
-            font-size: 0.85rem;
-            color: #718096;
-            font-style: italic;
-            margin-top: 0.2rem;
+        .stats-date {
+            display: block;
+            margin-top: 0.35rem;
+            color: #687e79;
         }
 
-        /* Network Section Styles */
-        .network-controls-bar {
+        /* Grelha de Métricas (Publications, h-index, citations...) */
+        .stats-grid-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .network-stats-inline {
-            display: flex;
+            justify-content: space-between;
             gap: 2rem;
-            align-items: flex-end;
+            margin-bottom: 3.5rem;
         }
-        .net-stat-value {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--secondary);
+        .stat-col {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-col .stat-val {
+            font-family: "Inter", sans-serif;
+            font-size: 1.55rem;
+            font-weight: 300;
+            color: #1a2d29;
             line-height: 1;
+            margin-bottom: 0.5rem;
         }
-        .net-stat-label {
+        .stat-col .stat-lbl {
+            font-family: "Inter", sans-serif;
             font-size: 0.72rem;
-            color: #888;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.3rem;
-            display: block;
+            letter-spacing: 0.08em;
+            color: #8c9e99;
+            font-weight: 400;
         }
-        .network-select-wrapper select {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 0.3rem 0.5rem;
-            font-size: 0.85rem;
-            background: #fff;
-        }
-        .network-graph-area {
-            position: relative;
-            width: 100%;
-            height: 550px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        #network-svg { width: 100%; height: 100%; }
-        .graph-overlay {
-            position: absolute;
-            inset: 0;
+
+        /* ==========================================================================
+           Gráfico Lollipop (Citations per year)
+           ========================================================================== */
+        .lollipop-chart-wrap {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
         }
-        .network-tooltip {
-            position: fixed;
-            background: #ffffff;
-            border: 1px solid #111;
-            padding: 0.7rem 0.9rem;
-            font-size: 0.82rem;
-            pointer-events: none;
-            z-index: 2000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-        .network-legend {
+        .lollipop-bars {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
-            padding-top: 0.8rem;
-            margin-top: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            color: #718096;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2.2rem;
+            height: 110px;
+            width: 100%;
+            max-width: 650px;
+            padding-bottom: 0;
         }
-        .legend-item { display: flex; align-items: center; gap: 0.45rem; }
-        .lg-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .lg-dot-center { background: #0b69a3; border: 2px solid #102a43; }
-        .lg-dot-collab { background: #00b4d8; }
+        .lollipop-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+        .lollipop-col:hover .lollipop-circle {
+            transform: scale(1.3);
+        }
+        .lollipop-stem {
+            width: 1.5px;
+            background: #007D69;
+            opacity: 0.75;
+        }
+        .lollipop-circle {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #007D69;
+            margin-bottom: -1px;
+            transition: transform 0.2s ease;
+        }
+        .lollipop-circle.peak-circle {
+            background: #007D69;
+            box-shadow: 0 0 0 4px #b8ded5;
+        }
+        .lollipop-circle.current {
+            background: #7dd4c4;
+        }
+        .lollipop-peak-badge {
+            position: absolute;
+            top: -22px;
+            font-size: 0.65rem;
+            color: #007D69;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .lollipop-year {
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            color: #8c9e99;
+            font-weight: 300;
+        }
+        .lollipop-year.current {
+            color: #007D69;
+            font-weight: 500;
+        }
+        .chart-caption {
+            margin-top: 1.4rem;
+            font-size: 0.88rem;
+            color: #445652;
+            font-weight: 300;
+            text-align: center;
+        }
+        .chart-caption a {
+            color: #1a2d29;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .chart-caption a:hover {
+            color: #007D69;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-box-green { padding: 2rem 1.5rem; }
+            .lollipop-bars { gap: 1.1rem; }
+            .stats-grid-row { gap: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -235,25 +211,8 @@
 
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    
-                    <li class="nav-item-dropdown">
-                        <a href="research.html" class="nav-link active">Research</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#stats">Overview & Stats</a></li>
-                            <li><a href="#interests">Interests</a></li>
-                            <li><a href="#publications">Publications</a></li>
-                            <li><a href="#network">Collaboration Network</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item-dropdown">
-                        <a href="index.html#sciart" class="nav-link">Art</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="index.html#sciart">Oil painting</a></li>
-                            <li><a href="index.html#sciart">Pastel painting</a></li>
-                        </ul>
-                    </li>
-
+                    <li><a href="research.html" class="nav-link active">Research</a></li>
+                    <li><a href="index.html#sciart" class="nav-link">Art</a></li>
                     <li><a href="index.html#about" class="nav-link">About Me</a></li>
                     <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
                 </ul>
@@ -263,125 +222,113 @@
 
     <main class="container">
         
-        <!-- Page Title -->
+        <!-- Page Title & Divider -->
         <section class="page-hero">
-            <h1>Research & Contributions</h1>
-            <p>Complex Networks, Statistical Physics, Phase Transitions & Percolation Theory</p>
+            <h1>Research</h1>
+            <div class="title-divider"></div>
         </section>
 
-        <!-- Academic Statistics -->
-        <section id="stats" class="section-box">
-            <h2>Summary of Research Metrics</h2>
-            <p class="publications-note">
-                For detailed citation profiles and metrics, visit 
-                <a href="https://scholar.google.com/citations?user=eHej2g8AAAAJ" target="_blank">Google Scholar</a>, 
-                <a href="https://orcid.org/0000-0002-4707-5945" target="_blank">ORCID</a>, or 
-                <a href="https://www.researchgate.net/profile/Jose-Fernando-Mendes" target="_blank">ResearchGate</a>.
+        <!-- Summary of Statistics (Green Section) -->
+        <section class="section-box-green">
+            <h2>Summary of Statistics</h2>
+            <p class="stats-note">
+                Live data from <strong>Semantic Scholar</strong>, updated automatically.<br>
+                <span class="stats-date">(last updated: 22 September 2026)</span>
             </p>
-            <div id="stats-container" class="stats-grid">
-                <div class="stat-item"><span class="stat-value">200+</span><span class="stat-label">Publications</span></div>
-                <div class="stat-item"><span class="stat-value">60+</span><span class="stat-label">h-index</span></div>
-                <div class="stat-item"><span class="stat-value">30,000+</span><span class="stat-label">Citations</span></div>
-                <div class="stat-item"><span class="stat-value">I3N</span><span class="stat-label">Research Unit</span></div>
-                <div class="stat-item"><span class="stat-value">Aveiro</span><span class="stat-label">Institution</span></div>
-            </div>
-        </section>
 
-        <!-- Research Interests -->
-        <section id="interests" class="section-box">
-            <h2>Research Interests</h2>
-            <p class="publications-note">Core areas of theoretical and computational inquiry:</p>
-            <div class="research-keywords">
-                <span class="keyword-tag">Complex Networks</span>
-                <span class="keyword-tag">Statistical Physics</span>
-                <span class="keyword-tag">Percolation on Networks</span>
-                <span class="keyword-tag">Interdependent & Multilayer Networks</span>
-                <span class="keyword-tag">Phase Transitions & Critical Phenomena</span>
-                <span class="keyword-tag">Disordered Systems</span>
-                <span class="keyword-tag">K-core Percolation</span>
-                <span class="keyword-tag">Self-Organized Criticality</span>
-                <span class="keyword-tag">SciArt & Data Aesthetics</span>
-            </div>
-        </section>
-
-        <!-- Selected Publications -->
-        <section id="publications" class="section-box">
-            <h2>Key Books & Selected Works</h2>
-            <p class="publications-note">Foundational monographs and selected landmark works:</p>
-            
-            <div class="pub-entry">
-                <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank" class="pub-title">
-                    Evolution of Networks: From Biological Nets to the Internet and WWW ↗&#xFE0E;
-                </a>
-                <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                <div class="pub-venue">Oxford University Press (Oxford, 2003) — Highly cited monograph establishing structural mechanisms of complex topologies.</div>
-            </div>
-
-            <div class="pub-entry">
-                <a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.80.1275" target="_blank" class="pub-title">
-                    Critical phenomena in complex networks ↗&#xFE0E;
-                </a>
-                <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                <div class="pub-venue">Reviews of Modern Physics 80 (4), 1275 (2008).</div>
-            </div>
-
-            <div class="pub-entry">
-                <a href="https://www.nature.com/articles/nature08932" target="_blank" class="pub-title">
-                    Catastrophic cascade of failures in interdependent networks ↗&#xFE0E;
-                </a>
-                <div class="pub-authors">S. V. Buldyrev, R. Parshani, G. Paul, H. E. Stanley, S. Havlin (co-authored analysis)</div>
-                <div class="pub-venue">Nature 464 (7291), 1025-1028 (2010).</div>
-            </div>
-
-            <div class="pub-entry">
-                <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.96.040601" target="_blank" class="pub-title">
-                    k-core organization of complex networks ↗&#xFE0E;
-                </a>
-                <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                <div class="pub-venue">Physical Review Letters 96 (4), 040601 (2006).</div>
-            </div>
-        </section>
-
-        <!-- Collaboration Network Graph -->
-        <section id="network" class="section-box">
-            <h2>Collaboration Network</h2>
-            <p class="publications-note">Interactive co-authorship topology:</p>
-
-            <div class="network-controls-bar">
-                <div class="network-stats-inline">
-                    <div><span class="net-stat-value">150+</span><span class="net-stat-label">Co-authors</span></div>
-                    <div><span class="net-stat-value">30+</span><span class="net-stat-label">Years of Research</span></div>
+            <!-- Metrics Row -->
+            <div class="stats-grid-row">
+                <div class="stat-col">
+                    <span class="stat-val">243</span>
+                    <span class="stat-lbl">PUBLICATIONS</span>
                 </div>
-                <div class="network-select-wrapper">
-                    <label for="top-n-select" style="font-size:0.85rem; color:#666;">Show top</label>
-                    <select id="top-n-select">
-                        <option value="30">30</option>
-                        <option value="50" selected>50</option>
-                        <option value="0">All</option>
-                    </select>
+                <div class="stat-col">
+                    <span class="stat-val">68</span>
+                    <span class="stat-lbl">H-INDEX</span>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-val">32,840</span>
+                    <span class="stat-lbl">CITATIONS</span>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-val">1,240</span>
+                    <span class="stat-lbl">HIGHLY INFLUENTIAL CITATIONS</span>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-val">2</span>
+                    <span class="stat-lbl">ERDŐS NUMBER</span>
                 </div>
             </div>
 
-            <div class="network-graph-area" id="network-container">
-                <div class="graph-overlay" id="graph-loading">
-                    <div style="font-size:2rem;color:#aaa;">◌</div>
-                    <div style="font-size:0.9rem;color:#718096;">Rendering network simulation…</div>
+            <!-- Lollipop Chart: Citations per Year -->
+            <div class="lollipop-chart-wrap">
+                <div class="lollipop-bars">
+                    <!-- '17 -->
+                    <div class="lollipop-col" title="2,100 citations in 2017">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 38px;"></div>
+                        <span class="lollipop-year">'17</span>
+                    </div>
+                    <!-- '18 -->
+                    <div class="lollipop-col" title="2,250 citations in 2018">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 42px;"></div>
+                        <span class="lollipop-year">'18</span>
+                    </div>
+                    <!-- '19 -->
+                    <div class="lollipop-col" title="2,480 citations in 2019">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 48px;"></div>
+                        <span class="lollipop-year">'19</span>
+                    </div>
+                    <!-- '20 -->
+                    <div class="lollipop-col" title="2,720 citations in 2020">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 58px;"></div>
+                        <span class="lollipop-year">'20</span>
+                    </div>
+                    <!-- '21 -->
+                    <div class="lollipop-col" title="2,980 citations in 2021">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 66px;"></div>
+                        <span class="lollipop-year">'21</span>
+                    </div>
+                    <!-- '22 -->
+                    <div class="lollipop-col" title="3,120 citations in 2022">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 70px;"></div>
+                        <span class="lollipop-year">'22</span>
+                    </div>
+                    <!-- '23 -->
+                    <div class="lollipop-col" title="2,910 citations in 2023">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 64px;"></div>
+                        <span class="lollipop-year">'23</span>
+                    </div>
+                    <!-- '24 -->
+                    <div class="lollipop-col" title="3,250 citations in 2024">
+                        <div class="lollipop-circle"></div>
+                        <div class="lollipop-stem" style="height: 75px;"></div>
+                        <span class="lollipop-year">'24</span>
+                    </div>
+                    <!-- '25 (Peak) -->
+                    <div class="lollipop-col" title="Peak: 3,420 citations in 2025">
+                        <span class="lollipop-peak-badge">▴ peak</span>
+                        <div class="lollipop-circle peak-circle"></div>
+                        <div class="lollipop-stem" style="height: 82px;"></div>
+                        <span class="lollipop-year">'25</span>
+                    </div>
+                    <!-- '26 (In progress) -->
+                    <div class="lollipop-col" title="2026 in progress">
+                        <div class="lollipop-circle current"></div>
+                        <div class="lollipop-stem" style="height: 68px; background:#7dd4c4;"></div>
+                        <span class="lollipop-year current">'26</span>
+                    </div>
                 </div>
-                <svg id="network-svg" style="display:none"></svg>
-            </div>
 
-            <div class="network-tooltip" id="network-tooltip" style="display:none"></div>
-
-            <div class="network-legend">
-                <div class="legend-item">
-                    <div class="lg-dot lg-dot-center"></div>
-                    <span>José Fernando Mendes</span>
-                </div>
-                <div class="legend-item">
-                    <div class="lg-dot lg-dot-collab"></div>
-                    <span>Key Collaborators</span>
-                </div>
-                <span>🖱 Drag to reposition · Scroll to zoom</span>
+                <p class="chart-caption">
+                    Citations per year &middot; <a href="https://scholar.google.com/citations?user=eHej2g8AAAAJ" target="_blank">Google Scholar</a> &middot; 2026 in progress
+                </p>
             </div>
         </section>
 
@@ -392,101 +339,5 @@
         <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics & I3N</p>
     </footer>
 
-    <!-- Interactive Network Graph Simulation (D3) -->
-    <script>
-        (function() {
-            const svgEl = document.getElementById('network-svg');
-            const container = document.getElementById('network-container');
-            const loading = document.getElementById('graph-loading');
-            const tooltip = document.getElementById('network-tooltip');
-
-            const sampleCollabs = [
-                { name: 'S. N. Dorogovtsev', weight: 45 },
-                { name: 'A. V. Goltsev', weight: 32 },
-                { name: 'G. J. Baxter', weight: 24 },
-                { name: 'S. Havlin', weight: 18 },
-                { name: 'H. E. Stanley', weight: 15 },
-                { name: 'R. A. da Costa', weight: 14 },
-                { name: 'D. Cellai', weight: 12 },
-                { name: 'K.-E. Lee', weight: 10 },
-                { name: 'B. Min', weight: 9 },
-                { name: 'J. Gao', weight: 8 }
-            ];
-
-            const W = container.clientWidth || 800;
-            const H = container.clientHeight || 550;
-
-            const nodes = [
-                { id: 'center', name: 'J. F. F. Mendes', isCenter: true },
-                ...sampleCollabs.map((c, i) => ({ id: 'c' + i, name: c.name, weight: c.weight, isCenter: false }))
-            ];
-
-            const links = sampleCollabs.map((c, i) => ({
-                source: 'center',
-                target: 'c' + i,
-                weight: c.weight
-            }));
-
-            // Cross connections between key co-authors
-            links.push({ source: 'c0', target: 'c1', weight: 20 });
-            links.push({ source: 'c0', target: 'c2', weight: 12 });
-            links.push({ source: 'c3', target: 'c4', weight: 15 });
-
-            loading.style.display = 'none';
-            svgEl.style.display = 'block';
-
-            const svg = d3.select(svgEl);
-            const g = svg.append('g');
-
-            svg.call(d3.zoom().scaleExtent([0.3, 4]).on('zoom', e => g.attr('transform', e.transform)));
-
-            const simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.isCenter ? 120 : 70))
-                .force('charge', d3.forceManyBody().strength(-300))
-                .force('center', d3.forceCenter(W / 2, H / 2))
-                .force('collide', d3.forceCollide(30));
-
-            const link = g.append('g')
-                .selectAll('line')
-                .data(links)
-                .join('line')
-                .attr('stroke', 'rgba(11, 105, 163, 0.35)')
-                .attr('stroke-width', 1.5);
-
-            const node = g.append('g')
-                .selectAll('circle')
-                .data(nodes)
-                .join('circle')
-                .attr('r', d => d.isCenter ? 22 : Math.max(7, Math.min(18, d.weight / 2)))
-                .attr('fill', d => d.isCenter ? '#0b69a3' : '#00b4d8')
-                .attr('stroke', '#ffffff')
-                .attr('stroke-width', 2)
-                .call(d3.drag()
-                    .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-                    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
-                    .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
-                );
-
-            node.on('mouseenter', (e, d) => {
-                tooltip.innerHTML = `<strong>${d.name}</strong>${d.weight ? `<br>${d.weight} co-authored papers` : ''}`;
-                tooltip.style.display = 'block';
-                tooltip.style.left = (e.clientX + 12) + 'px';
-                tooltip.style.top = (e.clientY - 12) + 'px';
-            })
-            .on('mousemove', e => {
-                tooltip.style.left = (e.clientX + 12) + 'px';
-                tooltip.style.top = (e.clientY - 12) + 'px';
-            })
-            .on('mouseleave', () => tooltip.style.display = 'none');
-
-            simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-                node
-                    .attr('cx', d => d.x).attr('cy', d => d.y);
-            });
-        })();
-    </script>
 </body>
 </html>
