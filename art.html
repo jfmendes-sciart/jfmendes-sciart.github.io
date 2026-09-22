@@ -37,14 +37,14 @@
         }
 
         /* -------------------------------------------------------------
-           Header Banner (sincronizado com index e research)
+           Header Banner 
            ------------------------------------------------------------- */
         .hero-banner {
             position: relative;
             width: 100%;
             height: 32vh;
             min-height: 220px;
-            background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
+            background: linear-gradient(rgba(10, 25, 47, 0.45), rgba(10, 25, 47, 0.45)), 
                         url('art/banner-art.jpg');
             background-size: cover;
             background-position: center;
@@ -97,7 +97,7 @@
         }
 
         /* -------------------------------------------------------------
-           Filter & Catalog Control Bar 
+           Filter & Catalog Control Bar
            ------------------------------------------------------------- */
         .catalog-controls {
             display: flex;
@@ -302,11 +302,48 @@
             min-height: 520px;
         }
 
+        .detail-image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
         .detail-image {
             max-width: 100%;
             max-height: 75vh;
             object-fit: contain;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            cursor: zoom-in; /* Cursor de lupa */
+            transition: transform 0.2s;
+        }
+        
+        .detail-image:hover {
+            transform: scale(1.01);
+        }
+
+        /* Botão Lupa (Zoom) */
+        .zoom-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #102a43;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 10;
+        }
+
+        .zoom-btn:hover {
+            background: #ffffff;
+            transform: scale(1.05);
+            color: var(--secondary);
         }
 
         /* Detailed Artwork Information Sidebar */
@@ -332,16 +369,13 @@
             margin-bottom: 2rem;
         }
 
-        /* Metadata Spec Table (Museum archive format) */
         .artwork-specs-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 2rem;
         }
 
-        .artwork-specs-table tr {
-            border-bottom: 1px solid #f0f4f8;
-        }
+        .artwork-specs-table tr { border-bottom: 1px solid #f0f4f8; }
 
         .artwork-specs-table th {
             text-align: left;
@@ -373,36 +407,61 @@
             border-top: 1px solid #edf2f7;
         }
 
-        .inquire-link {
-            display: inline-block;
-            margin-top: 2rem;
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: var(--secondary);
-            text-decoration: none;
-            border: 1px solid var(--secondary);
-            padding: 0.55rem 1.2rem;
-            border-radius: 4px;
-            transition: all 0.2s;
+        /* -------------------------------------------------------------
+           Full-Screen Image Viewer (Lightbox)
+           ------------------------------------------------------------- */
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.97); /* Fundo branco sujíssimo para realçar a arte */
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
-        .inquire-link:hover {
-            background: var(--secondary);
-            color: #ffffff;
+        .fullscreen-modal.active {
+            display: flex;
+        }
+
+        .fs-image {
+            max-width: 94vw;
+            max-height: 94vh;
+            object-fit: contain;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.12);
+            cursor: zoom-out;
+        }
+
+        .fs-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            background: none;
+            border: none;
+            font-size: 3rem;
+            line-height: 1;
+            color: #102a43;
+            cursor: pointer;
+            font-weight: 300;
+            transition: color 0.2s;
+            z-index: 3010;
+        }
+
+        .fs-close:hover {
+            color: var(--secondary);
         }
 
         /* Responsive Mobile Layout */
         @media (max-width: 900px) {
-            .detail-layout {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-            .detail-image-stage {
-                padding: 1.2rem;
-                min-height: 340px;
-            }
+            .detail-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+            .detail-image-stage { padding: 1.2rem; min-height: 340px; }
             .page-hero h1 { font-size: 2.3rem; }
             .artwork-thumb-wrap { height: 280px; }
+            .fs-close { top: 10px; right: 20px; font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -454,8 +513,8 @@
         </nav>
     </header>
 
-    <!-- Top Hero Banner (Sincronizado) -->
-    <div class="hero-banner" style="background-image: linear-gradient(rgba(10, 25, 47, 0.45), rgba(10, 25, 47, 0.45)), url('art/banner-art.jpg'); background-size: cover; background-position: center;">
+    <!-- Top Hero Banner -->
+    <div class="hero-banner">
         <p class="quote-text">The greatest equaliser humanity has ever known is the relentless advance of science, shared openly with the world</p>
     </div>
 
@@ -470,7 +529,7 @@
                 </p>
             </div>
 
-            <!-- Filters Bar (Joan Mitchell style) -->
+            <!-- Filters Bar -->
             <div class="catalog-controls">
                 <div class="filter-group">
                     <button class="filter-btn active" data-filter="all">All Mediums</button>
@@ -492,7 +551,7 @@
                      data-title="Emergent Horizons" 
                      data-year="2024" 
                      data-technique="Oil on linen canvas" 
-                     data-dimensions="100 × 120 cm (39.4 × 47.2 in.)"
+                     data-dimensions="100 × 120 cm"
                      data-collection="Studio collection, Aveiro"
                      data-notes="Layered oil glazes exploring horizontal coherence and chromatic fluctuation across primed linen.">
                     <div class="artwork-thumb-wrap">
@@ -511,7 +570,7 @@
                      data-title="Topological Transitions" 
                      data-year="2023" 
                      data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm (35.4 × 35.4 in.)"
+                     data-dimensions="90 × 90 cm"
                      data-collection="Private collection, Portugal"
                      data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
                     <div class="artwork-thumb-wrap">
@@ -530,7 +589,7 @@
                      data-title="Luminescence in Blue" 
                      data-year="2024" 
                      data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm (25.6 × 19.7 in.)"
+                     data-dimensions="65 × 50 cm"
                      data-collection="Studio collection, Aveiro"
                      data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
                     <div class="artwork-thumb-wrap">
@@ -542,68 +601,13 @@
                     </div>
                 </div>
 
-                <!-- Painting 4 -->
-                <div class="artwork-card" 
-                     data-id="3"
-                     data-medium="oil" 
-                     data-title="Interdependent Fields" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="110 × 140 cm (43.3 × 55.1 in.)"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Broad, rhythmic brushstrokes articulating cascading interactions within multilayered planes.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oleo-03.jpg" onerror="this.src='banner.jpg'" alt="Interdependent Fields" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Interdependent Fields, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>110 &times; 140 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 5 -->
-                <div class="artwork-card" 
-                     data-id="4"
-                     data-medium="pastel" 
-                     data-title="Gradient Density" 
-                     data-year="2022" 
-                     data-technique="Soft pastel on primed paper" 
-                     data-dimensions="70 × 50 cm (27.6 × 19.7 in.)"
-                     data-collection="Private collection, Lisbon"
-                     data-notes="Micro-textural gradients bridging smooth chromatic transitions with organic friction.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/pastel-02.jpg" onerror="this.src='banner.jpg'" alt="Gradient Density" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Gradient Density, 2022</div>
-                        <div class="artwork-label-meta">Soft pastel on primed paper<br>70 &times; 50 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 6 -->
-                <div class="artwork-card" 
-                     data-id="5"
-                     data-medium="pastel" 
-                     data-title="Nocturne Spectrum" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on museum card" 
-                     data-dimensions="60 × 45 cm (23.6 × 17.7 in.)"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Tonal nocturne balancing dark values with sudden geometric flashes of warm ochre and turquoise.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/pastel-03.jpg" onerror="this.src='banner.jpg'" alt="Nocturne Spectrum" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Nocturne Spectrum, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on museum card<br>60 &times; 45 cm</div>
-                    </div>
-                </div>
+                <!-- Add more items as needed following this structure -->
 
             </div>
         </section>
 
 
-        <!-- SECTION 2: DETAIL VIEW (WHITE BACKGROUND + ARTWORK INFO SIDEBAR) -->
+        <!-- SECTION 2: DETAIL VIEW -->
         <section id="artwork-detail-section" class="detail-view">
             
             <div class="detail-top-nav">
@@ -619,7 +623,19 @@
             <div class="detail-layout">
                 <!-- Large Image Stage -->
                 <div class="detail-image-stage">
-                    <img src="" alt="" id="detail-image" class="detail-image">
+                    <div class="detail-image-wrapper">
+                        <!-- Botão Lupa -->
+                        <button class="zoom-btn" id="btn-zoom" aria-label="View Full Screen" title="Ver em Ecrã Inteiro">
+                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </button>
+                        <!-- Imagem da Obra -->
+                        <img src="" alt="" id="detail-image" class="detail-image" title="Clique para expandir">
+                    </div>
                 </div>
 
                 <!-- Detailed Info Column -->
@@ -647,23 +663,24 @@
                     <div class="detail-description" id="detail-notes">
                         Notes about this work.
                     </div>
-
-                    <a href="mailto:jfmendes@ua.pt?subject=Artwork%20Inquiry" class="inquire-link">
-                        Inquire about this work &rarr;
-                    </a>
                 </div>
             </div>
-
         </section>
 
     </main>
+
+    <!-- SECTION 3: FULL SCREEN IMAGE VIEWER -->
+    <div class="fullscreen-modal" id="fs-modal">
+        <button class="fs-close" id="fs-close" title="Fechar (Esc)">&times;</button>
+        <img src="" class="fs-image" id="fs-image" alt="Artwork full screen">
+    </div>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 José Fernando Mendes | Visual Arts &amp; SciArt Studio | University of Aveiro</p>
     </footer>
 
-    <!-- Interactive Script matching Joan Mitchell Foundation logic -->
+    <!-- Interactive Script -->
     <script>
         const catalogSection = document.getElementById('gallery-catalog-section');
         const detailSection = document.getElementById('artwork-detail-section');
@@ -682,6 +699,12 @@
         const dimEl = document.getElementById('detail-dimensions');
         const colEl = document.getElementById('detail-collection');
         const notesEl = document.getElementById('detail-notes');
+
+        // Fullscreen elements
+        const fsModal = document.getElementById('fs-modal');
+        const fsImage = document.getElementById('fs-image');
+        const fsClose = document.getElementById('fs-close');
+        const btnZoom = document.getElementById('btn-zoom');
 
         let currentIndex = 0;
 
@@ -708,7 +731,7 @@
             btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
         });
 
-        // 2. Open Detail View (Joan Mitchell Foundation Style)
+        // 2. Open Detail View
         function showDetail(index) {
             currentIndex = index;
             const card = cards[currentIndex];
@@ -725,7 +748,6 @@
             colEl.textContent = card.dataset.collection || 'Studio collection';
             notesEl.textContent = card.dataset.notes || '';
 
-            // Transition from catalog view to detail view
             catalogSection.style.display = 'none';
             detailSection.classList.add('active');
             window.scrollTo({ top: detailSection.offsetTop - 40, behavior: 'smooth' });
@@ -753,7 +775,33 @@
             showDetail(nextIdx);
         });
 
-        // URL query parameter support (ex: art.html?medium=pastel)
+        // 3. Fullscreen / Lupa Logic
+        function openFullScreen() {
+            fsImage.src = imgEl.src;
+            fsModal.classList.add('active');
+        }
+
+        function closeFullScreen() {
+            fsModal.classList.remove('active');
+        }
+
+        // Click no botão lupa ou na imagem de detalhe
+        btnZoom.addEventListener('click', openFullScreen);
+        imgEl.addEventListener('click', openFullScreen);
+        
+        // Fechar fullscreen
+        fsClose.addEventListener('click', closeFullScreen);
+        fsImage.addEventListener('click', closeFullScreen); // Fecha se clicar na foto grande
+        fsModal.addEventListener('click', (e) => {
+            if (e.target === fsModal) closeFullScreen(); // Fecha se clicar no fundo branco
+        });
+        
+        // Fechar com a tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeFullScreen();
+        });
+
+        // URL query parameter support
         const urlParams = new URLSearchParams(window.location.search);
         const mediumParam = urlParams.get('medium');
         if (mediumParam) applyFilter(mediumParam);
