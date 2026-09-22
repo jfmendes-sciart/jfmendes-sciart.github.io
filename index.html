@@ -111,7 +111,7 @@
             max-width: 880px;
             padding: 1.5rem;
             font-family: "Newsreader", Georgia, serif;
-            font-size: 1.85rem; /* Fonte aumentada conforme pedido */
+            font-size: 1.85rem;
             font-style: italic;
             font-weight: 300;
             line-height: 1.5;
@@ -158,7 +158,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.1rem;
         }
         .profile-image {
             width: 175px;
@@ -169,28 +169,41 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
             background: #e2e8f0;
         }
+
+        /* Social / Academic Icons */
         .profile-social-icons {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.75rem;
+            align-items: center;
         }
-        .social-btn {
+        .icon-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             background: #f0f4f8;
-            color: var(--text-dark);
+            color: #486581;
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.2s ease-in-out;
             border: 1px solid var(--border-color);
         }
-        .social-btn:hover {
-            background: var(--secondary);
-            color: #fff;
+        .icon-link svg {
+            width: 19px;
+            height: 19px;
+            fill: currentColor;
+            transition: fill 0.2s ease-in-out;
         }
+        .icon-link:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        .icon-link.scholar:hover { color: #4285f4; border-color: #4285f4; }
+        .icon-link.rg:hover { color: #00ccbb; border-color: #00ccbb; }
+        .icon-link.orcid:hover { color: #a6ce39; border-color: #a6ce39; }
+        .icon-link.email:hover { color: var(--secondary); border-color: var(--secondary); }
 
         /* Highlights Grid */
         .highlights h2 {
@@ -286,7 +299,7 @@
         </nav>
     </header>
 
-    <!-- Top Banner with Image -->
+    <!-- Top Hero Banner with Image -->
     <div class="hero-banner">
         <p class="quote-text">"Complex networks reveal the fundamental principles shaping our connected world and human expression."</p>
     </div>
@@ -308,10 +321,36 @@
                 </div>
                 <div class="profile-image-wrap">
                     <img src="MainPicture.jpg" alt="José Fernando Mendes" onerror="this.src='https://ui-avatars.com/api/?name=Jose+Fernando+Mendes&size=200&background=0b69a3&color=fff'" class="profile-image">
+                    
+                    <!-- Academic & Contact Icons -->
                     <div class="profile-social-icons">
-                        <a href="https://scholar.google.com/citations?user=g0PnXHIAAAAJ&hl=en" target="_blank" class="social-btn" title="Google Scholar">Scholar</a>
-                        <a href="https://www.researchgate.net/profile/Jose-Fernando-Mendes" target="_blank" class="social-btn" title="ResearchGate">ResearchGate</a>
-                        <a href="mailto:jfmendes@ua.pt" class="social-btn" title="Email">Email</a>
+                        <!-- Google Scholar -->
+                        <a href="https://scholar.google.com/citations?user=eHej2g8AAAAJ" target="_blank" class="icon-link scholar" title="Google Scholar" aria-label="Google Scholar">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
+                            </svg>
+                        </a>
+
+                        <!-- ResearchGate -->
+                        <a href="https://www.researchgate.net/profile/Jose-Fernando-Mendes" target="_blank" class="icon-link rg" title="ResearchGate" aria-label="ResearchGate">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a3.193 3.193 0 0 0-1.128-.854 3.73 3.73 0 0 0-1.636-.356c-1.282 0-2.316.48-3.1 1.442C9.654 3.44 9.262 4.75 9.262 6.41c0 1.635.394 2.932 1.18 3.89.788.958 1.83 1.436 3.127 1.436.6 0 1.154-.122 1.66-.367.505-.244.89-.594 1.155-1.047l.115.71h2.247V0h-.16zm-5.46 9.45c-.75 0-1.348-.32-1.794-.96-.445-.64-.668-1.565-.668-2.775 0-1.233.224-2.17.673-2.81.448-.642 1.045-.963 1.79-.963.753 0 1.346.32 1.78.96.434.64.65 1.577.65 2.81 0 1.21-.217 2.136-.653 2.776-.436.64-1.03 1.01-1.78 1.01zm5.553-4.22h-1.46V3.81c0-.49.123-.88.368-1.173.245-.292.593-.438 1.045-.438.167 0 .338.02.51.06v-1.6c-.29-.053-.598-.08-.925-.08-.94 0-1.682.302-2.227.906-.544.604-.817 1.472-.817 2.603V5.23h-1.44v1.854h1.44v6.864h2.506V7.084h1.46V5.23zM5.534 8.723H3.028v5.225H.522V3.418h5.012c1.233 0 2.215.352 2.946 1.055.73.704 1.096 1.677 1.096 2.92 0 .867-.205 1.62-.614 2.26-.41.64-1.01 1.127-1.802 1.46l2.87 2.836H6.963l-2.43-2.457v-.77h1.002c.594 0 1.053-.15 1.378-.45.325-.3.488-.732.488-1.295 0-.586-.163-1.026-.488-1.32-.325-.295-.784-.442-1.378-.442H3.028v3.454h2.506c.62 0 1.097-.087 1.43-.26z"/>
+                            </svg>
+                        </a>
+
+                        <!-- ORCID -->
+                        <a href="https://orcid.org/0000-0002-4707-5945" target="_blank" class="icon-link orcid" title="ORCID" aria-label="ORCID">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.306v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/>
+                            </svg>
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:jfmendes@ua.pt" class="icon-link email" title="Email" aria-label="Email">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
