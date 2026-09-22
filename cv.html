@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curriculum Vitae of José Fernando Mendes — Full Professor of Physics, Director of i3N-Aveiro, former President of the Complex Systems Society, APS Fellow.">
+    <title>Curriculum Vitae — José Fernando Mendes</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* CV Layout Styling */
+        .cv-hero {
+            padding: 3.5rem 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .cv-hero h1 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .cv-hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 0.4rem;
+        }
+
+        .cv-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffff;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            padding: 0.55rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .cv-download-btn:hover {
+            background: var(--secondary);
+            color: #ffffff;
+        }
+
+        /* Section Container */
+        .cv-section {
+            margin-bottom: 3rem;
+        }
+
+        .cv-section h2 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cv-section h2::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        /* Timeline Items */
+        .cv-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
+        .cv-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .cv-date {
+            font-family: "Inter", sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding-top: 0.15rem;
+        }
+
+        .cv-details h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .cv-institution {
+            font-size: 0.95rem;
+            color: #486581;
+            font-weight: 400;
+            margin-bottom: 0.35rem;
+        }
+
+        .cv-desc {
+            font-size: 0.92rem;
+            color: #627d98;
+            font-weight: 300;
+        }
+
+        /* Honors & Awards Cards */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.4rem;
+        }
+
+        .award-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.4rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            border-left: 3.5px solid var(--secondary);
+        }
+
+        .award-year {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .award-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.18rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .award-body {
+            font-size: 0.88rem;
+            color: #486581;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .cv-item {
+                grid-template-columns: 1fr;
+                gap: 0.35rem;
+            }
+            .cv-date {
+                color: var(--secondary);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1><a href="index.html">José Fernando Mendes</a></h1>
+                    <p class="nav-subtitle">Professor of Physics and Artist</p>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Menu Links -->
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    
+                    <li class="nav-item-dropdown">
+                        <a href="research.html" class="nav-link">Research</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="research.html#stats">Overview & Stats</a></li>
+                            <li><a href="research.html#interests">Interests</a></li>
+                            <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#network">Collaboration Network</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item-dropdown">
+                        <a href="index.html#sciart" class="nav-link">Art</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#sciart">Oil painting</a></li>
+                            <li><a href="index.html#sciart">Pastel painting</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="index.html#about" class="nav-link">About Me</a></li>
+                    <li><a href="cv.html" class="nav-link active">CV</a></li>
+                    <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <!-- CV Hero Header -->
+        <section class="cv-hero">
+            <div>
+                <h1>Curriculum Vitae</h1>
+                <p>José Fernando F. Mendes — Academic Career, Positions &amp; Honors</p>
+            </div>
+            <div>
+                <a href="mailto:jfmendes@ua.pt" class="cv-download-btn">
+                    <span>Request Full Academic PDF</span> ↗&#xFE0E;
+                </a>
+            </div>
+        </section>
+
+        <!-- Current Positions & Leadership -->
+        <section class="cv-section">
+            <h2>Current Positions &amp; Leadership</h2>
+            <div class="cv-timeline">
+                <div class="cv-item">
+                    <div class="cv-date">2005 – Present</div>
+                    <div class="cv-details">
+                        <h3>Full Professor (Professor Catedrático)</h3>
+                        <div class="cv-institution">Department of Physics, University of Aveiro, Portugal</div>
+                        <div class="cv-desc">Teaching and theoretical research in statistical physics, complex networks, percolation theory, and non-equilibrium systems.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2023 – Present</div>
+                    <div class="cv-details">
+                        <h3>Director of i3N-Aveiro</h3>
+                        <div class="cv-institution">Institute of Nanostructures, Nanomodelling and Nanofabrication (Associated Laboratory)</div>
+                        <div class="cv-desc">Scientific leadership of the Aveiro branch of the state-associated national research laboratory.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2021 – 2024</div>
+                    <div class="cv-details">
+                        <h3>President</h3>
+                        <div class="cv-institution">Complex Systems Society (CSS)</div>
+                        <div class="cv-desc">Elected president of the principal worldwide scientific organization dedicated to complex systems research.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Honors & Fellowships -->
+        <section class="cv-section">
+            <h2>Honors, Fellowships &amp; Awards</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <span class="award-year">2020</span>
+                    <div class="award-title">Senior Prize of the Complex Systems Society</div>
+                    <div class="award-body">Awarded for seminal contributions to and continuous development of the theory of Complex Networks.</div>
+                </div>
+
+                <div class="award-card">
+                    <span class="award-year">2020</span>
+                    <div class="award-title">Fellow of the American Physical Society (APS)</div>
+                    <div class="award-body">Elected by the APS Division of Statistical and Nonlinear Physics for pioneering theoretical insights in network topology and phase transitions.</div>
+                </div>
+
+                <div class="award-card">
+                    <span class="award-year">2019</span>
+                    <div class="award-title">Fellow of the Network Science Society (NetSci)</div>
+                    <div class="award-body">Recognized for transformative theoretical foundations shaping modern network science.</div>
+                </div>
+
+                <div class="award-card">
+                    <span class="award-year">Member</span>
+                    <div class="award-title">Academia Europaea</div>
+                    <div class="award-body">Elected Member of the Physics &amp; Engineering Sciences Section of the European Academy of Humanities, Letters and Sciences.</div>
+                </div>
+
+                <div class="award-card">
+                    <span class="award-year">2004</span>
+                    <div class="award-title">Prémio Gulbenkian Ciência</div>
+                    <div class="award-body">Awarded by the Calouste Gulbenkian Foundation for excellence in scientific research in statistical physics and complex networks.</div>
+                </div>
+
+                <div class="award-card">
+                    <span class="award-year">2020</span>
+                    <div class="award-title">Litoral Awards — "Investigação"</div>
+                    <div class="award-body">Regional recognition for global scientific impact in physics and complex systems.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Previous Academic & Administrative Leadership -->
+        <section class="cv-section">
+            <h2>Administrative &amp; Institutional Governance</h2>
+            <div class="cv-timeline">
+                <div class="cv-item">
+                    <div class="cv-date">2010 – 2018</div>
+                    <div class="cv-details">
+                        <h3>Vice-Rector for Research and Doctoral Studies</h3>
+                        <div class="cv-institution">University of Aveiro</div>
+                        <div class="cv-desc">Institutional coordination of university-wide scientific policy, research funding, technological transfer, and doctoral school governance.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2004 – 2010</div>
+                    <div class="cv-details">
+                        <h3>Head of the Department of Physics</h3>
+                        <div class="cv-institution">University of Aveiro</div>
+                        <div class="cv-desc">Departmental chair overseeing undergraduate and postgraduate physics curricula, research infrastructures, and faculty staffing.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2009 – 2010</div>
+                    <div class="cv-details">
+                        <h3>Director of the Associated Laboratory I3N</h3>
+                        <div class="cv-institution">Institute of Nanostructures, Nanomodelling and Nanofabrication</div>
+                        <div class="cv-desc">Executive direction of the multi-institutional national research laboratory.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Academic Training -->
+        <section class="cv-section">
+            <h2>Education &amp; Academic Training</h2>
+            <div class="cv-timeline">
+                <div class="cv-item">
+                    <div class="cv-date">2002</div>
+                    <div class="cv-details">
+                        <h3>Habilitation (Agregação) in Physics</h3>
+                        <div class="cv-institution">Faculty of Sciences, University of Porto, Portugal</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">1996</div>
+                    <div class="cv-details">
+                        <h3>Postdoctoral Fellow</h3>
+                        <div class="cv-institution">Center for Polymer Studies &amp; Department of Physics, Boston University, USA</div>
+                        <div class="cv-desc">Postdoctoral research in non-equilibrium statistical mechanics under the supervision of Sidney Redner.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">1995</div>
+                    <div class="cv-details">
+                        <h3>Ph.D. in Physics</h3>
+                        <div class="cv-institution">Faculty of Sciences, University of Porto, Portugal</div>
+                        <div class="cv-desc">Dissertation: <em>Dynamics of spin systems</em>, supervised by Prof. Eduardo J. S. Lage.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">1987</div>
+                    <div class="cv-details">
+                        <h3>B.Sc. (Licenciatura) in Physics</h3>
+                        <div class="cv-institution">Faculty of Sciences, University of Porto, Portugal</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visiting Appointments -->
+        <section class="cv-section">
+            <h2>Visiting Professorships &amp; International Stays</h2>
+            <div class="cv-timeline">
+                <div class="cv-item">
+                    <div class="cv-date">Selected Stays</div>
+                    <div class="cv-details">
+                        <h3>Visiting Researcher &amp; Professor</h3>
+                        <div class="cv-institution">International Academic Collaborations</div>
+                        <div class="cv-desc">
+                            École Polytechnique Fédérale de Lausanne (EPFL, Switzerland) &middot; 
+                            ETH Zürich (Switzerland) &middot; 
+                            Nanyang Technological University (Complexity Institute, Singapore) &middot; 
+                            Consiglio Nazionale delle Ricerche (CNR, Pisa, Italy) &middot; 
+                            Université Henri Poincaré (Nancy, France) &middot; 
+                            Universidade Federal de Minas Gerais (UFMG, Brazil).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authored Books / Monographs -->
+        <section class="cv-section">
+            <h2>Major Authored Monographs</h2>
+            <div class="cv-timeline">
+                <div class="cv-item">
+                    <div class="cv-date">2022</div>
+                    <div class="cv-details">
+                        <h3>The Nature of Complex Networks</h3>
+                        <div class="cv-institution">Oxford University Press, Oxford</div>
+                        <div class="cv-desc">Co-authored with S. N. Dorogovtsev. Advanced monograph detailing mathematical models, percolation, and dynamic processes across network topologies.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2021</div>
+                    <div class="cv-details">
+                        <h3>Weak Multiplex Percolation</h3>
+                        <div class="cv-institution">Cambridge University Press</div>
+                        <div class="cv-desc">Co-authored with G. J. Baxter, R. A. da Costa, and S. N. Dorogovtsev. Cambridge Elements in the Structure and Dynamics of Networks.</div>
+                    </div>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-date">2003 / 2014</div>
+                    <div class="cv-details">
+                        <h3>Evolution of Networks: From Biological Nets to the Internet and WWW</h3>
+                        <div class="cv-institution">Oxford University Press, Oxford</div>
+                        <div class="cv-desc">Co-authored with S. N. Dorogovtsev. Foundational text in network science with thousands of citations worldwide.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; I3N</p>
+    </footer>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('nav-open');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('nav-open');
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
