@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Artwork & SciArt by José Fernando Mendes — Oil paintings and soft pastels exploring light, texture, and emergent structures inspired by physical principles.">
+    <title>Artwork — José Fernando Mendes</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Art Gallery Hero */
+        .art-hero {
+            padding: 3.5rem 0 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .art-hero h1 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .art-hero-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 760px;
+            margin-top: 0.8rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Filter Controls (Joan Mitchell style tabs) */
+        .gallery-filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0 2.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid #d2d6dc;
+            padding: 0.45rem 1.1rem;
+            border-radius: 20px;
+            font-family: "Inter", sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #1a202c;
+            color: #1a202c;
+        }
+
+        .filter-btn.active {
+            background: #102a43;
+            border-color: #102a43;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .gallery-counter {
+            font-size: 0.84rem;
+            color: #8c9e99;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* Joan Mitchell / Museum Catalog Grid */
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem 2.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .artwork-card {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            background: #ffffff;
+            transition: opacity 0.25s ease;
+        }
+
+        .artwork-card.hidden {
+            display: none;
+        }
+
+        .artwork-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #f7fafc;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f0f4f8;
+        }
+
+        .artwork-image {
+            max-width: 94%;
+            max-height: 94%;
+            object-fit: contain;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .artwork-card:hover .artwork-image {
+            transform: scale(1.02);
+        }
+
+        /* Label Info (Artist Catalog Standard) */
+        .artwork-meta {
+            padding-top: 1rem;
+        }
+
+        .artwork-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.22rem;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .artwork-details {
+            font-family: "Inter", sans-serif;
+            font-size: 0.85rem;
+            color: #627d98;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* Lightbox Modal (Full-Screen View) */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 25, 0.92);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-image {
+            max-width: 88vw;
+            max-height: 78vh;
+            object-fit: contain;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-caption {
+            margin-top: 1.2rem;
+            text-align: center;
+            color: #f7fafc;
+        }
+
+        .modal-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.35rem;
+            font-style: italic;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-sub {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .artwork-image-wrap { height: 280px; }
+            .artwork-grid { gap: 2rem 1rem; }
+            .gallery-filter-bar { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1><a href="index.html">José Fernando Mendes</a></h1>
+                    <p class="nav-subtitle">Professor of Physics and Artist</p>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Menu Links -->
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    
+                    <li class="nav-item-dropdown">
+                        <a href="research.html" class="nav-link">Research</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="research.html#stats">Overview & Stats</a></li>
+                            <li><a href="research.html#interests">Interests</a></li>
+                            <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#network">Collaboration Network</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item-dropdown">
+                        <a href="art.html" class="nav-link active">Art</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="art.html?medium=oil">Oil painting</a></li>
+                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="index.html#about" class="nav-link">About Me</a></li>
+                    <li><a href="cv.html" class="nav-link">CV</a></li>
+                    <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <!-- Art Hero Section -->
+        <section class="art-hero">
+            <h1>Artwork &amp; Visual Exploration</h1>
+            <p class="art-hero-desc">
+                An ongoing inquiry into light, organic geometry, and texture. Bridging the conceptual depth of statistical systems with the expressive spontaneity of oil and soft pastel mediums.
+            </p>
+        </section>
+
+        <!-- Filter Controls Bar -->
+        <div class="gallery-filter-bar">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Works</button>
+                <button class="filter-btn" data-filter="oil">Oil on Canvas</button>
+                <button class="filter-btn" data-filter="pastel">Soft Pastel</button>
+            </div>
+            <div class="gallery-counter" id="art-count">
+                Showing all works
+            </div>
+        </div>
+
+        <!-- Artwork Grid (Substitua as imagens pelos seus ficheiros) -->
+        <section class="artwork-grid" id="artwork-grid">
+
+            <!-- Obra 1: Pintura a Óleo -->
+            <div class="artwork-card" data-medium="oil" data-title="Emergent Horizons" data-year="2024" data-technique="Oil on linen canvas" data-dimensions="100 × 120 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-oil-01.jpg" alt="Emergent Horizons" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Emergent Horizons, 2024</div>
+                    <div class="artwork-details">Oil on linen canvas &middot; 100 &times; 120 cm</div>
+                </div>
+            </div>
+
+            <!-- Obra 2: Pintura a Óleo -->
+            <div class="artwork-card" data-medium="oil" data-title="Topological Transitions" data-year="2023" data-technique="Oil on canvas" data-dimensions="90 × 90 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-oil-02.jpg" alt="Topological Transitions" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Topological Transitions, 2023</div>
+                    <div class="artwork-details">Oil on canvas &middot; 90 &times; 90 cm</div>
+                </div>
+            </div>
+
+            <!-- Obra 3: Pastel Seco -->
+            <div class="artwork-card" data-medium="pastel" data-title="Luminescence in Blue" data-year="2024" data-technique="Soft pastel on archival paper" data-dimensions="65 × 50 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-pastel-01.jpg" alt="Luminescence in Blue" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Luminescence in Blue, 2024</div>
+                    <div class="artwork-details">Soft pastel on archival paper &middot; 65 &times; 50 cm</div>
+                </div>
+            </div>
+
+            <!-- Obra 4: Pintura a Óleo -->
+            <div class="artwork-card" data-medium="oil" data-title="Interdependent Fields" data-year="2023" data-technique="Oil on canvas" data-dimensions="110 × 140 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-oil-03.jpg" alt="Interdependent Fields" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Interdependent Fields, 2023</div>
+                    <div class="artwork-details">Oil on canvas &middot; 110 &times; 140 cm</div>
+                </div>
+            </div>
+
+            <!-- Obra 5: Pastel Seco -->
+            <div class="artwork-card" data-medium="pastel" data-title="Gradient Density" data-year="2022" data-technique="Soft pastel on primed card" data-dimensions="70 × 50 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-pastel-02.jpg" alt="Gradient Density" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Gradient Density, 2022</div>
+                    <div class="artwork-details">Soft pastel on primed card &middot; 70 &times; 50 cm</div>
+                </div>
+            </div>
+
+            <!-- Obra 6: Pastel Seco -->
+            <div class="artwork-card" data-medium="pastel" data-title="Nocturne Spectrum" data-year="2024" data-technique="Soft pastel on paper" data-dimensions="60 × 45 cm">
+                <div class="artwork-image-wrap">
+                    <img src="art-pastel-03.jpg" alt="Nocturne Spectrum" onerror="this.src='banner.jpg'" class="artwork-image">
+                </div>
+                <div class="artwork-meta">
+                    <div class="artwork-title">Nocturne Spectrum, 2024</div>
+                    <div class="artwork-details">Soft pastel on paper &middot; 60 &times; 45 cm</div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Lightbox Modal for Zooming In -->
+    <div class="modal-overlay" id="art-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close" aria-label="Close image">&times;</button>
+            <img src="" alt="" class="modal-image" id="modal-img">
+            <div class="modal-caption">
+                <div class="modal-title" id="modal-title"></div>
+                <div class="modal-sub" id="modal-desc"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 José Fernando Mendes | Visual Arts &amp; SciArt Studio</p>
+    </footer>
+
+    <!-- Filter & Lightbox Scripts -->
+    <script>
+        // 1. Medium Filters
+        const buttons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.artwork-card');
+        const counter = document.getElementById('art-count');
+
+        function applyFilter(medium) {
+            let visibleCount = 0;
+            cards.forEach(card => {
+                if (medium === 'all' || card.dataset.medium === medium) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === medium));
+            
+            if (medium === 'all') counter.textContent = `Showing all works (${visibleCount})`;
+            else if (medium === 'oil') counter.textContent = `Oil on Canvas (${visibleCount})`;
+            else if (medium === 'pastel') counter.textContent = `Soft Pastel (${visibleCount})`;
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+        });
+
+        // Detect URL parameter (ex: art.html?medium=pastel)
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialMedium = urlParams.get('medium');
+        if (initialMedium) applyFilter(initialMedium);
+
+        // 2. Lightbox Zoom
+        const modal = document.getElementById('art-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalClose = document.getElementById('modal-close');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const img = card.querySelector('.artwork-image');
+                modalImg.src = img.src;
+                modalTitle.textContent = `${card.dataset.title}, ${card.dataset.year}`;
+                modalDesc.textContent = `${card.dataset.technique} · ${card.dataset.dimensions}`;
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') modal.classList.remove('active');
+        });
+
+        // 3. Mobile Hamburger Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => navMenu.classList.toggle('nav-open'));
+        }
+    </script>
+
+</body>
+</html>
