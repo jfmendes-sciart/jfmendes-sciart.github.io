@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Research by José Fernando Mendes — complex networks, statistical physics, percolation theory, and complex systems at the University of Aveiro.">
+    <meta name="description" content="Research by José Fernando Mendes — complex networks, statistical physics, percolation theory, editorial roles, and complex systems at the University of Aveiro.">
     <title>Research — José Fernando Mendes</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
@@ -47,7 +47,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Navigation Header */
+        /* -------------------------------------------------------------
+           Header & Navigation
+           ------------------------------------------------------------- */
         .site-header {
             background: #ffffff;
             border-bottom: 1px solid var(--border-color);
@@ -122,7 +124,6 @@
             font-size: 0.88rem;
         }
 
-        /* Dropdown menus on desktop */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -132,7 +133,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            min-width: 210px;
+            min-width: 220px;
             list-style: none;
             padding: 0.5rem 0;
             z-index: 110;
@@ -157,7 +158,6 @@
             color: var(--secondary);
         }
 
-        /* Mobile Hamburger Toggle Button */
         .nav-toggle {
             display: none;
             background: none;
@@ -177,7 +177,9 @@
             transition: all 0.3s ease;
         }
 
-        /* Hero Banner — Exact same style and image as index.html */
+        /* -------------------------------------------------------------
+           Hero Banner (sincronizado)
+           ------------------------------------------------------------- */
         .hero-banner {
             position: relative;
             width: 100%;
@@ -206,17 +208,19 @@
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
         }
 
-        /* Main Container */
+        /* -------------------------------------------------------------
+           Main Container & Page Hero
+           ------------------------------------------------------------- */
         .container {
             max-width: 1140px;
             margin: 0 auto;
-            padding: 2.5rem 1.5rem;
+            padding: 2.5rem 1.5rem 5rem;
         }
 
-        /* Page Hero / Heading */
         .page-hero {
             padding: 2rem 0 1.2rem;
         }
+
         .page-hero h1 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 3rem;
@@ -225,6 +229,7 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
         }
+
         .title-divider {
             width: 42px;
             height: 1px;
@@ -232,13 +237,16 @@
             margin-top: 1.2rem;
         }
 
-        /* Green Box & Lollipop Chart */
+        /* -------------------------------------------------------------
+           1. Summary of Statistics Box & Lollipop Chart
+           ------------------------------------------------------------- */
         .section-box-green {
             background-color: #f0f7f5;
             padding: 3rem 3.5rem;
             border-radius: 6px;
             margin: 2rem 0 3.5rem;
         }
+
         .section-box-green h2 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.65rem;
@@ -247,6 +255,7 @@
             margin-bottom: 0.8rem;
             letter-spacing: -0.01em;
         }
+
         .stats-note {
             font-size: 0.95rem;
             color: #445652;
@@ -254,24 +263,27 @@
             line-height: 1.6;
             margin-bottom: 2.8rem;
         }
+
         .stats-note strong {
             font-weight: 600;
             color: #1a2d29;
         }
+
         .stats-note a {
             color: #007D69;
             text-decoration: none;
         }
+
         .stats-note a:hover {
             text-decoration: underline;
         }
+
         .stats-date {
             display: block;
             margin-top: 0.35rem;
             color: #687e79;
         }
 
-        /* Stats Grid */
         .stats-grid-row {
             display: flex;
             flex-wrap: wrap;
@@ -279,10 +291,12 @@
             gap: 2rem;
             margin-bottom: 3.5rem;
         }
+
         .stat-col {
             display: flex;
             flex-direction: column;
         }
+
         .stat-col .stat-val {
             font-family: "Inter", sans-serif;
             font-size: 1.55rem;
@@ -291,6 +305,7 @@
             line-height: 1;
             margin-bottom: 0.5rem;
         }
+
         .stat-col .stat-lbl {
             font-family: "Inter", sans-serif;
             font-size: 0.72rem;
@@ -300,7 +315,6 @@
             font-weight: 400;
         }
 
-        /* Lollipop Chart */
         .lollipop-chart-wrap {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -308,6 +322,7 @@
             flex-direction: column;
             align-items: center;
         }
+
         .lollipop-bars {
             display: flex;
             align-items: flex-end;
@@ -317,6 +332,7 @@
             width: 100%;
             max-width: 650px;
         }
+
         .lollipop-col {
             display: flex;
             flex-direction: column;
@@ -324,14 +340,17 @@
             position: relative;
             cursor: pointer;
         }
+
         .lollipop-col:hover .lollipop-circle {
             transform: scale(1.3);
         }
+
         .lollipop-stem {
             width: 1.5px;
             background: #007D69;
             opacity: 0.75;
         }
+
         .lollipop-circle {
             width: 9px;
             height: 9px;
@@ -340,13 +359,16 @@
             margin-bottom: -1px;
             transition: transform 0.2s ease;
         }
+
         .lollipop-circle.peak-circle {
             background: #007D69;
             box-shadow: 0 0 0 4px #b8ded5;
         }
+
         .lollipop-circle.current {
             background: #7dd4c4;
         }
+
         .lollipop-peak-badge {
             position: absolute;
             top: -22px;
@@ -355,16 +377,19 @@
             font-weight: 500;
             white-space: nowrap;
         }
+
         .lollipop-year {
             margin-top: 0.6rem;
             font-size: 0.75rem;
             color: #8c9e99;
             font-weight: 300;
         }
+
         .lollipop-year.current {
             color: #007D69;
             font-weight: 500;
         }
+
         .chart-caption {
             margin-top: 1.4rem;
             font-size: 0.88rem;
@@ -372,19 +397,24 @@
             font-weight: 300;
             text-align: center;
         }
+
         .chart-caption a {
             color: #1a2d29;
             font-weight: 500;
             text-decoration: none;
         }
+
         .chart-caption a:hover {
             color: #007D69;
         }
 
-        /* Content Sections */
+        /* -------------------------------------------------------------
+           Content Sections General
+           ------------------------------------------------------------- */
         .content-section {
-            margin-bottom: 3.5rem;
+            margin-bottom: 3.8rem;
         }
+
         .content-section h2 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.8rem;
@@ -393,16 +423,19 @@
             margin-bottom: 0.5rem;
             letter-spacing: -0.01em;
         }
+
         .section-desc {
             font-size: 0.95rem;
             color: #627d98;
             margin-bottom: 1.5rem;
             font-weight: 300;
         }
+
         .section-desc a {
             color: var(--secondary);
             text-decoration: none;
         }
+
         .section-desc a:hover {
             text-decoration: underline;
         }
@@ -414,6 +447,7 @@
             gap: 0.75rem;
             margin-top: 1rem;
         }
+
         .keyword-tag {
             background: #ffffff;
             color: var(--text-dark);
@@ -425,6 +459,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
             transition: all 0.2s;
         }
+
         .keyword-tag:hover {
             border-color: var(--secondary);
             color: var(--secondary);
@@ -439,13 +474,16 @@
             padding: 0.5rem 2rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
+
         .pub-entry {
             padding: 1.4rem 0;
             border-bottom: 1px solid var(--border-color);
         }
+
         .pub-entry:last-child {
             border-bottom: none;
         }
+
         .pub-title {
             font-size: 1.05rem;
             font-weight: 500;
@@ -453,20 +491,24 @@
             text-decoration: none;
             display: inline-block;
         }
+
         .pub-title:hover {
             color: var(--secondary);
             text-decoration: underline;
         }
+
         .pub-authors {
             font-size: 0.92rem;
             color: #486581;
             margin-top: 0.3rem;
             line-height: 1.5;
         }
+
         .pub-author-self {
             font-weight: 600;
             color: var(--text-dark);
         }
+
         .pub-venue {
             font-size: 0.85rem;
             color: #829ab1;
@@ -474,7 +516,53 @@
             margin-top: 0.25rem;
         }
 
-        /* Network Section Styles */
+        /* -------------------------------------------------------------
+           Editorial & Advisory Roles Table (Estilo Minimalista)
+           ------------------------------------------------------------- */
+        .roles-table {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        .role-row {
+            display: grid;
+            grid-template-columns: 1.6fr 1.4fr 0.8fr;
+            align-items: center;
+            padding: 1.15rem 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.15s ease;
+        }
+
+        .role-row:hover {
+            background-color: #f8fafc;
+        }
+
+        .role-org {
+            font-size: 1.05rem;
+            color: #102a43;
+            font-weight: 400;
+        }
+
+        .role-title {
+            font-size: 1rem;
+            color: #007D69; /* Verde-petróleo característico */
+            font-weight: 500;
+            text-align: right;
+            padding-right: 2.5rem;
+        }
+
+        .role-publisher {
+            font-size: 0.95rem;
+            color: #627d98;
+            font-weight: 300;
+            text-align: right;
+        }
+
+        /* -------------------------------------------------------------
+           Interactive Collaboration Network
+           ------------------------------------------------------------- */
         .network-controls-bar {
             display: flex;
             align-items: center;
@@ -483,17 +571,20 @@
             gap: 1rem;
             margin-bottom: 1rem;
         }
+
         .network-stats-inline {
             display: flex;
             gap: 2.5rem;
             align-items: flex-end;
         }
+
         .net-stat-value {
             font-size: 1.5rem;
             font-weight: 400;
             color: var(--secondary);
             line-height: 1;
         }
+
         .net-stat-label {
             font-size: 0.72rem;
             color: #829ab1;
@@ -502,6 +593,7 @@
             margin-top: 0.3rem;
             display: block;
         }
+
         .network-select-wrapper select {
             border: 1px solid #cbd5e1;
             border-radius: 4px;
@@ -511,6 +603,7 @@
             color: #334e68;
             cursor: pointer;
         }
+
         .network-graph-area {
             position: relative;
             width: 100%;
@@ -522,7 +615,9 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             user-select: none;
         }
+
         #network-svg { width: 100%; height: 100%; }
+
         .network-tooltip {
             position: fixed;
             background: #ffffff;
@@ -534,6 +629,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.12);
             border-radius: 4px;
         }
+
         .network-legend {
             display: flex;
             flex-wrap: wrap;
@@ -545,12 +641,27 @@
             font-size: 0.8rem;
             color: #627d98;
         }
+
         .legend-item { display: flex; align-items: center; gap: 0.45rem; }
         .lg-dot { width: 12px; height: 12px; border-radius: 50%; }
         .lg-dot-center { background: #007D69; border: 2px solid #004a3f; }
         .lg-dot-collab { background: #7dd4c4; border: 1px solid #007D69; }
 
-        /* Mobile View Rules */
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #829ab1;
+            font-size: 0.85rem;
+            font-weight: 300;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+            margin-top: 3rem;
+        }
+
+        /* -------------------------------------------------------------
+           Mobile Responsive Rules
+           ------------------------------------------------------------- */
         @media (max-width: 820px) {
             .nav-toggle {
                 display: flex;
@@ -602,6 +713,21 @@
             .lollipop-bars { gap: 1.1rem; }
             .stats-grid-row { gap: 1.5rem; }
             .pub-list { padding: 0.5rem 1.2rem; }
+            
+            .role-row {
+                grid-template-columns: 1fr;
+                gap: 0.35rem;
+                padding: 1rem 0;
+            }
+            .role-title, .role-publisher {
+                text-align: left;
+                padding-right: 0;
+            }
+            .role-publisher {
+                font-size: 0.85rem;
+                color: #829ab1;
+            }
+
             .network-graph-area { height: 460px; }
         }
     </style>
@@ -635,6 +761,7 @@
                             <li><a href="#stats">Summary &amp; Stats</a></li>
                             <li><a href="#interests">Interests</a></li>
                             <li><a href="#publications">Publications</a></li>
+                            <li><a href="#editorial">Editorial &amp; Advisory</a></li>
                             <li><a href="#network">Collaboration Network</a></li>
                         </ul>
                     </li>
@@ -648,7 +775,20 @@
                         </ul>
                     </li>
 
-                    <li><a href="index.html#about" class="nav-link">About Me</a></li>
+                    <!-- About Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="about.html" class="nav-link">About Me</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="cv.html" class="nav-link">CV</a></li>
                     <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
                 </ul>
@@ -656,7 +796,7 @@
         </nav>
     </header>
 
-    <!-- Top Hero Banner (Mesmo banner do index.html) -->
+    <!-- Top Hero Banner (Mesmo banner de todas as páginas) -->
     <div class="hero-banner">
         <p class="quote-text">The greatest equaliser humanity has ever known is the relentless advance of science, shared openly with the world</p>
     </div>
@@ -856,7 +996,57 @@
             </div>
         </section>
 
-        <!-- 4. Interactive Collaboration Network -->
+        <!-- 4. Editorial and Advisory Roles (NOVA SECÇÃO) -->
+        <section id="editorial" class="content-section">
+            <h2>Editorial and Advisory Roles</h2>
+            <div class="roles-table">
+                
+                <div class="role-row">
+                    <div class="role-org">Applied Network Science</div>
+                    <div class="role-title">Editor-in-Chief</div>
+                    <div class="role-publisher">Springer Nature</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">EPJ Data Science</div>
+                    <div class="role-title">Associate Editor</div>
+                    <div class="role-publisher">Springer Nature</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">PLOS One</div>
+                    <div class="role-title">Academic Editor</div>
+                    <div class="role-publisher">PLOS</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">Entropy</div>
+                    <div class="role-title">Section Board Member</div>
+                    <div class="role-publisher">MDPI</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">Complexities</div>
+                    <div class="role-title">Editorial Board Member</div>
+                    <div class="role-publisher">MDPI</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">CompleNet</div>
+                    <div class="role-title">Steering Committee Member</div>
+                    <div class="role-publisher">—</div>
+                </div>
+
+                <div class="role-row">
+                    <div class="role-org">LANET</div>
+                    <div class="role-title">Board Member</div>
+                    <div class="role-publisher">—</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. Interactive Collaboration Network -->
         <section id="network" class="content-section">
             <h2>Collaboration Network</h2>
             <p class="section-desc">Interactive topology of co-authorship around J. F. F. Mendes:</p>
@@ -902,7 +1092,7 @@
         <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
-    <!-- Interactive D3 Force Simulation with Authentic Co-authors -->
+    <!-- Interactive D3 Force Simulation -->
     <script>
         (function() {
             const svgEl = document.getElementById('network-svg');
