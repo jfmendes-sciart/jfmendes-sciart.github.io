@@ -810,8 +810,8 @@
 
         // Países onde desenvolveu atividade académica (ISO numeric IDs)
         // Portugal (620), USA (840), Switzerland (756), France (250), Italy (380), Brazil (076), Singapore (702), Spain (724), Germany (276), UK (826), Netherlands (528)
-        const primaryHubs = new Set([620, 840, 756, 250, 380, 076, 702]);
-        const visitedTalks = new Set([724, 276, 826, 528, 392, 410, 124, 300, 752]);
+        const primaryHubs = new Set([620, 250, 840, 756, 250, 826, 076, 702]);
+        const visitedTalks = new Set([392, 410, 156, 376, 170, 858, 124, 484, 724, 276, 56, 752, 208, 616, 348, 642, 792, 40, 442, 578, 246, 300, 203, 100, 440, 380, 826, 528, 392, 410, 124, 300, 752]);
 
         Promise.all([
             d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'),
