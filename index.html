@@ -323,6 +323,9 @@
             border-radius: 10px;
             padding: 1.6rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .update-card h3 {
@@ -337,6 +340,7 @@
 
         .clean-list {
             list-style: none;
+            margin-bottom: 1rem;
         }
 
         .clean-list li {
@@ -362,6 +366,19 @@
             font-weight: 500;
             letter-spacing: 0.02em;
             margin-bottom: 0.25rem;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
         }
 
         /* Footer */
@@ -458,7 +475,7 @@
                     <li class="nav-item-dropdown">
                         <a href="research.html" class="nav-link">Research</a>
                         <ul class="dropdown-menu">
-                            <li><a href="research.html#stats">Overview & Stats</a></li>
+                            <li><a href="research.html#stats">Overview &amp; Stats</a></li>
                             <li><a href="research.html#interests">Interests</a></li>
                             <li><a href="research.html#publications">Publications</a></li>
                             <li><a href="research.html#network">Collaboration Network</a></li>
@@ -476,10 +493,15 @@
 
                     <!-- About Dropdown -->
                     <li class="nav-item-dropdown">
-                        <a href="#about" class="nav-link">About Me</a>
+                        <a href="about.html" class="nav-link">About Me</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#about">Biography</a></li>
-                            <li><a href="#about">Affiliations & Contact</a></li>
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
                         </ul>
                     </li>
 
@@ -501,7 +523,7 @@
     <main class="container">
         
         <!-- Profile / Biography Intro -->
-        <section class="intro" id="about">
+        <section class="intro">
             <div class="intro-inner">
                 <div class="intro-text">
                     <p>
@@ -509,7 +531,7 @@
                     </p>
                     <br>
                     <p>
-                        Beyond scientific research, I am deeply engaged in fine arts (<strong>SciArt</strong>), primarily focusing on oil and pastel painting. My visual work explores the beauty, balance, and emergent complexity that bridge physical principles with aesthetic expression.
+                        Beyond scientific research, I am deeply engaged in fine arts (<a href="art.html"><strong>SciArt</strong></a>), primarily focusing on oil and pastel painting. My visual work explores the beauty, balance, and emergent complexity that bridge physical principles with aesthetic expression.
                     </p>
                 </div>
                 <div class="profile-image-wrap">
@@ -547,55 +569,67 @@
         </section>
 
         <!-- Highlights (Overview Cards) -->
-        <section class="highlights" id="research">
-            <h2>Recent Updates & Highlights</h2>
+        <section class="highlights">
+            <h2>Recent Updates &amp; Highlights</h2>
             <div class="update-grid">
                 
-                <div class="update-card" id="publications">
-                    <h3>Research & Publications</h3>
-                    <ul class="clean-list">
-                        <li>
-                            <span class="list-tag">Complex Networks</span><br>
-                            Structure, dynamics, and resilience of multilayer and interdependent networks.
-                        </li>
-                        <li>
-                            <span class="list-tag">Statistical Physics</span><br>
-                            Critical phenomena, non-equilibrium phase transitions, and percolation theory.
-                        </li>
-                        <li>
-                            <span class="list-tag">Monographs</span><br>
-                            <em>Evolution of Networks</em> &amp; <em>The Nature of Complex Networks</em> (Oxford University Press).
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="update-card" id="sciart">
-                    <h3>SciArt & Studio Work</h3>
-                    <ul class="clean-list">
-                        <li>
-                            <span class="list-tag">Oil on Canvas</span><br>
-                            Explorations of texture, luminescence, and organic geometry informed by physical models.
-                        </li>
-                        <li>
-                            <span class="list-tag">Soft Pastel</span><br>
-                            Color gradients, delicate transitions, and forms on archival pastel paper.
-                        </li>
-                        <li>
-                            <span class="list-tag">Philosophy</span><br>
-                            Bridging the analytical depth of complex science with evocative visual expression.
-                        </li>
-                    </ul>
-                </div>
-
+                <!-- Research Card -->
                 <div class="update-card">
-                    <h3>Affiliations & Contact</h3>
-                    <ul class="clean-list">
-                        <li><strong>Institution:</strong> University of Aveiro</li>
-                        <li><strong>Department:</strong> Department of Physics</li>
-                        <li><strong>Research Unit:</strong> i3N-Aveiro / Complex Systems Group</li>
-                        <li><strong>Email:</strong> <a href="mailto:jfmendes@ua.pt" style="color:var(--secondary);">jfmendes@ua.pt</a></li>
-                        <li><strong>Location:</strong> Campus de Santiago, Aveiro, Portugal</li>
-                    </ul>
+                    <div>
+                        <h3>Research &amp; Publications</h3>
+                        <ul class="clean-list">
+                            <li>
+                                <span class="list-tag">Complex Networks</span><br>
+                                Structure, dynamics, and resilience of multilayer and interdependent networks.
+                            </li>
+                            <li>
+                                <span class="list-tag">Statistical Physics</span><br>
+                                Critical phenomena, non-equilibrium phase transitions, and percolation theory.
+                            </li>
+                            <li>
+                                <span class="list-tag">Monographs</span><br>
+                                <em>Evolution of Networks</em> &amp; <em>The Nature of Complex Networks</em> (Oxford University Press).
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="research.html" class="card-link">Explore Research &rarr;</a>
+                </div>
+
+                <!-- SciArt Card -->
+                <div class="update-card">
+                    <div>
+                        <h3>SciArt &amp; Visual Works</h3>
+                        <ul class="clean-list">
+                            <li>
+                                <span class="list-tag">Oil on Canvas</span><br>
+                                Explorations of texture, luminescence, and organic geometry informed by physical models.
+                            </li>
+                            <li>
+                                <span class="list-tag">Soft Pastel</span><br>
+                                Color gradients, delicate transitions, and forms on archival pastel paper.
+                            </li>
+                            <li>
+                                <span class="list-tag">Philosophy</span><br>
+                                Bridging the analytical depth of complex science with evocative visual expression.
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="art.html" class="card-link">View Art Gallery &rarr;</a>
+                </div>
+
+                <!-- About Me Card -->
+                <div class="update-card">
+                    <div>
+                        <h3>Affiliations &amp; Profile</h3>
+                        <ul class="clean-list">
+                            <li><strong>Institution:</strong> University of Aveiro</li>
+                            <li><strong>Department:</strong> Department of Physics (DFis)</li>
+                            <li><strong>Research Unit:</strong> i3N-Aveiro (Director)</li>
+                            <li><strong>Email:</strong> <a href="mailto:jfmendes@ua.pt" style="color:var(--secondary);">jfmendes@ua.pt</a></li>
+                            <li><strong>Location:</strong> Campus de Santiago, Aveiro, Portugal</li>
+                        </ul>
+                    </div>
+                    <a href="about.html" class="card-link">Read Full Biography &rarr;</a>
                 </div>
 
             </div>
