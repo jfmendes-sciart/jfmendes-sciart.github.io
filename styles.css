@@ -57,6 +57,22 @@ body {
     letter-spacing: -0.02em;
 }
 
+
+/* Inserção automática do logo antes do nome através do CSS */
+.nav-brand h1 a::before,
+.nav-brand-text h1 a::before {
+    content: "";
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-image: url('logo.jpg'); /* Se for PNG, usa url('logo.png') */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
 .nav-brand h1 a {
     text-decoration: none;
     color: inherit;
