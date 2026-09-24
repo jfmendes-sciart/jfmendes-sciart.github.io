@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Curriculum Vitae of José Fernando Mendes — Full Professor of Physics, Director of i3N-Aveiro, former President of the Complex Systems Society, APS Fellow.">
     <title>Curriculum Vitae — José Fernando Mendes</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Favicon padronizado -->
+    <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="apple-touch-icon" href="logo.jpg?v=2">
     
     <!-- Google Fonts typography (Newsreader + Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Stylesheet com quebra de cache para carregar o cabeçalho novo -->
+    <link rel="stylesheet" href="styles.css?v=4">
 
     <style>
         /* CV Layout Styling */
         .cv-hero {
-            padding: 3.5rem 0 1.5rem;
+            padding: 2rem 0 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -208,28 +212,55 @@
                     <li class="nav-item-dropdown">
                         <a href="research.html" class="nav-link">Research</a>
                         <ul class="dropdown-menu">
-                            <li><a href="research.html#stats">Overview & Stats</a></li>
+                            <li><a href="research.html#stats">Overview &amp; Stats</a></li>
                             <li><a href="research.html#interests">Interests</a></li>
                             <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#editorial">Editorial &amp; Advisory</a></li>
                             <li><a href="research.html#network">Collaboration Network</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item-dropdown">
-                        <a href="index.html#sciart" class="nav-link">Art</a>
+                        <a href="teaching.html" class="nav-link">Teaching</a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html#sciart">Oil painting</a></li>
-                            <li><a href="index.html#sciart">Pastel painting</a></li>
+                            <li><a href="teaching.html#philosophy">Philosophy</a></li>
+                            <li><a href="teaching.html#courses">Courses</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="index.html#about" class="nav-link">About Me</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="art.html" class="nav-link">Art</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="art.html?medium=oil">Oil painting</a></li>
+                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item-dropdown">
+                        <a href="about.html" class="nav-link">About Me</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="cv.html" class="nav-link active">CV</a></li>
                     <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+
+    <!-- Top Hero Banner -->
+    <div class="hero-banner">
+        <p class="quote-text">Unveiling emergent landscapes in science and on canvas.</p>
+    </div>
 
     <main class="container">
         
@@ -453,7 +484,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; I3N</p>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
     <!-- Mobile Navigation Toggle Script -->
