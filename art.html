@@ -3,49 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Artwork catalog by José Fernando Mendes — Oil paintings and soft pastels exploring light, color fields, texture, and emergent structures inspired by physical principles.">
-    <title>Artwork — José Fernando Mendes</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="SciArt & Fine Arts Gallery by José Fernando Mendes — Abstract Impressionist oil and soft pastel paintings exploring emergent patterns, light, and natural complexity.">
+    <title>Art Gallery — José Fernando Mendes</title>
     
-    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="apple-touch-icon" href="logo.jpg?v=2">
+
+    <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 
     <style>
         :root {
             --primary: #102a43;
             --secondary: #0b69a3;
-            --text-dark: #102a43;
             --text-main: #334e68;
+            --text-dark: #102a43;
             --text-muted: #627d98;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
             --border-color: #e2e8f0;
-            --bg-page: #ffffff;
-            --gallery-bg: #fbfbfb;
         }
 
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: "Inter", sans-serif;
-            font-weight: 300;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+
         /* -------------------------------------------------------------
-           Header Banner 
+           Header & Navigation
+           ------------------------------------------------------------- */
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 1.1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-brand h1 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-subtitle {
+            font-family: "Inter", sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.4rem;
+            align-items: center;
+        }
+
+        .nav-item-dropdown {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.92rem;
+            font-weight: 400;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary);
+        }
+
+        .nav-link-btn {
+            background: var(--secondary);
+            color: #fff !important;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.88rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            min-width: 220px;
+            list-style: none;
+            padding: 0.5rem 0;
+            z-index: 110;
+        }
+
+        .nav-item-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background: var(--bg-light);
+            color: var(--secondary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 120;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        /* -------------------------------------------------------------
+           Hero Banner
            ------------------------------------------------------------- */
         .hero-banner {
             position: relative;
             width: 100%;
-            height: 32vh;
-            min-height: 220px;
-            background: linear-gradient(rgba(10, 25, 47, 0.45), rgba(10, 25, 47, 0.45)), 
-                        url('art/banner-art.jpg');
+            height: 35vh;
+            min-height: 240px;
+            background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
+                        url('banner.jpg'), 
+                        url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -58,7 +200,7 @@
             max-width: 900px;
             padding: 1.5rem;
             font-family: "Newsreader", Georgia, serif;
-            font-size: 2.2rem;
+            font-size: 1.85rem;
             font-style: italic;
             font-weight: 300;
             line-height: 1.5;
@@ -66,16 +208,17 @@
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
         }
 
+        /* -------------------------------------------------------------
+           Gallery Container & Header
+           ------------------------------------------------------------- */
         .container {
-            max-width: 1220px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 2.5rem 2rem 5rem;
+            padding: 2.5rem 1.5rem 5rem;
         }
 
-        /* Gallery Page Title */
         .page-hero {
-            padding: 1rem 0 1.5rem;
-            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 0 1.2rem;
         }
 
         .page-hero h1 {
@@ -87,381 +230,327 @@
             line-height: 1.1;
         }
 
+        .title-divider {
+            width: 42px;
+            height: 2px;
+            background: var(--secondary);
+            margin-top: 1.2rem;
+        }
+
         .art-intro {
             font-size: 1.05rem;
-            color: var(--text-muted);
+            color: #334e68;
             max-width: 820px;
-            margin-top: 0.8rem;
+            margin-top: 1.4rem;
             line-height: 1.8;
             font-weight: 300;
         }
 
         /* -------------------------------------------------------------
-           Filter & Catalog Control Bar
+           Category Filter Tabs
            ------------------------------------------------------------- */
-        .catalog-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin: 2.5rem 0 3rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #edf2f7;
-        }
-
-        .filter-group {
+        .filter-nav {
             display: flex;
             gap: 0.8rem;
+            margin: 2.5rem 0 2rem;
             flex-wrap: wrap;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
         }
 
         .filter-btn {
-            background: none;
-            border: 1px solid #d2d6dc;
-            padding: 0.45rem 1.15rem;
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1.3rem;
             border-radius: 20px;
-            font-family: "Inter", sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
+            font-size: 0.88rem;
             color: #486581;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
         }
 
         .filter-btn:hover {
-            border-color: #102a43;
-            color: #102a43;
+            border-color: var(--secondary);
+            color: var(--secondary);
         }
 
         .filter-btn.active {
-            background: #102a43;
-            border-color: #102a43;
+            background: var(--secondary);
             color: #ffffff;
+            border-color: var(--secondary);
             font-weight: 500;
         }
 
-        .catalog-count {
-            font-size: 0.82rem;
-            color: #829ab1;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
         /* -------------------------------------------------------------
-           Grid View (Catalog of Artworks)
+           Art Gallery Grid (Exact 3 Columns = 9 items per page)
            ------------------------------------------------------------- */
-        .artwork-grid {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 3.5rem 2.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 2rem;
+            margin-bottom: 3.5rem;
         }
 
-        .artwork-card {
+        .art-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
-            background: #ffffff;
         }
 
-        .artwork-card.hidden {
-            display: none;
-        }
-
-        .artwork-thumb-wrap {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            background: var(--gallery-bg);
-            border: 1px solid #f0f4f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-
-        .artwork-card:hover .artwork-thumb-wrap {
+        .art-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
             border-color: #cbd5e1;
         }
 
-        .artwork-thumb {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease;
+        .art-img-wrap {
+            width: 100%;
+            height: 280px;
+            background: #f1f5f9;
+            overflow: hidden;
+            position: relative;
         }
 
-        .artwork-card:hover .artwork-thumb {
-            transform: scale(1.02);
+        .art-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
         }
 
-        .artwork-label {
-            margin-top: 1.1rem;
+        .art-card:hover .art-img-wrap img {
+            transform: scale(1.03);
         }
 
-        .artwork-label-title {
+        .art-info {
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .art-title {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.25rem;
-            font-style: italic;
-            font-weight: 500;
             color: var(--text-dark);
-            margin-bottom: 0.25rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
         }
 
-        .artwork-label-meta {
-            font-size: 0.86rem;
+        .art-meta {
+            font-size: 0.85rem;
             color: #627d98;
-            font-weight: 300;
-            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+
+        .art-dimensions {
+            font-size: 0.8rem;
+            color: #829ab1;
+            font-family: "Inter", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         /* -------------------------------------------------------------
-           DETAIL VIEW (White background + Side Info Bar)
+           Pagination Controls
            ------------------------------------------------------------- */
-        .detail-view {
-            display: none;
-            background: #ffffff;
-            margin-top: 1rem;
-            animation: fadeIn 0.25s ease;
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2.5rem 0 1rem;
         }
 
-        .detail-view.active {
+        .page-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: var(--text-dark);
+            min-width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0 0.8rem;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: #f8fafc;
+        }
+
+        .page-btn.active {
+            background: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+        }
+
+        /* -------------------------------------------------------------
+           Lightbox Modal for Museum View
+           ------------------------------------------------------------- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 42, 67, 0.92);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content-wrap {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            max-height: 90vh;
+        }
+
+        .modal-img-box {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 65vh;
+            overflow: hidden;
+        }
+
+        .modal-img-box img {
+            max-width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .detail-top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid #edf2f7;
-            margin-bottom: 2.5rem;
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            font-family: "Inter", sans-serif;
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text-dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 0;
-        }
-
-        .back-btn:hover {
-            color: var(--secondary);
-        }
-
-        .browse-buttons {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .browse-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 0.35rem 0.8rem;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .browse-btn:hover {
-            border-color: var(--text-dark);
-        }
-
-        /* The 2-Column Detail Layout */
-        .detail-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .detail-image-stage {
-            background: var(--gallery-bg);
-            border: 1px solid #f0f4f8;
-            padding: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 520px;
-        }
-
-        .detail-image-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .detail-image {
-            max-width: 100%;
-            max-height: 75vh;
-            object-fit: contain;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            cursor: zoom-in; /* Cursor de lupa */
-            transition: transform 0.2s;
-        }
-        
-        .detail-image:hover {
-            transform: scale(1.01);
-        }
-
-        /* Botão Lupa (Zoom) */
-        .zoom-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid #e2e8f0;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #102a43;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            z-index: 10;
-        }
-
-        .zoom-btn:hover {
+        .modal-details {
+            padding: 1.5rem 2rem;
             background: #ffffff;
-            transform: scale(1.05);
-            color: var(--secondary);
         }
 
-        /* Detailed Artwork Information Sidebar */
-        .detail-info-sidebar {
-            padding: 0.5rem 0;
-        }
-
-        .detail-info-sidebar h2 {
+        .modal-title {
             font-family: "Newsreader", Georgia, serif;
-            font-size: 2.2rem;
-            font-style: italic;
-            font-weight: 500;
+            font-size: 1.6rem;
             color: var(--text-dark);
-            line-height: 1.15;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
-        .detail-year {
-            font-family: "Inter", sans-serif;
-            font-size: 1.15rem;
-            color: var(--text-muted);
+        .modal-meta {
+            color: #627d98;
+            font-size: 0.92rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 2.2rem;
             font-weight: 300;
-            margin-bottom: 2rem;
+            cursor: pointer;
+            z-index: 1010;
+            transition: color 0.2s;
+            line-height: 1;
         }
 
-        .artwork-specs-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem;
+        .modal-close:hover {
+            color: #cbd5e1;
         }
 
-        .artwork-specs-table tr { border-bottom: 1px solid #f0f4f8; }
-
-        .artwork-specs-table th {
-            text-align: left;
-            padding: 0.75rem 0;
-            font-family: "Inter", sans-serif;
-            font-size: 0.8rem;
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
             color: #829ab1;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            width: 120px;
-            vertical-align: top;
-        }
-
-        .artwork-specs-table td {
-            padding: 0.75rem 0;
-            font-size: 0.95rem;
-            color: #243b53;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .detail-description {
-            font-size: 0.98rem;
-            color: #486581;
-            line-height: 1.8;
+            font-size: 0.85rem;
             font-weight: 300;
-            padding-top: 1rem;
-            border-top: 1px solid #edf2f7;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+            margin-top: 3rem;
         }
 
         /* -------------------------------------------------------------
-           Full-Screen Image Viewer (Lightbox)
+           Responsive Media Queries
            ------------------------------------------------------------- */
-        .fullscreen-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.97); /* Fundo branco sujíssimo para realçar a arte */
-            z-index: 3000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
+        @media (max-width: 980px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        .fullscreen-modal.active {
-            display: flex;
-        }
-
-        .fs-image {
-            max-width: 94vw;
-            max-height: 94vh;
-            object-fit: contain;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.12);
-            cursor: zoom-out;
-        }
-
-        .fs-close {
-            position: absolute;
-            top: 25px;
-            right: 35px;
-            background: none;
-            border: none;
-            font-size: 3rem;
-            line-height: 1;
-            color: #102a43;
-            cursor: pointer;
-            font-weight: 300;
-            transition: color 0.2s;
-            z-index: 3010;
-        }
-
-        .fs-close:hover {
-            color: var(--secondary);
-        }
-
-        /* Responsive Mobile Layout */
-        @media (max-width: 900px) {
-            .detail-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-            .detail-image-stage { padding: 1.2rem; min-height: 340px; }
-            .page-hero h1 { font-size: 2.3rem; }
-            .artwork-thumb-wrap { height: 280px; }
-            .fs-close { top: 10px; right: 20px; font-size: 2.5rem; }
+        @media (max-width: 820px) {
+            .nav-toggle { display: flex; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.2rem 1.5rem 2rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+                gap: 0.8rem;
+                z-index: 100;
+                max-height: 75vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-menu.nav-open { display: flex; }
+            .nav-item-dropdown { width: 100%; }
+            .dropdown-menu {
+                position: static;
+                display: block;
+                box-shadow: none;
+                border: none;
+                padding-left: 0.8rem;
+                margin-top: 0.2rem;
+            }
+            .hero-banner { height: 25vh; }
+            .hero-banner .quote-text { font-size: 1.3rem; padding: 1rem; }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .modal {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -476,14 +565,12 @@
                     <p class="nav-subtitle">Professor of Physics and Artist</p>
                 </div>
 
-                <!-- Mobile Hamburger Button -->
                 <button class="nav-toggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
 
-                <!-- Menu Links -->
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     
@@ -493,19 +580,41 @@
                             <li><a href="research.html#stats">Overview &amp; Stats</a></li>
                             <li><a href="research.html#interests">Interests</a></li>
                             <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#editorial">Editorial &amp; Advisory</a></li>
                             <li><a href="research.html#network">Collaboration Network</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item-dropdown">
+                        <a href="teaching.html" class="nav-link">Teaching</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="teaching.html#philosophy">Philosophy</a></li>
+                            <li><a href="teaching.html#courses">Courses</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item-dropdown">
                         <a href="art.html" class="nav-link active">Art</a>
                         <ul class="dropdown-menu">
-                            <li><a href="art.html?medium=oil">Oil painting</a></li>
-                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                            <li><a href="javascript:void(0)" onclick="setFilter('oil')">Oil painting</a></li>
+                            <li><a href="javascript:void(0)" onclick="setFilter('pastel')">Pastel painting</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="index.html#about" class="nav-link">About Me</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="about.html" class="nav-link">About Me</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="cv.html" class="nav-link">CV</a></li>
                     <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
                 </ul>
@@ -515,583 +624,213 @@
 
     <!-- Top Hero Banner -->
     <div class="hero-banner">
-        <p class="quote-text">The silent dialogue between physical order and the freedom of the brush</p>
+        <p class="quote-text">From subtle fluctuations to emergent form: exploring nature’s complexity through theory and atmospheric paint</p>
     </div>
 
-    <main class="container">
+    <main class="container" id="gallery-container">
         
-        <!-- SECTION 1: CATALOG GRID VIEW -->
-        <section id="gallery-catalog-section">
-            <div class="page-hero">
-                <h1>Artwork</h1>
-                <p class="art-intro">
-                    Visual explorations in oil on canvas and soft pastel. Examining emergent color fields, organic structures, and optical depth informed by a lifetime study of physical topology and statistical mechanics.
-                </p>
-            </div>
-
-            <!-- Filters Bar -->
-            <div class="catalog-controls">
-                <div class="filter-group">
-                    <button class="filter-btn active" data-filter="all">All Mediums</button>
-                    <button class="filter-btn" data-filter="oil">Oil on Canvas</button>
-                    <button class="filter-btn" data-filter="pastel">Soft Pastel</button>
-                </div>
-                <div class="catalog-count" id="item-counter">
-                    Showing all works
-                </div>
-            </div>
-
-            <!-- Artworks Grid -->
-            <div class="artwork-grid" id="artwork-grid">
-
-                <!-- Painting 1 -->
-                <div class="artwork-card" 
-                     data-id="0"
-                     data-medium="oil" 
-                     data-title="Emergent Horizons" 
-                     data-year="2024" 
-                     data-technique="Oil on linen canvas" 
-                     data-dimensions="100 × 120 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Layered oil glazes exploring horizontal coherence and chromatic fluctuation across primed linen.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil1.jpg" onerror="this.src='banner.jpg'" alt="Emergent Horizons" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Emergent Horizons, 2024</div>
-                        <div class="artwork-label-meta">Oil on linen canvas<br>100 &times; 120 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 2 -->
-                <div class="artwork-card" 
-                     data-id="1"
-                     data-medium="oil" 
-                     data-title="Topological Transitions" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm"
-                     data-collection="Private collection, Portugal"
-                     data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil2.jpg" onerror="this.src='banner.jpg'" alt="Topological Transitions" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Topological Transitions, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>90 &times; 90 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 3 -->
-                <div class="artwork-card" 
-                     data-id="1"
-                     data-medium="oil" 
-                     data-title="Topological Transitions" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm"
-                     data-collection="Private collection, Portugal"
-                     data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil3.jpg" onerror="this.src='banner.jpg'" alt="Topological Transitions" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Topological Transitions, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>90 &times; 90 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 4 -->
-                <div class="artwork-card" 
-                     data-id="1"
-                     data-medium="oil" 
-                     data-title="Topological Transitions" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm"
-                     data-collection="Private collection, Portugal"
-                     data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil4.jpg" onerror="this.src='banner.jpg'" alt="Topological Transitions" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Topological Transitions, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>90 &times; 90 cm</div>
-                    </div>
-                </div>
-
-                <!-- Painting 5 -->
-                <div class="artwork-card" 
-                     data-id="1"
-                     data-medium="oil" 
-                     data-title="Topological Transitions" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm"
-                     data-collection="Private collection, Portugal"
-                     data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil5.jpg" onerror="this.src='banner.jpg'" alt="Topological Transitions" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Topological Transitions, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>90 &times; 90 cm</div>
-                    </div>
-                </div>
-
-<!-- Painting 6 -->
-                <div class="artwork-card" 
-                     data-id="1"
-                     data-medium="oil" 
-                     data-title="Topological Transitions" 
-                     data-year="2023" 
-                     data-technique="Oil on canvas" 
-                     data-dimensions="90 × 90 cm"
-                     data-collection="Private collection, Portugal"
-                     data-notes="Spatial equilibrium through opposing color fields, evoking non-equilibrium critical states.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/oil6.jpg" onerror="this.src='banner.jpg'" alt="Topological Transitions" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Topological Transitions, 2023</div>
-                        <div class="artwork-label-meta">Oil on canvas<br>90 &times; 90 cm</div>
-                    </div>
-                </div>
-                
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps1.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 8 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps2.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps3.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps4.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps5.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps6.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps7.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps8.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps9.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps10.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                <!-- Painting 7 -->
-                <div class="artwork-card" 
-                     data-id="2"
-                     data-medium="pastel" 
-                     data-title="Luminescence in Blue" 
-                     data-year="2024" 
-                     data-technique="Soft pastel on archival paper" 
-                     data-dimensions="65 × 50 cm"
-                     data-collection="Studio collection, Aveiro"
-                     data-notes="Direct pigment application examining light scattering and tactile density across deep ultramarine hues.">
-                    <div class="artwork-thumb-wrap">
-                        <img src="art/ps11.jpg" onerror="this.src='banner.jpg'" alt="Luminescence in Blue" class="artwork-thumb">
-                    </div>
-                    <div class="artwork-label">
-                        <div class="artwork-label-title">Luminescence in Blue, 2024</div>
-                        <div class="artwork-label-meta">Soft pastel on archival paper<br>65 &times; 50 cm</div>
-                    </div>
-                </div>
-
-
-                
-                <!-- Add more items as needed following this structure -->
-
-            </div>
+        <section class="page-hero">
+            <h1>Art &amp; Visual Works</h1>
+            <div class="title-divider"></div>
+            <p class="art-intro">
+                Abstract Impressionist explorations in oil on canvas and soft pastel. Each work investigates the emergent harmony between physical light, density, gesture, and spontaneous atmospheric form.
+            </p>
         </section>
 
+        <!-- Medium Filter Tabs -->
+        <div class="filter-nav">
+            <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All Works</button>
+            <button class="filter-btn" data-filter="oil" onclick="setFilter('oil')">Oil on Canvas</button>
+            <button class="filter-btn" data-filter="pastel" onclick="setFilter('pastel')">Soft Pastel</button>
+        </div>
 
-        <!-- SECTION 2: DETAIL VIEW -->
-        <section id="artwork-detail-section" class="detail-view">
-            
-            <div class="detail-top-nav">
-                <button class="back-btn" id="btn-back">
-                    &larr; Back to Artwork
-                </button>
-                <div class="browse-buttons">
-                    <button class="browse-btn" id="btn-prev">&larr; Previous</button>
-                    <button class="browse-btn" id="btn-next">Next &rarr;</button>
-                </div>
-            </div>
+        <!-- Gallery Grid (Rendered dynamically via JS) -->
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Dynamic items will be injected here -->
+        </div>
 
-            <div class="detail-layout">
-                <!-- Large Image Stage -->
-                <div class="detail-image-stage">
-                    <div class="detail-image-wrapper">
-                        <!-- Botão Lupa -->
-                        <button class="zoom-btn" id="btn-zoom" aria-label="View Full Screen" title="Ver em Ecrã Inteiro">
-                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                <line x1="11" y1="8" x2="11" y2="14"></line>
-                                <line x1="8" y1="11" x2="14" y2="11"></line>
-                            </svg>
-                        </button>
-                        <!-- Imagem da Obra -->
-                        <img src="" alt="" id="detail-image" class="detail-image" title="Clique para expandir">
-                    </div>
-                </div>
-
-                <!-- Detailed Info Column -->
-                <div class="detail-info-sidebar">
-                    <h2 id="detail-title">Title</h2>
-                    <div class="detail-year" id="detail-year">Year</div>
-
-                    <table class="artwork-specs-table">
-                        <tbody>
-                            <tr>
-                                <th>Medium</th>
-                                <td id="detail-medium">—</td>
-                            </tr>
-                            <tr>
-                                <th>Dimensions</th>
-                                <td id="detail-dimensions">—</td>
-                            </tr>
-                            <tr>
-                                <th>Collection</th>
-                                <td id="detail-collection">—</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="detail-description" id="detail-notes">
-                        Notes about this work.
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Pagination Controls -->
+        <div class="pagination-container" id="pagination-controls">
+            <!-- Dynamic page buttons injected here -->
+        </div>
 
     </main>
 
-    <!-- SECTION 3: FULL SCREEN IMAGE VIEWER -->
-    <div class="fullscreen-modal" id="fs-modal">
-        <button class="fs-close" id="fs-close" title="Fechar (Esc)">&times;</button>
-        <img src="" class="fs-image" id="fs-image" alt="Artwork full screen">
+    <!-- Modal Lightbox (Museum View) -->
+    <div id="artModal" class="modal" onclick="closeModal(event)">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content-wrap" onclick="event.stopPropagation()">
+            <div class="modal-img-box">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <div class="modal-details">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <p id="modalMeta" class="modal-meta"></p>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 José Fernando Mendes | Visual Arts &amp; SciArt Studio | University of Aveiro</p>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
-    <!-- Interactive Script -->
+    <!-- JavaScript: Gallery Data, Pagination & Modal Logic -->
     <script>
-        const catalogSection = document.getElementById('gallery-catalog-section');
-        const detailSection = document.getElementById('artwork-detail-section');
-        const cards = Array.from(document.querySelectorAll('.artwork-card'));
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const counter = document.getElementById('item-counter');
+        // Catálogo de Obras (adicione ou ajuste os nomes dos seus ficheiros na pasta art/)
+        const ARTWORKS = [
+            { id: 1, title: "Emergence I", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "100 × 120 cm", year: "2024", src: "art/art1.jpg" },
+            { id: 2, title: "Atmospheric Density", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "80 × 100 cm", year: "2024", src: "art/art2.jpg" },
+            { id: 3, title: "Lagoon Fluctuations", medium: "pastel", mediumLabel: "Soft pastel on archival paper", dimensions: "50 × 70 cm", year: "2023", src: "art/art3.jpg" },
+            { id: 4, title: "Phase Transition IV", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "90 × 90 cm", year: "2024", src: "art/art4.jpg" },
+            { id: 5, title: "Chromatics of Silence", medium: "pastel", mediumLabel: "Soft pastel on paper", dimensions: "60 × 80 cm", year: "2023", src: "art/art5.jpg" },
+            { id: 6, title: "Resonance in Ochre", medium: "oil", mediumLabel: "Oil on linen", dimensions: "110 × 130 cm", year: "2023", src: "art/art6.jpg" },
+            { id: 7, title: "Lyrical Horizon", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "70 × 100 cm", year: "2024", src: "art/art7.jpg" },
+            { id: 8, title: "Diffuse Spectra", medium: "pastel", mediumLabel: "Soft pastel on paper", dimensions: "50 × 65 cm", year: "2023", src: "art/art8.jpg" },
+            { id: 9, title: "Equilibrium II", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "100 × 100 cm", year: "2024", src: "art/art9.jpg" },
+            { id: 10, title: "Vibration of Light", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "90 × 110 cm", year: "2025", src: "art/art10.jpg" },
+            { id: 11, title: "Tonal Reverie", medium: "pastel", mediumLabel: "Soft pastel on archival paper", dimensions: "55 × 75 cm", year: "2024", src: "art/art11.jpg" },
+            { id: 12, title: "Collective State III", medium: "oil", mediumLabel: "Oil on canvas", dimensions: "120 × 140 cm", year: "2025", src: "art/art12.jpg" }
+        ];
 
-        const btnBack = document.getElementById('btn-back');
-        const btnPrev = document.getElementById('btn-prev');
-        const btnNext = document.getElementById('btn-next');
+        const ITEMS_PER_PAGE = 9;
+        let currentFilter = 'all';
+        let currentPage = 1;
 
-        const imgEl = document.getElementById('detail-image');
-        const titleEl = document.getElementById('detail-title');
-        const yearEl = document.getElementById('detail-year');
-        const mediumEl = document.getElementById('detail-medium');
-        const dimEl = document.getElementById('detail-dimensions');
-        const colEl = document.getElementById('detail-collection');
-        const notesEl = document.getElementById('detail-notes');
+        function getFilteredArtworks() {
+            if (currentFilter === 'all') return ARTWORKS;
+            return ARTWORKS.filter(art => art.medium === currentFilter);
+        }
 
-        // Fullscreen elements
-        const fsModal = document.getElementById('fs-modal');
-        const fsImage = document.getElementById('fs-image');
-        const fsClose = document.getElementById('fs-close');
-        const btnZoom = document.getElementById('btn-zoom');
+        function renderGallery() {
+            const filtered = getFilteredArtworks();
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
 
-        let currentIndex = 0;
+            if (currentPage > totalPages) currentPage = 1;
 
-        // 1. Medium filtering
-        function applyFilter(medium) {
-            let visibleCount = 0;
-            cards.forEach(card => {
-                if (medium === 'all' || card.dataset.medium === medium) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageItems = filtered.slice(startIndex, endIndex);
+
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            pageItems.forEach(art => {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.onclick = () => openModal(art);
+
+                card.innerHTML = `
+                    <div class="art-img-wrap">
+                        <img src="${art.src}" alt="${art.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">${art.title}</h3>
+                        <p class="art-meta">${art.mediumLabel}, ${art.year}</p>
+                        <p class="art-dimensions">${art.dimensions}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
 
-            filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === medium));
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const container = document.getElementById('pagination-controls');
+            container.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Botão « Previous
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '&larr; Prev';
+            prevBtn.disabled = (currentPage === 1);
+            prevBtn.onclick = () => goToPage(currentPage - 1);
+            container.appendChild(prevBtn);
+
+            // Botões Numéricos (1, 2, 3...)
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.innerText = i;
+                pageBtn.onclick = () => goToPage(i);
+                container.appendChild(pageBtn);
+            }
+
+            // Botão Next »
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = 'Next &rarr;';
+            nextBtn.disabled = (currentPage === totalPages);
+            nextBtn.onclick = () => goToPage(currentPage + 1);
+            container.appendChild(nextBtn);
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderGallery();
             
-            if (medium === 'all') counter.textContent = `Showing all works (${visibleCount})`;
-            else if (medium === 'oil') counter.textContent = `Oil on Canvas (${visibleCount})`;
-            else if (medium === 'pastel') counter.textContent = `Soft Pastel (${visibleCount})`;
+            // Scroll suave para o início da galeria
+            const gallerySection = document.getElementById('gallery-container');
+            if (gallerySection) {
+                gallerySection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
-        });
+        function setFilter(medium) {
+            currentFilter = medium;
+            currentPage = 1;
 
-        // 2. Open Detail View
-        function showDetail(index) {
-            currentIndex = index;
-            const card = cards[currentIndex];
-            if (!card) return;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-filter') === medium);
+            });
 
-            const thumbImg = card.querySelector('.artwork-thumb');
-            imgEl.src = thumbImg.src;
-            imgEl.alt = card.dataset.title;
-
-            titleEl.textContent = card.dataset.title;
-            yearEl.textContent = card.dataset.year;
-            mediumEl.textContent = card.dataset.technique;
-            dimEl.textContent = card.dataset.dimensions;
-            colEl.textContent = card.dataset.collection || 'Studio collection';
-            notesEl.textContent = card.dataset.notes || '';
-
-            catalogSection.style.display = 'none';
-            detailSection.classList.add('active');
-            window.scrollTo({ top: detailSection.offsetTop - 40, behavior: 'smooth' });
+            renderGallery();
         }
 
-        function showCatalog() {
-            detailSection.classList.remove('active');
-            catalogSection.style.display = 'block';
-            window.scrollTo({ top: catalogSection.offsetTop - 40, behavior: 'smooth' });
+        // Modal Lightbox
+        function openModal(art) {
+            const modal = document.getElementById('artModal');
+            const img = document.getElementById('modalImg');
+            img.src = art.src;
+            img.onerror = () => { img.src = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80'; };
+            document.getElementById('modalTitle').innerText = art.title;
+            document.getElementById('modalMeta').innerText = `${art.mediumLabel} · ${art.dimensions} · ${art.year}`;
+            modal.style.display = 'flex';
         }
 
-        cards.forEach((card, idx) => {
-            card.addEventListener('click', () => showDetail(idx));
-        });
-
-        btnBack.addEventListener('click', showCatalog);
-
-        btnPrev.addEventListener('click', () => {
-            let nextIdx = (currentIndex - 1 + cards.length) % cards.length;
-            showDetail(nextIdx);
-        });
-
-        btnNext.addEventListener('click', () => {
-            let nextIdx = (currentIndex + 1) % cards.length;
-            showDetail(nextIdx);
-        });
-
-        // 3. Fullscreen / Lupa Logic
-        function openFullScreen() {
-            fsImage.src = imgEl.src;
-            fsModal.classList.add('active');
+        function closeModal(event) {
+            if (!event || event.target.id === 'artModal' || event.target.classList.contains('modal-close')) {
+                document.getElementById('artModal').style.display = 'none';
+            }
         }
 
-        function closeFullScreen() {
-            fsModal.classList.remove('active');
-        }
-
-        // Click no botão lupa ou na imagem de detalhe
-        btnZoom.addEventListener('click', openFullScreen);
-        imgEl.addEventListener('click', openFullScreen);
-        
-        // Fechar fullscreen
-        fsClose.addEventListener('click', closeFullScreen);
-        fsImage.addEventListener('click', closeFullScreen); // Fecha se clicar na foto grande
-        fsModal.addEventListener('click', (e) => {
-            if (e.target === fsModal) closeFullScreen(); // Fecha se clicar no fundo branco
-        });
-        
-        // Fechar com a tecla ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeFullScreen();
+            if (e.key === 'Escape') closeModal();
         });
 
-        // URL query parameter support
-        const urlParams = new URLSearchParams(window.location.search);
-        const mediumParam = urlParams.get('medium');
-        if (mediumParam) applyFilter(mediumParam);
+        // Verificação se veio parâmetro via URL (ex: art.html?medium=oil)
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const mediumParam = params.get('medium');
+            if (mediumParam && (mediumParam === 'oil' || mediumParam === 'pastel')) {
+                setFilter(mediumParam);
+            } else {
+                renderGallery();
+            }
+        });
 
-        // Mobile Hamburger Menu
+        // Mobile Nav Toggle
         const navToggle = document.querySelector('.nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
         if (navToggle && navMenu) {
             navToggle.addEventListener('click', () => navMenu.classList.toggle('nav-open'));
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => navMenu.classList.remove('nav-open'));
+            });
         }
     </script>
-
 </body>
 </html>
