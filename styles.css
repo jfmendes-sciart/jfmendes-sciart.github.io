@@ -1,63 +1,63 @@
 /* =============================================================
-   INSERÇÃO AUTOMÁTICA DO LOGO E ALINHAMENTO GLOBAL (CSS GRID)
+   Cabeçalho Global: Logo à esquerda, Nome e Subtítulo empilhados
    ============================================================= */
 
 .nav-brand {
     display: grid !important;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 0.85rem;
-    align-items: center;
+    grid-template-columns: auto 1fr !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 0.85rem !important;
+    align-items: center !important;
 }
 
-/* 1. O CSS cria e posiciona o logo na coluna da esquerda ocupando as 2 linhas */
+/* 1. O Logótipo ocupa a coluna 1 e as 2 linhas verticais */
 .nav-brand::before {
-    content: "";
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    display: block;
-    width: 42px;
-    height: 42px;
-    background-image: url('logo.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    content: "" !important;
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+    display: block !important;
+    width: 42px !important;
+    height: 42px !important;
+    background-image: url('logo.jpg') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
 }
 
-/* 2. O Nome fica na coluna da direita, na linha de cima */
+/* 2. O Nome fica na coluna 2, linha 1 */
 .nav-brand h1 {
-    grid-column: 2;
-    grid-row: 1;
-    font-family: "Newsreader", Georgia, serif;
-    font-size: 1.45rem;
-    font-weight: 500;
-    color: var(--text-dark, #102a43);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin: 0;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    font-family: "Newsreader", Georgia, serif !important;
+    font-size: 1.45rem !important;
+    font-weight: 500 !important;
+    color: var(--text-dark, #102a43) !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
 }
 
 .nav-brand h1 a {
-    text-decoration: none;
-    color: inherit;
-    display: inline-block;
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block !important;
 }
 
-/* 3. O Subtítulo fica na coluna da direita, na linha de baixo (perfeitamente alinhado) */
+/* 3. O Subtítulo fica na coluna 2, linha 2 (abaixo do nome e à direita do logo) */
 .nav-brand .nav-subtitle,
 .nav-brand p {
-    grid-column: 2;
-    grid-row: 2;
-    font-family: "Inter", sans-serif;
-    font-size: 0.8rem;
-    color: var(--text-muted, #627d98);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    margin: 2px 0 0 0;
-    line-height: 1.2;
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    font-family: "Inter", sans-serif !important;
+    font-size: 0.8rem !important;
+    color: var(--text-muted, #627d98) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    margin: 2px 0 0 0 !important;
+    line-height: 1.2 !important;
 }
 
-/* Desativa qualquer regra antiga que pudesse duplicar o logo */
+/* Desativa quaisquer regras antigas em tags <a> */
 .nav-brand h1 a::before,
 .nav-brand-text h1 a::before {
     content: none !important;
