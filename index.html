@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="José Fernando Mendes — Full Professor of Physics at the University of Aveiro. Research in network science, complex systems, statistical physics, and scientific art (SciArt).">
+    <meta name="description" content="José Fernando Mendes — Full Professor of Physics at the University of Aveiro. Research in network science, complex systems, statistical physics, and fine arts (SciArt).">
     <title>José Fernando Mendes — Professor of Physics & Artist</title>
     
-    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <!-- Favicon para o separador do browser -->
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.jpg">
+
+    <!-- Google Fonts (Newsreader + Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
@@ -43,7 +48,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Navigation Header */
+        /* -------------------------------------------------------------
+           Header & Navigation
+           ------------------------------------------------------------- */
         .site-header {
             background: #ffffff;
             border-bottom: 1px solid var(--border-color);
@@ -55,22 +62,43 @@
         .nav-container {
             max-width: 1140px;
             margin: 0 auto;
-            padding: 1.1rem 1.5rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
         }
 
-        .nav-brand h1 {
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .nav-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo-img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .nav-brand-text h1 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.45rem;
             font-weight: 500;
             color: var(--text-dark);
             letter-spacing: -0.02em;
+            line-height: 1.15;
         }
 
-        .nav-brand h1 a {
+        .nav-brand-text h1 a {
             text-decoration: none;
             color: inherit;
         }
@@ -87,7 +115,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.4rem;
+            gap: 1.35rem;
             align-items: center;
         }
 
@@ -118,7 +146,7 @@
             font-size: 0.88rem;
         }
 
-        /* Dropdown menus on desktop */
+        /* Submenus dropdown no ecrã grande */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -128,7 +156,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            min-width: 210px;
+            min-width: 220px;
             list-style: none;
             padding: 0.5rem 0;
             z-index: 110;
@@ -153,7 +181,7 @@
             color: var(--secondary);
         }
 
-        /* Mobile Hamburger Toggle Button */
+        /* Botão hambúrguer no mobile */
         .nav-toggle {
             display: none;
             background: none;
@@ -173,7 +201,9 @@
             transition: all 0.3s ease;
         }
 
-        /* Hero Banner */
+        /* -------------------------------------------------------------
+           Hero Banner
+           ------------------------------------------------------------- */
         .hero-banner {
             position: relative;
             width: 100%;
@@ -202,7 +232,9 @@
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
         }
 
-        /* Main Container */
+        /* -------------------------------------------------------------
+           Main Content
+           ------------------------------------------------------------- */
         .container {
             max-width: 1140px;
             margin: 0 auto;
@@ -261,7 +293,7 @@
             background: #e2e8f0;
         }
 
-        /* Academic & Social Icons */
+        /* Ícones Sociais / Académicos */
         .profile-social-icons {
             display: flex;
             gap: 0.75rem;
@@ -301,7 +333,7 @@
         .icon-link.linkedin:hover { color: #0a66c2; border-color: #0a66c2; }
         .icon-link.email:hover { color: var(--secondary); border-color: var(--secondary); }
 
-        /* Highlights Section */
+        /* Highlights (Grelha de 4 Cartões) */
         .highlights h2 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.65rem;
@@ -313,7 +345,7 @@
 
         .update-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
         }
 
@@ -344,9 +376,9 @@
         }
 
         .clean-list li {
-            padding: 0.8rem 0;
+            padding: 0.75rem 0;
             border-bottom: 1px solid #f7fafc;
-            font-size: 0.93rem;
+            font-size: 0.92rem;
             font-weight: 300;
             line-height: 1.6;
         }
@@ -393,8 +425,10 @@
             margin-top: 3rem;
         }
 
-        /* Responsive Mobile Behavior */
-        @media (max-width: 820px) {
+        /* -------------------------------------------------------------
+           Ajustes Mobile
+           ------------------------------------------------------------- */
+        @media (max-width: 860px) {
             .nav-toggle {
                 display: flex;
             }
@@ -455,19 +489,25 @@
     <header class="site-header">
         <nav class="navbar">
             <div class="nav-container">
+                <!-- Marca com o Logótipo antes do Nome -->
                 <div class="nav-brand">
-                    <h1><a href="index.html">José Fernando Mendes</a></h1>
-                    <p class="nav-subtitle">Professor of Physics and Artist</p>
+                    <a href="index.html" class="nav-logo-link" title="Home">
+                        <img src="logo.jpg" onerror="this.src='logo.png'" alt="JFM Logo" class="nav-logo-img">
+                    </a>
+                    <div class="nav-brand-text">
+                        <h1><a href="index.html">José Fernando Mendes</a></h1>
+                        <p class="nav-subtitle">Professor of Physics and Artist</p>
+                    </div>
                 </div>
 
-                <!-- Mobile Hamburger Button -->
+                <!-- Botão Hambúrguer Mobile -->
                 <button class="nav-toggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
 
-                <!-- Menu Links -->
+                <!-- Menu de Navegação -->
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     
@@ -478,20 +518,22 @@
                             <li><a href="research.html#stats">Overview &amp; Stats</a></li>
                             <li><a href="research.html#interests">Interests</a></li>
                             <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#editorial">Editorial &amp; Advisory</a></li>
                             <li><a href="research.html#network">Collaboration Network</a></li>
                         </ul>
                     </li>
-<!-- Teaching Dropdown -->
-    <li class="nav-item-dropdown">
-    <a href="teaching.html" class="nav-link">Teaching</a>
-    <ul class="dropdown-menu">
-        <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
-        <li><a href="teaching.html#courses">Courses</a></li>
-        <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
-    </ul>
-</li>
 
-                    <!-- Art / SciArt Dropdown -->
+                    <!-- Teaching Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="teaching.html" class="nav-link">Teaching</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="teaching.html#philosophy">Philosophy</a></li>
+                            <li><a href="teaching.html#courses">Courses</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Art Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="art.html" class="nav-link">Art</a>
                         <ul class="dropdown-menu">
@@ -500,7 +542,7 @@
                         </ul>
                     </li>
 
-                    <!-- About Dropdown -->
+                    <!-- About Me Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="about.html" class="nav-link">About Me</a>
                         <ul class="dropdown-menu">
@@ -514,21 +556,19 @@
                         </ul>
                     </li>
 
-                    <!-- CV Page Link -->
                     <li><a href="cv.html" class="nav-link">CV</a></li>
-
                     <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <!-- Top Hero Banner with Custom Image and Quote -->
+    <!-- Top Hero Banner -->
     <div class="hero-banner">
         <p class="quote-text">The greatest equaliser humanity has ever known is the relentless advance of science, shared openly with the world</p>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Container -->
     <main class="container">
         
         <!-- Profile / Biography Intro -->
@@ -540,13 +580,13 @@
                     </p>
                     <br>
                     <p>
-                        Alongside my academic work, I pursue an active studio practice in fine arts (Art), concentrating on oil and soft pastel mediums. Through color and layered texture, my paintings explore emergent structures and the harmony found across natural forms.
+                        Beyond scientific research, I am deeply engaged in fine arts (<a href="art.html"><strong>Art</strong></a>), primarily focusing on oil and pastel painting. My visual work explores the beauty, balance, and emergent complexity that bridge physical principles with aesthetic expression.
                     </p>
                 </div>
                 <div class="profile-image-wrap">
                     <img src="MainPicture.jpg" alt="José Fernando Mendes" onerror="this.src='https://ui-avatars.com/api/?name=Jose+Fernando+Mendes&size=200&background=0b69a3&color=fff'" class="profile-image">
                     
-                    <!-- Academic & Social Icons (SVG) -->
+                    <!-- Ícones Académicos / Sociais -->
                     <div class="profile-social-icons">
                         <!-- Google Scholar -->
                         <a href="https://scholar.google.com/citations?user=g0PnXHIAAAAJ" target="_blank" class="icon-link scholar" title="Google Scholar" aria-label="Google Scholar">
@@ -577,7 +617,7 @@
             </div>
         </section>
 
-        <!-- Highlights (Overview Cards) -->
+        <!-- Highlights (Overview Cards com 4 secções) -->
         <section class="highlights">
             <h2>Recent Updates &amp; Highlights</h2>
             <div class="update-grid">
@@ -597,17 +637,39 @@
                             </li>
                             <li>
                                 <span class="list-tag">Monographs</span><br>
-                                <em>Evolution of Networks</em> &amp; <em>The Nature of Complex Networks</em> (Oxford University Press).
+                                <em>Evolution of Networks</em> &amp; <em>The Nature of Complex Networks</em> (Oxford Univ. Press).
                             </li>
                         </ul>
                     </div>
                     <a href="research.html" class="card-link">Explore Research &rarr;</a>
                 </div>
 
+                <!-- Teaching Card -->
+                <div class="update-card">
+                    <div>
+                        <h3>Teaching &amp; Mentoring</h3>
+                        <ul class="clean-list">
+                            <li>
+                                <span class="list-tag">Curricular Units</span><br>
+                                Advanced Statistical Physics, Complex Networks and Systems, and Mechanics.
+                            </li>
+                            <li>
+                                <span class="list-tag">Supervision</span><br>
+                                Mentoring of Postdoctoral researchers, PhD candidates, and MSc theses.
+                            </li>
+                            <li>
+                                <span class="list-tag">Philosophy</span><br>
+                                Fostering autonomous critical thinking and physical intuition in complex phenomena.
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="teaching.html" class="card-link">Explore Teaching &rarr;</a>
+                </div>
+
                 <!-- SciArt Card -->
                 <div class="update-card">
                     <div>
-                        <h3>SciArt &amp; Visual Works</h3>
+                        <h3>Fine Arts &amp; SciArt</h3>
                         <ul class="clean-list">
                             <li>
                                 <span class="list-tag">Oil on Canvas</span><br>
@@ -619,7 +681,7 @@
                             </li>
                             <li>
                                 <span class="list-tag">Philosophy</span><br>
-                                Bridging the analytical depth of complex science with evocative visual expression.
+                                Bridging analytical depth with evocative visual expression.
                             </li>
                         </ul>
                     </div>
@@ -650,7 +712,7 @@
         <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
-    <!-- Script to toggle mobile menu -->
+    <!-- Mobile Navigation Toggle Script -->
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
@@ -660,7 +722,6 @@
                 navMenu.classList.toggle('nav-open');
             });
 
-            // Close the menu automatically when a link is clicked
             navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     navMenu.classList.remove('nav-open');
