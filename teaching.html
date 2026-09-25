@@ -1,10 +1,28 @@
+Aqui está o ficheiro **`teaching.html`** completamente refeito de raiz, sem atalhos e 100% autónomo.
+
+Integra com precisão os 3 cursos que lecionas no Departamento de Física da Universidade de Aveiro, com o programa de **Fundamentos de Física** centrado rigorosamente nos 4 temas que indicaste:
+
+1. **Oscilações e Ondas**
+2. **Temperatura e transferência de energia em processos térmicos**
+3. **Eletricidade e Magnetismo**
+4. **Energia nuclear: efeitos e usos da radiação**
+
+O ficheiro já inclui a grelha de navegação com o teu logótipo automático, o cabeçalho idêntico às outras páginas, links para as fichas de Unidade Curricular da UA, e todo o design responsivo.
+
+---
+
+### Código completo para `teaching.html`:
+
+Abre o ficheiro **`teaching.html`** no GitHub (ícone do lápis ✏️), apaga tudo o que lá estiver, cola o código abaixo e clica em **Commit changes**:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Teaching, academic courses, and student supervision by José Fernando Mendes at the Department of Physics, University of Aveiro.">
-    <title>Teaching &amp; Mentoring — José Fernando Mendes</title>
+    <meta name="description" content="Teaching and academic course syllabi by José Fernando Mendes at the Department of Physics, University of Aveiro.">
+    <title>Teaching &amp; Academic Courses — José Fernando Mendes</title>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
@@ -267,7 +285,7 @@
             color: var(--text-muted);
             font-size: 1.05rem;
             margin-top: 0.5rem;
-            max-width: 800px;
+            max-width: 820px;
         }
 
         .section-block {
@@ -293,12 +311,12 @@
         }
 
         /* -------------------------------------------------------------
-           Courses Cards Grid (3 Cursos Principais)
+           Courses Cards Grid
            ------------------------------------------------------------- */
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.8rem;
+            gap: 2rem;
             margin-top: 1.5rem;
         }
 
@@ -340,11 +358,11 @@
             font-weight: 500;
             color: var(--text-dark);
             line-height: 1.25;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.35rem;
         }
 
         .course-subtitle {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--text-muted);
             font-weight: 400;
             margin-bottom: 1.2rem;
@@ -368,9 +386,15 @@
         .course-topics li {
             font-size: 0.85rem;
             color: #486581;
-            padding: 0.25rem 0;
+            padding: 0.35rem 0;
             position: relative;
             padding-left: 1.2rem;
+            line-height: 1.55;
+        }
+
+        .course-topics li strong {
+            color: var(--text-dark);
+            font-weight: 500;
         }
 
         .course-topics li::before {
@@ -381,14 +405,33 @@
             font-weight: bold;
         }
 
-        .course-meta {
-            font-size: 0.82rem;
-            color: #829ab1;
+        .course-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 0.8rem;
+        }
+
+        .course-meta-text {
+            font-size: 0.82rem;
+            color: #829ab1;
+        }
+
+        .ua-link {
+            font-size: 0.84rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.2s;
+        }
+
+        .ua-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
         }
 
         /* -------------------------------------------------------------
@@ -581,78 +624,88 @@
         <!-- Header da Página -->
         <header class="teaching-header">
             <h1>Teaching &amp; Academic Courses</h1>
-            <p>Undergraduate and postgraduate instruction at the Department of Physics, University of Aveiro, bridging mathematical rigor with deep physical insight.</p>
+            <p>Curricular units taught at the Department of Physics (DFis), University of Aveiro, emphasizing fundamental theoretical principles, physical modeling, and the development of analytical problem-solving intuition.</p>
         </header>
 
-        <!-- Secção 1: Os 3 Cursos Principais -->
+        <!-- Secção 1: As 3 UCs -->
         <section class="section-block" id="courses">
-            <h2 class="section-title">Current &amp; Recent Curricular Units</h2>
+            <h2 class="section-title">Core Curricular Units (DFis / UA)</h2>
             
             <div class="courses-grid">
                 
-                <!-- Curso 1: Fundamentos de Física -->
+                <!-- 1. Fundamentos de Física -->
                 <div class="course-card">
                     <div>
-                        <span class="course-badge">Undergraduate</span>
+                        <span class="course-badge">Undergraduate &middot; DFis</span>
                         <h3>Fundamentos de Física</h3>
-                        <div class="course-subtitle">Fundamentals of Physics &middot; DFis / UA</div>
+                        <div class="course-subtitle">Fundamentals of Physics &middot; Department of Physics</div>
                         <p class="course-desc">
-                            Core introductory physics establishing foundational classical mechanics, conservation principles, translational and rotational dynamics, energy, and thermodynamics for physical sciences and engineering.
+                            Introductory physics curricular unit exploring wave phenomena, thermodynamic processes, fundamental electromagnetism, and atomic/nuclear principles. Focuses on physical foundations and modern technological and environmental applications.
                         </p>
                         <ul class="course-topics">
-                            <li>Newtonian mechanics &amp; conservation laws</li>
-                            <li>Linear momentum, angular momentum, and energy</li>
-                            <li>Static equilibrium and oscillatory motion</li>
-                            <li>Introductory thermal physics and work</li>
+                            <li><strong>Oscilações e Ondas:</strong> Movimento harmónico simples, oscilações amortecidas e forçadas, propagação e sobreposição de ondas mecânicas e eletromagnéticas.</li>
+                            <li><strong>Temperatura e Processos Térmicos:</strong> Temperatura, calor, transferência de energia em processos térmicos (condução, convecção e radiação) e leis fundamentais da termodinâmica.</li>
+                            <li><strong>Eletricidade e Magnetismo:</strong> Carga elétrica, campo elétrico, potencial eletrostático, circuitos, campo magnético e indução eletromagnética.</li>
+                            <li><strong>Energia Nuclear:</strong> Estrutura do núcleo atómico, radioatividade, decaimento radioativo, fissão e fusão nucleares, efeitos biológicos e usos da radiação.</li>
                         </ul>
                     </div>
-                    <div class="course-meta">
-                        <span>Dept. of Physics, UA</span>
-                        <span>Lectures &amp; Problem Solving</span>
+                    <div class="course-footer">
+                        <span class="course-meta-text">Lectures &amp; Practice</span>
+                        <a href="https://www.ua.pt/en/uc" target="_blank" class="ua-link">
+                            Course Directory ↗&#xFE0E;
+                        </a>
                     </div>
                 </div>
 
-                <!-- Curso 2: Campo Eletromagnético -->
+                <!-- 2. Campo Eletromagnético (UC 15191) -->
                 <div class="course-card">
                     <div>
-                        <span class="course-badge">Undergraduate</span>
+                        <span class="course-badge">Core Physics &middot; UC 15191</span>
                         <h3>Campo Eletromagnético</h3>
-                        <div class="course-subtitle">Electromagnetic Field &middot; DFis / UA</div>
+                        <div class="course-subtitle">Electromagnetic Field &middot; Department of Physics</div>
                         <p class="course-desc">
-                            In-depth formulation of classical electrodynamics. Exploration of electrostatic and magnetostatic fields in vacuum and matter, electromotive force, Faraday's law, and the complete unified Maxwell equations.
+                            Rigorous analytical treatment of classical electrodynamics using vector calculus. Covers electrostatic and magnetostatic fields in vacuum and matter, boundary value problems, induction, and the complete unified Maxwell equations.
                         </p>
                         <ul class="course-topics">
-                            <li>Vector calculus in curvilinear coordinates</li>
-                            <li>Electrostatics: Gauss's Law, potentials, and dielectrics</li>
-                            <li>Magnetostatics: Biot-Savart, Ampère's Law, and magnetic media</li>
-                            <li>Electrodynamics &amp; Maxwell's equations formulation</li>
+                            <li>Vector analysis in Cartesian, cylindrical, and spherical coordinates</li>
+                            <li>Electrostatics: Coulomb's Law, Gauss's Law, and scalar potential</li>
+                            <li>Electrostatic fields in dielectrics and boundary conditions</li>
+                            <li>Magnetostatics: Biot-Savart, Ampère's Law, and vector potential</li>
+                            <li>Magnetic materials, magnetization, and auxiliary field H</li>
+                            <li>Electrodynamics: Faraday's induction and Maxwell's equations</li>
                         </ul>
                     </div>
-                    <div class="course-meta">
-                        <span>Dept. of Physics, UA</span>
-                        <span>Theoretical &amp; Applied</span>
+                    <div class="course-footer">
+                        <span class="course-meta-text">Theoretical Physics</span>
+                        <a href="https://www.ua.pt/en/uc/15191" target="_blank" class="ua-link">
+                            View Syllabus at UA ↗&#xFE0E;
+                        </a>
                     </div>
                 </div>
 
-                <!-- Curso 3: Ondas -->
+                <!-- 3. Ondas (UC 2651) -->
                 <div class="course-card">
                     <div>
-                        <span class="course-badge">Undergraduate</span>
+                        <span class="course-badge">Core Physics &middot; UC 2651</span>
                         <h3>Ondas</h3>
-                        <div class="course-subtitle">Wave Phenomena &middot; DFis / UA</div>
+                        <div class="course-subtitle">Waves &middot; Department of Physics</div>
                         <p class="course-desc">
-                            Systematic theoretical study of oscillations and wave mechanics. Covers coupled oscillators, one-dimensional and multi-dimensional wave equations, dispersion relations, superposition, interference, and diffraction.
+                            Systematic study of oscillatory and wave mechanics. Focuses on coupled systems, wave equations in mechanical and electromagnetic media, energy transport, boundary reflection/refraction, dispersion, and wave interference.
                         </p>
                         <ul class="course-topics">
-                            <li>Free, damped, and forced oscillations; resonance</li>
-                            <li>Coupled oscillators and normal modes</li>
-                            <li>Mechanical and electromagnetic wave equations</li>
-                            <li>Wave propagation, reflection, refraction, and diffraction</li>
+                            <li>Coupled oscillators and normal modes of vibration</li>
+                            <li>Longitudinal elastic waves in gases and solids; transversal waves in strings</li>
+                            <li>One-dimensional and three-dimensional wave equations</li>
+                            <li>Electromagnetic wave propagation in vacuum and materials</li>
+                            <li>Superposition, reflection, refraction, and standing waves</li>
+                            <li>Interference, diffraction, and polarization phenomena</li>
                         </ul>
                     </div>
-                    <div class="course-meta">
-                        <span>Dept. of Physics, UA</span>
-                        <span>Analytical Physics</span>
+                    <div class="course-footer">
+                        <span class="course-meta-text">Theory &amp; Laboratory</span>
+                        <a href="https://www.ua.pt/en/uc/2651" target="_blank" class="ua-link">
+                            View Syllabus at UA ↗&#xFE0E;
+                        </a>
                     </div>
                 </div>
 
@@ -664,29 +717,29 @@
             <h2 class="section-title">Teaching Philosophy</h2>
             <div class="info-panel">
                 <p>
-                    Teaching in physics should go beyond the rote execution of mathematical formulas. My pedagogical philosophy is rooted in developing <strong>autonomous physical intuition</strong>: empowering students to translate complex observable phenomena into clear analytical models and evaluate the validity of their approximations.
+                    In physics education, mathematical formalism and physical intuition must evolve in tandem. My objective across all levels of instruction is to help students transcend formula memorization and develop <strong>independent physical insight</strong>: the capacity to look at a complex phenomenon, construct a simplified model, identify the governing symmetries and conservation laws, and critically appraise analytical approximations.
                 </p>
                 <p>
-                    Whether introducing the elementary conservation laws in <em>Fundamentos de Física</em> or guiding students through vector calculus in <em>Campo Eletromagnético</em> and <em>Ondas</em>, I emphasize fundamental principles as a cohesive framework rather than isolated recipes. Students are challenged to cultivate critical thinking, precision in mathematical expression, and curiosity for foundational questions.
+                    Whether introducing wave propagation, thermal processes, and electromagnetism in <em>Fundamentos de Física</em>, establishing vector calculus rigor in <em>Campo Eletromagnético</em>, or decomposing complex vibrations into normal modes in <em>Ondas</em>, I emphasize physics as a unified and harmonious discipline. Students are encouraged to cultivate analytical discipline, curiosity, and clarity in their scientific communication.
                 </p>
             </div>
         </section>
 
-        <!-- Secção 3: Orientação e Tutoria -->
+        <!-- Secção 3: Orientação e Mentoria -->
         <section class="section-block" id="supervision">
             <h2 class="section-title">Mentoring &amp; Student Supervision</h2>
             <div class="supervision-grid">
                 <div class="supervision-card">
-                    <h4>Postdoctoral Researchers</h4>
-                    <p>Mentoring early-career researchers at i3N-Aveiro in complex network theory, non-equilibrium statistical mechanics, and high-impact scientific publishing.</p>
+                    <h4>Postdoctoral Fellows</h4>
+                    <p>Guidance in complex network theory, non-equilibrium phase transitions, and collaborative high-impact research within the Associated Laboratory i3N-Aveiro.</p>
                 </div>
                 <div class="supervision-card">
-                    <h4>PhD Candidates</h4>
-                    <p>Guiding doctoral dissertations investigating percolation, multiplex network dynamics, and critical phenomena in complex physical and natural systems.</p>
+                    <h4>Doctoral Dissertations (PhD)</h4>
+                    <p>Supervising doctoral theses addressing percolation, multiplex network dynamics, and critical phenomena in interconnected physical systems.</p>
                 </div>
                 <div class="supervision-card">
-                    <h4>MSc &amp; Undergraduate Projects</h4>
-                    <p>Supervising master's theses and research initiation fellowships in theoretical physics and computational modeling of network structures.</p>
+                    <h4>Master's Theses (MSc) &amp; Research Fellowships</h4>
+                    <p>Mentoring graduate and undergraduate students in statistical mechanics, theoretical modeling, and scientific computing.</p>
                 </div>
             </div>
         </section>
@@ -718,3 +771,5 @@
 
 </body>
 </html>
+
+```
