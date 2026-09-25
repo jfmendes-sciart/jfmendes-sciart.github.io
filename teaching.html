@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Teaching, academic courses, and student supervision by José Fernando Mendes at the Department of Physics, University of Aveiro.">
+    <title>Teaching &amp; Mentoring — José Fernando Mendes</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="apple-touch-icon" href="logo.jpg?v=2">
+    
+    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        :root {
+            --primary: #102a43;
+            --secondary: #0b69a3;
+            --accent: #00b4d8;
+            --text-main: #334e68;
+            --text-dark: #102a43;
+            --text-muted: #627d98;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* -------------------------------------------------------------
+           Header & Navigation
+           ------------------------------------------------------------- */
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-brand {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            column-gap: 0.85rem;
+            align-items: center;
+        }
+
+        .nav-brand::before {
+            content: "";
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            display: block;
+            width: 42px;
+            height: 42px;
+            background-image: url('logo.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-brand h1 {
+            grid-column: 2;
+            grid-row: 1;
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        .nav-brand h1 a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .nav-subtitle {
+            grid-column: 2;
+            grid-row: 2;
+            font-family: "Inter", sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-top: 2px;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.35rem;
+            align-items: center;
+        }
+
+        .nav-item-dropdown {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.92rem;
+            font-weight: 400;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary);
+        }
+
+        .nav-link-btn {
+            background: var(--secondary);
+            color: #fff !important;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.88rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            min-width: 220px;
+            list-style: none;
+            padding: 0.5rem 0;
+            z-index: 110;
+        }
+
+        .nav-item-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background: var(--bg-light);
+            color: var(--secondary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 120;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        /* -------------------------------------------------------------
+           Hero Banner
+           ------------------------------------------------------------- */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 32vh;
+            min-height: 220px;
+            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.6)), 
+                        url('banner.jpg'), 
+                        url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-banner .quote-text {
+            text-align: center;
+            max-width: 900px;
+            padding: 1.8rem;
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.85rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.5;
+            color: #ffffff;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+        }
+
+        /* -------------------------------------------------------------
+           Main Content & Sections
+           ------------------------------------------------------------- */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
+        }
+
+        .teaching-header {
+            padding: 1.5rem 0 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3.5rem;
+        }
+
+        .teaching-header h1 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .teaching-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 0.5rem;
+            max-width: 800px;
+        }
+
+        .section-block {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.85rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        /* -------------------------------------------------------------
+           Courses Cards Grid (3 Cursos Principais)
+           ------------------------------------------------------------- */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .course-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-top: 4px solid var(--secondary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: #e1f0fa;
+            color: var(--secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .course-card h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.25;
+            margin-bottom: 0.4rem;
+        }
+
+        .course-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 1.2rem;
+        }
+
+        .course-desc {
+            font-size: 0.94rem;
+            color: var(--text-main);
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+            font-weight: 300;
+        }
+
+        .course-topics {
+            list-style: none;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-topics li {
+            font-size: 0.85rem;
+            color: #486581;
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .course-topics li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .course-meta {
+            font-size: 0.82rem;
+            color: #829ab1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 0.8rem;
+        }
+
+        /* -------------------------------------------------------------
+           Philosophy & Supervision Layout
+           ------------------------------------------------------------- */
+        .info-panel {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            line-height: 1.8;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .info-panel p + p {
+            margin-top: 1.2rem;
+        }
+
+        .supervision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .supervision-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 3.5px solid var(--secondary);
+        }
+
+        .supervision-card h4 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.35rem;
+        }
+
+        .supervision-card p {
+            font-size: 0.9rem;
+            color: #486581;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #829ab1;
+            font-size: 0.85rem;
+            font-weight: 300;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 860px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.2rem 1.5rem 2rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+                gap: 0.8rem;
+                z-index: 100;
+                max-height: 75vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-menu.nav-open {
+                display: flex;
+            }
+
+            .nav-item-dropdown {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: block;
+                box-shadow: none;
+                border: none;
+                padding-left: 0.8rem;
+                margin-top: 0.2rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1><a href="index.html">José Fernando Mendes</a></h1>
+                    <p class="nav-subtitle">Professor of Physics and Artist</p>
+                </div>
+
+                <!-- Botão Hambúrguer Mobile -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Menu de Navegação -->
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    
+                    <!-- Research Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="research.html" class="nav-link">Research</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="research.html#stats">Overview &amp; Stats</a></li>
+                            <li><a href="research.html#interests">Interests</a></li>
+                            <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#editorial">Editorial &amp; Advisory</a></li>
+                            <li><a href="research.html#network">Collaboration Network</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Teaching Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="teaching.html" class="nav-link active">Teaching</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="teaching.html#courses">Recent Courses</a></li>
+                            <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Art Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="art.html" class="nav-link">Art</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="art.html?medium=oil">Oil painting</a></li>
+                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- About Me Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="about.html" class="nav-link">About Me</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="cv.html" class="nav-link">CV</a></li>
+                    <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Top Hero Banner -->
+    <div class="hero-banner">
+        <p class="quote-text">Unveiling emergent landscapes in science and on canvas.</p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Header da Página -->
+        <header class="teaching-header">
+            <h1>Teaching &amp; Academic Courses</h1>
+            <p>Undergraduate and postgraduate instruction at the Department of Physics, University of Aveiro, bridging mathematical rigor with deep physical insight.</p>
+        </header>
+
+        <!-- Secção 1: Os 3 Cursos Principais -->
+        <section class="section-block" id="courses">
+            <h2 class="section-title">Current &amp; Recent Curricular Units</h2>
+            
+            <div class="courses-grid">
+                
+                <!-- Curso 1: Fundamentos de Física -->
+                <div class="course-card">
+                    <div>
+                        <span class="course-badge">Undergraduate</span>
+                        <h3>Fundamentos de Física</h3>
+                        <div class="course-subtitle">Fundamentals of Physics &middot; DFis / UA</div>
+                        <p class="course-desc">
+                            Core introductory physics establishing foundational classical mechanics, conservation principles, translational and rotational dynamics, energy, and thermodynamics for physical sciences and engineering.
+                        </p>
+                        <ul class="course-topics">
+                            <li>Newtonian mechanics &amp; conservation laws</li>
+                            <li>Linear momentum, angular momentum, and energy</li>
+                            <li>Static equilibrium and oscillatory motion</li>
+                            <li>Introductory thermal physics and work</li>
+                        </ul>
+                    </div>
+                    <div class="course-meta">
+                        <span>Dept. of Physics, UA</span>
+                        <span>Lectures &amp; Problem Solving</span>
+                    </div>
+                </div>
+
+                <!-- Curso 2: Campo Eletromagnético -->
+                <div class="course-card">
+                    <div>
+                        <span class="course-badge">Core Physics</span>
+                        <h3>Campo Eletromagnético</h3>
+                        <div class="course-subtitle">Electromagnetic Field &middot; DFis / UA</div>
+                        <p class="course-desc">
+                            In-depth formulation of classical electrodynamics. Exploration of electrostatic and magnetostatic fields in vacuum and matter, electromotive force, Faraday's law, and the complete unified Maxwell equations.
+                        </p>
+                        <ul class="course-topics">
+                            <li>Vector calculus in curvilinear coordinates</li>
+                            <li>Electrostatics: Gauss's Law, potentials, and dielectrics</li>
+                            <li>Magnetostatics: Biot-Savart, Ampère's Law, and magnetic media</li>
+                            <li>Electrodynamics &amp; Maxwell's equations formulation</li>
+                        </ul>
+                    </div>
+                    <div class="course-meta">
+                        <span>Dept. of Physics, UA</span>
+                        <span>Theoretical &amp; Applied</span>
+                    </div>
+                </div>
+
+                <!-- Curso 3: Ondas -->
+                <div class="course-card">
+                    <div>
+                        <span class="course-badge">Core Physics</span>
+                        <h3>Ondas</h3>
+                        <div class="course-subtitle">Wave Phenomena &middot; DFis / UA</div>
+                        <p class="course-desc">
+                            Systematic theoretical study of oscillations and wave mechanics. Covers coupled oscillators, one-dimensional and multi-dimensional wave equations, dispersion relations, superposition, interference, and diffraction.
+                        </p>
+                        <ul class="course-topics">
+                            <li>Free, damped, and forced oscillations; resonance</li>
+                            <li>Coupled oscillators and normal modes</li>
+                            <li>Mechanical and electromagnetic wave equations</li>
+                            <li>Wave propagation, reflection, refraction, and diffraction</li>
+                        </ul>
+                    </div>
+                    <div class="course-meta">
+                        <span>Dept. of Physics, UA</span>
+                        <span>Analytical Physics</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Secção 2: Filosofia Pedagógica -->
+        <section class="section-block" id="philosophy">
+            <h2 class="section-title">Teaching Philosophy</h2>
+            <div class="info-panel">
+                <p>
+                    Teaching in physics should go beyond the rote execution of mathematical formulas. My pedagogical philosophy is rooted in developing <strong>autonomous physical intuition</strong>: empowering students to translate complex observable phenomena into clear analytical models and evaluate the validity of their approximations.
+                </p>
+                <p>
+                    Whether introducing the elementary conservation laws in <em>Fundamentos de Física</em> or guiding students through vector calculus in <em>Campo Eletromagnético</em> and <em>Ondas</em>, I emphasize fundamental principles as a cohesive framework rather than isolated recipes. Students are challenged to cultivate critical thinking, precision in mathematical expression, and curiosity for foundational questions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Secção 3: Orientação e Tutoria -->
+        <section class="section-block" id="supervision">
+            <h2 class="section-title">Mentoring &amp; Student Supervision</h2>
+            <div class="supervision-grid">
+                <div class="supervision-card">
+                    <h4>Postdoctoral Researchers</h4>
+                    <p>Mentoring early-career researchers at i3N-Aveiro in complex network theory, non-equilibrium statistical mechanics, and high-impact scientific publishing.</p>
+                </div>
+                <div class="supervision-card">
+                    <h4>PhD Candidates</h4>
+                    <p>Guiding doctoral dissertations investigating percolation, multiplex network dynamics, and critical phenomena in complex physical and natural systems.</p>
+                </div>
+                <div class="supervision-card">
+                    <h4>MSc &amp; Undergraduate Projects</h4>
+                    <p>Supervising master's theses and research initiation fellowships in theoretical physics and computational modeling of network structures.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
+    </footer>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('nav-open');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('nav-open');
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
