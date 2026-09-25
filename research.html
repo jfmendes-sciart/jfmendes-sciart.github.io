@@ -178,21 +178,21 @@
         }
 
         /* -------------------------------------------------------------
-           Hero Banner (sincronizado)
+           Hero Banner
            ------------------------------------------------------------- */
         .hero-banner {
-    position: relative;
-    width: 100%;
-    height: 32vh;
-    min-height: 220px;
-    background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
-                url('banner-talk.jpg?v=1');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            position: relative;
+            width: 100%;
+            height: 32vh;
+            min-height: 220px;
+            background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
+                        url('banner-talk.jpg?v=1');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .hero-banner .quote-text {
             text-align: center;
@@ -465,7 +465,7 @@
             transform: translateY(-1px);
         }
 
-        /* Publications List */
+        /* Publications List & Entries */
         .pub-list {
             background: #ffffff;
             border: 1px solid var(--border-color);
@@ -477,10 +477,18 @@
         .pub-entry {
             padding: 1.4rem 0;
             border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
         }
 
         .pub-entry:last-child {
             border-bottom: none;
+        }
+
+        .pub-main-info {
+            flex: 1;
         }
 
         .pub-title {
@@ -515,8 +523,20 @@
             margin-top: 0.25rem;
         }
 
+        .pub-cite-badge {
+            display: inline-block;
+            background: #e1f0fa;
+            color: var(--secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+
         /* -------------------------------------------------------------
-           Editorial & Advisory Roles Table (Estilo Minimalista)
+           Editorial & Advisory Roles Table
            ------------------------------------------------------------- */
         .roles-table {
             display: flex;
@@ -546,7 +566,7 @@
 
         .role-title {
             font-size: 1rem;
-            color: #007D69; /* Verde-petróleo característico */
+            color: #007D69;
             font-weight: 500;
             text-align: right;
             padding-right: 2.5rem;
@@ -712,6 +732,11 @@
             .lollipop-bars { gap: 1.1rem; }
             .stats-grid-row { gap: 1.5rem; }
             .pub-list { padding: 0.5rem 1.2rem; }
+
+            .pub-entry {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
             
             .role-row {
                 grid-template-columns: 1fr;
@@ -759,20 +784,23 @@
                         <ul class="dropdown-menu">
                             <li><a href="#stats">Summary &amp; Stats</a></li>
                             <li><a href="#interests">Interests</a></li>
-                            <li><a href="#publications">Publications</a></li>
+                            <li><a href="#publications">Selected Publications</a></li>
+                            <li><a href="#books">Books &amp; Monographs</a></li>
                             <li><a href="#editorial">Editorial &amp; Advisory</a></li>
                             <li><a href="#network">Collaboration Network</a></li>
                         </ul>
                     </li>
-<!-- Teaching Dropdown -->
-        <li class="nav-item-dropdown">
-    <a href="teaching.html" class="nav-link">Teaching</a>
-    <ul class="dropdown-menu">
-        <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
-        <li><a href="teaching.html#courses">Courses</a></li>
-        <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
-    </ul>
-</li>
+
+                    <!-- Teaching Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="teaching.html" class="nav-link">Teaching</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="teaching.html#courses">Courses</a></li>
+                            <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
+                        </ul>
+                    </li>
+
                     <!-- Art Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="art.html" class="nav-link">Art</a>
@@ -803,7 +831,7 @@
         </nav>
     </header>
 
-    <!-- Top Hero Banner (Mesmo banner de todas as páginas) -->
+    <!-- Top Hero Banner -->
     <div class="hero-banner">
         <p class="quote-text">The greatest equaliser humanity has ever known is the relentless advance of science, shared openly with the world</p>
     </div>
@@ -928,9 +956,9 @@
             </div>
         </section>
 
-        <!-- 3. Key Publications & Monographs -->
+        <!-- 3. Selected Major Publications -->
         <section id="publications" class="content-section">
-            <h2>Key Books &amp; Selected Major Publications</h2>
+            <h2>Selected Major Publications</h2>
             <p class="section-desc">
                 For a comprehensive list of all scientific papers, visit my 
                 <a href="https://scholar.google.com/citations?user=g0PnXHIAAAAJ" target="_blank">Google Scholar</a> or 
@@ -938,72 +966,199 @@
             </p>
             
             <div class="pub-list">
-                <!-- Book 1 -->
+                <!-- 1. Evolution of networks (Adv Phys 2002) -->
                 <div class="pub-entry">
-                    <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank" class="pub-title">
-                        Evolution of Networks: From Biological Nets to the Internet and WWW ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Oxford University Press (Oxford, 2003) — Foundational monograph on the structure and evolution of complex networks.</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1080/00018730110112519" target="_blank" class="pub-title">
+                            Evolution of networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Advances in Physics 51 (4), 1079–1187 (2002)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">8,016+ citations</span>
+                    </div>
                 </div>
 
-                <!-- Book 2 -->
+                <!-- 2. Critical phenomena in complex networks (RMP 2008) -->
                 <div class="pub-entry">
-                    <a href="https://global.oup.com/academic/product/the-nature-of-complex-networks-9780199695119" target="_blank" class="pub-title">
-                        The Nature of Complex Networks ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Oxford University Press (Oxford, 2022).</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/RevModPhys.80.1275" target="_blank" class="pub-title">
+                            Critical phenomena in complex networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Reviews of Modern Physics 80 (4), 1275–1335 (2008)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">2,809+ citations</span>
+                    </div>
                 </div>
 
-                <!-- Advances in Physics 2002 -->
+                <!-- 3. Structure of growing networks with preferential linking (PRL 2000) -->
                 <div class="pub-entry">
-                    <a href="https://doi.org/10.1080/00018730110112519" target="_blank" class="pub-title">
-                        Evolution of networks ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Advances in Physics 51 (4), 1079-1187 (2002) — Over 8,000 citations.</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevLett.85.4633" target="_blank" class="pub-title">
+                            Structure of growing networks with preferential linking ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span>, A. N. Samukhin</div>
+                        <div class="pub-venue">Physical Review Letters 85 (21), 4633 (2000)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">1,861+ citations</span>
+                    </div>
                 </div>
 
-                <!-- Reviews of Modern Physics 2008 -->
+                <!-- 4. k-Core Organization of Complex Networks (PRL 2006) -->
                 <div class="pub-entry">
-                    <a href="https://doi.org/10.1103/RevModPhys.80.1275" target="_blank" class="pub-title">
-                        Critical phenomena in complex networks ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Reviews of Modern Physics 80 (4), 1275-1335 (2008).</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevLett.96.040601" target="_blank" class="pub-title">
+                            k-Core Organization of Complex Networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review Letters 96 (4), 040601 (2006)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">835+ citations</span>
+                    </div>
                 </div>
 
-                <!-- PRL 2000 Structure of growing networks -->
+                <!-- 5. Pseudofractal scale-free web (PRE 2002) -->
                 <div class="pub-entry">
-                    <a href="https://doi.org/10.1103/PhysRevLett.85.4633" target="_blank" class="pub-title">
-                        Structure of growing networks with preferential linking ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span>, A. N. Samukhin</div>
-                    <div class="pub-venue">Physical Review Letters 85 (21), 4633 (2000).</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevE.65.066122" target="_blank" class="pub-title">
+                            Pseudofractal scale-free web ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review E 65 (6), 066122 (2002)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">775+ citations</span>
+                    </div>
                 </div>
 
-                <!-- PRL 2012 Avalanche collapse -->
+                <!-- 6. Evolution of networks with aging of sites (PRE 2000) -->
                 <div class="pub-entry">
-                    <a href="https://doi.org/10.1103/PhysRevLett.109.248701" target="_blank" class="pub-title">
-                        Avalanche collapse of interdependent networks ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">G. J. Baxter, S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Physical Review Letters 109 (24), 248701 (2012).</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevE.62.1842" target="_blank" class="pub-title">
+                            Evolution of networks with aging of sites ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review E 62 (2), 1842 (2000)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">639+ citations</span>
+                    </div>
                 </div>
 
-                <!-- PRL 2006 k-core -->
+                <!-- 7. Language as an evolving word web (Proc. R. Soc. B 2001) -->
                 <div class="pub-entry">
-                    <a href="https://doi.org/10.1103/PhysRevLett.96.040601" target="_blank" class="pub-title">
-                        k-core organization of complex networks ↗&#xFE0E;
-                    </a>
-                    <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                    <div class="pub-venue">Physical Review Letters 96 (4), 040601 (2006).</div>
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1098/rspb.2001.1824" target="_blank" class="pub-title">
+                            Language as an evolving word web ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. Mendes</span></div>
+                        <div class="pub-venue">Proceedings of the Royal Society B: Biological Sciences 268 (1485), 2603 (2001)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">478+ citations</span>
+                    </div>
+                </div>
+
+                <!-- 8. Networks as a novel tool for studying team ball sports (JSMS 2011) -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1016/j.jsams.2010.10.459" target="_blank" class="pub-title">
+                            Networks as a novel tool for studying team ball sports as complex social systems ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">P. Passos, K. Davids, D. Araújo, N. Paz, J. Minguéns, <span class="pub-author-self">J. Mendes</span></div>
+                        <div class="pub-venue">Journal of Science and Medicine in Sport 14 (2), 170–176 (2011)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">417+ citations</span>
+                    </div>
+                </div>
+
+                <!-- 9. Ising model on networks with an arbitrary distribution of connections (arXiv / PRE 2002) -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://arxiv.org/abs/cond-mat/0203227" target="_blank" class="pub-title">
+                            Ising model on networks with an arbitrary distribution of connections ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review E 66 (1), 016104 / arXiv:cond-mat/0203227 (2002)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">412+ citations</span>
+                    </div>
+                </div>
+
+                <!-- 10. Localization and spreading of diseases in complex networks (PRL 2012) -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevLett.109.128702" target="_blank" class="pub-title">
+                            Localization and spreading of diseases in complex networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">A. V. Goltsev, S. N. Dorogovtsev, J. G. Oliveira, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review Letters 109 (12), 128702 (2012)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">411+ citations</span>
+                    </div>
+                </div>
+
+                <!-- 11. Avalanche collapse of interdependent networks (PRL 2012) -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://doi.org/10.1103/PhysRevLett.109.248701" target="_blank" class="pub-title">
+                            Avalanche collapse of interdependent networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">G. J. Baxter, S. N. Dorogovtsev, A. V. Goltsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Physical Review Letters 109 (24), 248701 (2012)</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">392+ citations</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Editorial and Advisory Roles (NOVA SECÇÃO) -->
+        <!-- 4. Books & Monographs (NOVA SECÇÃO ESPECÍFICA) -->
+        <section id="books" class="content-section">
+            <h2>Books &amp; Monographs</h2>
+            <p class="section-desc">Authored reference books and academic research monographs:</p>
+            
+            <div class="pub-list">
+                <!-- Book 1 -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank" class="pub-title">
+                            Evolution of Networks: From Biological Nets to the Internet and WWW ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Oxford University Press (Oxford, 2003) — Foundational monograph on the topology, dynamics, and statistical physics of evolving networks.</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">Oxford Univ. Press</span>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="pub-entry">
+                    <div class="pub-main-info">
+                        <a href="https://global.oup.com/academic/product/the-nature-of-complex-networks-9780199695119" target="_blank" class="pub-title">
+                            The Nature of Complex Networks ↗&#xFE0E;
+                        </a>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue">Oxford University Press (Oxford, 2022) — Comprehensive contemporary treatise on non-equilibrium processes, structural phase transitions, and percolation in networked systems.</div>
+                    </div>
+                    <div>
+                        <span class="pub-cite-badge">Oxford Univ. Press</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Editorial and Advisory Roles -->
         <section id="editorial" class="content-section">
             <h2>Editorial and Advisory Roles</h2>
             <div class="roles-table">
@@ -1021,7 +1176,7 @@
                 </div>
 
                 <div class="role-row">
-                    <div class="role-org">Chaos, Solitons & Fractals</div>
+                    <div class="role-org">Chaos, Solitons &amp; Fractals</div>
                     <div class="role-title">Editorial Board</div>
                     <div class="role-publisher">Elsevier</div>
                 </div>
@@ -1038,15 +1193,15 @@
                     <div class="role-publisher">Nature</div>
                 </div>
                 
-                 <div class="role-row">
-                    <div class="role-org">Jornal Complex Networks</div>
+                <div class="role-row">
+                    <div class="role-org">Journal of Complex Networks</div>
                     <div class="role-title">Editorial Board</div>
                     <div class="role-publisher">OUP</div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. Interactive Collaboration Network -->
+        <!-- 6. Interactive Collaboration Network -->
         <section id="network" class="content-section">
             <h2>Collaboration Network</h2>
             <p class="section-desc">Interactive topology of co-authorship around J. F. F. Mendes:</p>
@@ -1089,7 +1244,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 José Fernando Mendes </p>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
     <!-- Interactive D3 Force Simulation -->
