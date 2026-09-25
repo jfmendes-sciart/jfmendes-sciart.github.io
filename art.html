@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Art Gallery of José Fernando Mendes — Fine Arts, SciArt, Oil and Pastel paintings exploring emergent physical phenomena and aesthetic harmony.">
-    <title>Fine Arts &amp; SciArt Gallery — José Fernando Mendes</title>
+    <meta name="description" content="Artwork Gallery of José Fernando Mendes — Fine Arts, SciArt, Oil and Pastel paintings.">
+    <title>Artwork — José Fernando Mendes</title>
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
     <link rel="icon" href="logo.jpg?v=2" type="image/jpeg">
-    <link rel="apple-touch-icon" href="logo.jpg?v=2">
     
-    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <!-- Google Fonts typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -23,50 +22,38 @@
         :root {
             --primary: #102a43;
             --secondary: #0b69a3;
-            --accent: #00b4d8;
-            --text-main: #334e68;
-            --text-dark: #102a43;
-            --text-muted: #627d98;
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --text-dark: #121212;
+            --text-muted: #71717a;
+            --bg-light: #ffffff;
+            --border-subtle: #f0f0f0;
         }
 
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: var(--text-main);
-            background-color: var(--bg-light);
-            line-height: 1.7;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            font-family: "Inter", sans-serif;
             font-weight: 300;
-            letter-spacing: -0.01em;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
         }
 
         /* -------------------------------------------------------------
-           Header & Navigation
+           Header & Nav
            ------------------------------------------------------------- */
         .site-header {
             background: #ffffff;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #ededed;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .nav-container {
-            max-width: 1140px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
         }
 
         .nav-brand {
@@ -95,9 +82,8 @@
             grid-row: 1;
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.45rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
+            font-weight: 400;
+            letter-spacing: -0.01em;
             line-height: 1.15;
             margin: 0;
         }
@@ -105,26 +91,22 @@
         .nav-brand h1 a {
             text-decoration: none;
             color: inherit;
-            display: block;
         }
 
         .nav-subtitle {
             grid-column: 2;
             grid-row: 2;
-            font-family: "Inter", sans-serif;
             font-size: 0.8rem;
             color: var(--text-muted);
-            font-weight: 400;
             letter-spacing: 0.02em;
             margin-top: 2px;
-            display: block;
             line-height: 1.2;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.35rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
@@ -134,25 +116,16 @@
 
         .nav-link {
             text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.92rem;
-            font-weight: 400;
+            color: #333333;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
             padding: 0.4rem 0;
-            transition: color 0.2s;
-            display: block;
+            transition: opacity 0.2s;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: var(--secondary);
-        }
-
-        .nav-link-btn {
-            background: var(--secondary);
-            color: #fff !important;
-            padding: 0.45rem 1rem;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.88rem;
+            color: #000000;
+            border-bottom: 1px solid #000000;
         }
 
         .dropdown-menu {
@@ -161,12 +134,11 @@
             top: 100%;
             left: 0;
             background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border: 1px solid #ededed;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             min-width: 220px;
             list-style: none;
-            padding: 0.5rem 0;
+            padding: 0.6rem 0;
             z-index: 110;
         }
 
@@ -176,418 +148,227 @@
 
         .dropdown-menu li a {
             display: block;
-            padding: 0.5rem 1.2rem;
-            color: var(--text-main);
+            padding: 0.45rem 1.4rem;
+            color: #444;
             text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 400;
-            transition: background 0.2s, color 0.2s;
+            font-size: 0.85rem;
         }
 
         .dropdown-menu li a:hover {
-            background: var(--bg-light);
-            color: var(--secondary);
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 120;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background-color: var(--text-dark);
-            transition: all 0.3s ease;
+            color: #000000;
+            background: #fafafa;
         }
 
         /* -------------------------------------------------------------
-           Hero Banner
+           Main Container & Joan Mitchell Style Controls
            ------------------------------------------------------------- */
-        .hero-banner {
-            position: relative;
-            width: 100%;
-            height: 32vh;
-            min-height: 220px;
-            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.6)), 
-                        url('banner.jpg'), 
-                        url('https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-banner .quote-text {
-            text-align: center;
-            max-width: 900px;
-            padding: 1.8rem;
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 1.85rem;
-            font-style: italic;
-            font-weight: 300;
-            line-height: 1.5;
-            color: #ffffff;
-            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
-        }
-
-        /* -------------------------------------------------------------
-           Gallery Container & Controls
-           ------------------------------------------------------------- */
-        .container {
-            max-width: 1140px;
+        .gallery-wrap {
+            max-width: 1320px;
             margin: 0 auto;
-            padding: 2.5rem 1.5rem 5rem;
+            padding: 4rem 2.5rem 6rem;
         }
 
-        .gallery-header {
-            margin-bottom: 2rem;
+        .gallery-intro {
+            margin-bottom: 3.5rem;
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: flex-end;
-            gap: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-
-        .gallery-header h2 {
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            color: var(--text-dark);
-            line-height: 1.2;
-        }
-
-        .gallery-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 0.25rem;
-        }
-
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            gap: 0.5rem;
             flex-wrap: wrap;
+            gap: 1.5rem;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 1.8rem;
+        }
+
+        .gallery-intro h2 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: #111111;
+        }
+
+        .filter-nav {
+            display: flex;
+            gap: 1.8rem;
         }
 
         .filter-btn {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            padding: 0.45rem 1.1rem;
-            border-radius: 20px;
+            background: none;
+            border: none;
+            padding: 0.2rem 0;
+            font-family: "Inter", sans-serif;
             font-size: 0.85rem;
-            font-weight: 400;
-            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888888;
             cursor: pointer;
-            transition: all 0.2s ease;
+            position: relative;
+            transition: color 0.2s ease;
         }
 
         .filter-btn:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
+            color: #111111;
         }
 
         .filter-btn.active {
-            background: var(--secondary);
-            color: #ffffff;
-            border-color: var(--secondary);
-        }
-
-        /* Gallery Grid (3x3 = 9 itens por ecrã completo) */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .art-card {
-            background: #ffffff;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .art-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .art-image-wrap {
-            position: relative;
-            width: 100%;
-            height: 270px;
-            background: #e2e8f0;
-            overflow: hidden;
-        }
-
-        .art-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.35s ease;
-        }
-
-        .art-card:hover .art-image-wrap img {
-            transform: scale(1.03);
-        }
-
-        .art-info {
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            background: #ffffff;
-        }
-
-        .art-title {
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 1.25rem;
+            color: #111111;
             font-weight: 500;
-            color: var(--text-dark);
-            line-height: 1.3;
         }
 
-        .art-meta {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            align-items: center;
-        }
-
-        .art-medium-badge {
-            background: #e1f0fa;
-            color: var(--secondary);
-            font-size: 0.72rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 500;
-            letter-spacing: 0.02em;
+        .filter-btn.active::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #111111;
         }
 
         /* -------------------------------------------------------------
-           Pagination Controls & Summary
+           Artwork Grid (Joan Mitchell Foundation inspired)
            ------------------------------------------------------------- */
-        .pagination-wrapper {
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 3.5rem;
+            row-gap: 4.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .artwork-item {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .artwork-item:hover {
+            opacity: 0.82;
+        }
+
+        .artwork-frame {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafafa;
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+        }
+
+        .artwork-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+        }
+
+        .artwork-caption {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .artwork-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #111111;
+            line-height: 1.25;
+        }
+
+        .artwork-meta {
+            font-family: "Inter", sans-serif;
+            font-size: 0.82rem;
+            color: #71717a;
+            font-weight: 300;
+            margin-top: 0.15rem;
+        }
+
+        /* -------------------------------------------------------------
+           Pagination Controls
+           ------------------------------------------------------------- */
+        .pagination-bar {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid #f0f0f0;
         }
 
-        .pagination-container {
+        .pagination-links {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 0.45rem;
+            gap: 0.4rem;
         }
 
-        .page-btn {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            min-width: 40px;
-            height: 40px;
-            padding: 0 0.6rem;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .page-link-btn {
+            background: none;
+            border: 1px solid transparent;
+            font-family: "Inter", sans-serif;
             font-size: 0.88rem;
-            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            color: #555555;
             transition: all 0.2s;
         }
 
-        .page-btn:hover:not(:disabled) {
-            border-color: var(--secondary);
-            color: var(--secondary);
-            background: #f0f7fc;
+        .page-link-btn:hover:not(:disabled) {
+            color: #000000;
+            border-color: #cccccc;
         }
 
-        .page-btn.active {
-            background: var(--secondary);
-            border-color: var(--secondary);
-            color: #ffffff;
-        }
-
-        .page-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            border-color: var(--border-color);
-        }
-
-        .page-info {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        /* Lightbox / Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 300;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(10, 25, 47, 0.92);
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .modal.open {
-            display: flex;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .modal-image-container {
-            max-height: 75vh;
-            background: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-image-container img {
-            max-width: 100%;
-            max-height: 75vh;
-            object-fit: contain;
-            display: block;
-        }
-
-        .modal-details {
-            padding: 1.2rem 1.8rem;
-            background: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .modal-title {
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 1.45rem;
+        .page-link-btn.active {
+            color: #000000;
             font-weight: 500;
-            color: var(--text-dark);
+            border-color: #000000;
         }
 
-        .modal-caption {
-            font-size: 0.88rem;
-            color: var(--text-muted);
+        .page-link-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.4rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.4);
+        .page-summary {
+            font-size: 0.8rem;
+            color: #999999;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         footer {
             text-align: center;
-            padding: 2.5rem 1rem;
-            color: #829ab1;
-            font-size: 0.85rem;
-            font-weight: 300;
-            border-top: 1px solid var(--border-color);
-            background: #fff;
-            margin-top: 3rem;
+            padding: 3rem 1rem;
+            color: #a1a1aa;
+            font-size: 0.8rem;
+            border-top: 1px solid #ededed;
         }
 
-        @media (max-width: 860px) {
-            .nav-toggle {
-                display: flex;
+        @media (max-width: 1024px) {
+            .artwork-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
             }
+        }
 
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1.2rem 1.5rem 2rem;
-                border-bottom: 1px solid var(--border-color);
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-                gap: 0.8rem;
-                z-index: 100;
-                max-height: 75vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .nav-menu.nav-open {
-                display: flex;
-            }
-
-            .nav-item-dropdown {
-                width: 100%;
-            }
-
-            .dropdown-menu {
-                position: static;
-                display: block;
-                box-shadow: none;
-                border: none;
-                padding-left: 0.8rem;
-                margin-top: 0.2rem;
-            }
-
-            .gallery-grid {
+        @media (max-width: 640px) {
+            .artwork-grid {
                 grid-template-columns: 1fr;
+            }
+            .artwork-frame {
+                height: 300px;
+            }
+            .gallery-wrap {
+                padding: 2.5rem 1.5rem;
             }
         }
     </style>
@@ -596,506 +377,182 @@
 
     <!-- Header / Navigation -->
     <header class="site-header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-brand">
-                    <h1><a href="index.html">José Fernando Mendes</a></h1>
-                    <p class="nav-subtitle">Professor of Physics and Artist</p>
-                </div>
-
-                <!-- Botão Hambúrguer Mobile -->
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <!-- Menu de Navegação -->
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    
-                    <!-- Research Dropdown -->
-                    <li class="nav-item-dropdown">
-                        <a href="research.html" class="nav-link">Research</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="research.html#stats">Overview &amp; Stats</a></li>
-                            <li><a href="research.html#interests">Interests</a></li>
-                            <li><a href="research.html#publications">Publications</a></li>
-                            <li><a href="research.html#editorial">Editorial &amp; Advisory</a></li>
-                            <li><a href="research.html#network">Collaboration Network</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Teaching Dropdown -->
-                    <li class="nav-item-dropdown">
-                        <a href="teaching.html" class="nav-link">Teaching</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="teaching.html#philosophy">Philosophy</a></li>
-                            <li><a href="teaching.html#courses">Courses</a></li>
-                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Art Dropdown -->
-                    <li class="nav-item-dropdown">
-                        <a href="art.html" class="nav-link active">Art</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="art.html?medium=oil">Oil painting</a></li>
-                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- About Me Dropdown -->
-                    <li class="nav-item-dropdown">
-                        <a href="about.html" class="nav-link">About Me</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="about.html#biography">Biography</a></li>
-                            <li><a href="about.html#personal-details">Personal Details</a></li>
-                            <li><a href="about.html#passions">Passions</a></li>
-                            <li><a href="about.html#favourites">Favourites</a></li>
-                            <li><a href="about.html#visited-places">Visited Places</a></li>
-                            <li><a href="about.html#motto">Personal Motto</a></li>
-                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="cv.html" class="nav-link">CV</a></li>
-                    <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
-                </ul>
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <h1><a href="index.html">José Fernando Mendes</a></h1>
+                <p class="nav-subtitle">Professor of Physics and Artist</p>
             </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="research.html" class="nav-link">Research</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="research.html#stats">Overview &amp; Stats</a></li>
+                        <li><a href="research.html#publications">Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="teaching.html" class="nav-link">Teaching</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="art.html" class="nav-link active">Art</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="art.html?medium=oil">Oil painting</a></li>
+                        <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html" class="nav-link">About Me</a></li>
+                <li><a href="cv.html" class="nav-link">CV</a></li>
+                <li><a href="mailto:jfmendes@ua.pt" class="nav-link">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
-    <!-- Top Hero Banner -->
-    <div class="hero-banner">
-        <p class="quote-text">Unveiling emergent landscapes in science and on canvas.</p>
-    </div>
-
-    <!-- Main Container -->
-    <main class="container">
-        
-        <div class="gallery-header">
+    <main class="gallery-wrap">
+        <section class="gallery-intro">
             <div>
-                <h2>Selected Artworks</h2>
-                <p>Explorations in Oil and Soft Pastel bridging statistical physics with artistic abstraction.</p>
+                <h2>Artwork</h2>
             </div>
             
-            <!-- Filters -->
-            <div class="filter-tabs">
+            <div class="filter-nav">
                 <button class="filter-btn active" data-filter="all">All Works</button>
-                <button class="filter-btn" data-filter="oil">Oil Painting</button>
-                <button class="filter-btn" data-filter="pastel">Soft Pastel</button>
+                <button class="filter-btn" data-filter="oil">Oil</button>
+                <button class="filter-btn" data-filter="pastel">Pastel</button>
             </div>
+        </section>
+
+        <!-- Dynamic Grid -->
+        <div class="artwork-grid" id="artworkGrid"></div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-bar">
+            <div class="pagination-links" id="paginationLinks"></div>
+            <div class="page-summary" id="pageSummary"></div>
         </div>
-
-        <!-- Dynamic Grid of Artworks -->
-        <div class="gallery-grid" id="galleryGrid"></div>
-
-        <!-- Pagination Controls and Counter -->
-        <div class="pagination-wrapper">
-            <div class="pagination-container" id="paginationControls"></div>
-            <div class="page-info" id="pageInfo"></div>
-        </div>
-
     </main>
 
-    <!-- Fullscreen Lightbox Modal -->
-    <div class="modal" id="artModal">
-        <button class="modal-close" id="modalClose">&times;</button>
-        <div class="modal-content">
-            <div class="modal-image-container">
-                <img id="modalImg" src="" alt="Artwork enlarged">
-            </div>
-            <div class="modal-details">
-                <div>
-                    <h3 class="modal-title" id="modalTitle">Artwork Title</h3>
-                    <p class="modal-caption" id="modalCaption">Medium &middot; Dimensions &middot; Year</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 José Fernando Mendes </p>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro</p>
     </footer>
 
-    <!-- Logic Script: 18 Artworks, 9 per Page Pagination, Filtering and Lightbox -->
+    <!-- Shared Artworks Database & Presentation Script -->
+    <script src="artworks-data.js"></script>
     <script>
-        // Catálogo com 18 obras para testar e demonstrar a paginação de 9 em 9
-        const artworks = [
-            {
-                id: 1,
-                title: "Emergence of Connectivity I",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "80 x 100 cm",
-                year: "2024",
-                src: "art/oil_01.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 2,
-                title: "Critical Phase Transition",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "50 x 70 cm",
-                year: "2023",
-                src: "art/pastel_01.jpg",
-                fallback: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 3,
-                title: "Percolation Landscapes",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "90 x 120 cm",
-                year: "2023",
-                src: "art/oil_02.jpg",
-                fallback: "https://images.unsplash.com/photo-1549887534-1541e9326642?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 4,
-                title: "Non-Equilibrium Horizon",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "60 x 80 cm",
-                year: "2022",
-                src: "art/pastel_02.jpg",
-                fallback: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 5,
-                title: "Topological Flux",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "70 x 90 cm",
-                year: "2024",
-                src: "art/oil_03.jpg",
-                fallback: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 6,
-                title: "Entropic Harmony",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "40 x 60 cm",
-                year: "2021",
-                src: "art/pastel_03.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 7,
-                title: "Interdependent Clusters",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "100 x 100 cm",
-                year: "2023",
-                src: "art/oil_04.jpg",
-                fallback: "https://images.unsplash.com/photo-1576769267415-9642010aa962?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 8,
-                title: "Diffusion Gradient",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "50 x 65 cm",
-                year: "2022",
-                src: "art/pastel_04.jpg",
-                fallback: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 9,
-                title: "Resonance in Blue",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "80 x 120 cm",
-                year: "2024",
-                src: "art/oil_05.jpg",
-                fallback: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=800&q=80"
-            },
-            // PÁGINA 2 (Itens 10 a 18)
-            {
-                id: 10,
-                title: "Cascading Failures & Light",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "90 x 90 cm",
-                year: "2023",
-                src: "art/oil_06.jpg",
-                fallback: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 11,
-                title: "Thermal Fluctuation",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "45 x 60 cm",
-                year: "2021",
-                src: "art/pastel_05.jpg",
-                fallback: "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 12,
-                title: "Stochastic Geometry",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "100 x 130 cm",
-                year: "2022",
-                src: "art/oil_07.jpg",
-                fallback: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 13,
-                title: "Chromatic Percolation",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "50 x 70 cm",
-                year: "2023",
-                src: "art/pastel_06.jpg",
-                fallback: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 14,
-                title: "Multiplex Horizon",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "75 x 100 cm",
-                year: "2024",
-                src: "art/oil_08.jpg",
-                fallback: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 15,
-                title: "Kinetic Equilibrium",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "40 x 50 cm",
-                year: "2020",
-                src: "art/pastel_07.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783928621-7a13d66a62d1?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 16,
-                title: "Scale-Free Continuum",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "110 x 140 cm",
-                year: "2023",
-                src: "art/oil_09.jpg",
-                fallback: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 17,
-                title: "Vortices in Twilight",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "55 x 75 cm",
-                year: "2022",
-                src: "art/pastel_08.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783901586-7880cb8c30a2?auto=format&fit=crop&w=800&q=80"
-            },
-            {
-                id: 18,
-                title: "Emergence of Connectivity II",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "85 x 115 cm",
-                year: "2024",
-                src: "art/oil_10.jpg",
-                fallback: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80"
-            }
-        ];
-
-        // Configuração: 9 itens por defeito
         const ITEMS_PER_PAGE = 9;
         let currentFilter = 'all';
         let currentPage = 1;
 
-        // Leitura de parâmetros de URL (ex: art.html?medium=oil)
+        // Suporte para URL ex: art.html?medium=oil
         const urlParams = new URLSearchParams(window.location.search);
         const mediumParam = urlParams.get('medium');
         if (mediumParam && (mediumParam === 'oil' || mediumParam === 'pastel')) {
             currentFilter = mediumParam;
         }
 
-        const galleryGrid = document.getElementById('galleryGrid');
-        const paginationControls = document.getElementById('paginationControls');
-        const pageInfo = document.getElementById('pageInfo');
+        const grid = document.getElementById('artworkGrid');
+        const paginationLinks = document.getElementById('paginationLinks');
+        const pageSummary = document.getElementById('pageSummary');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
-        // Elementos do Modal Lightbox
-        const artModal = document.getElementById('artModal');
-        const modalImg = document.getElementById('modalImg');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalCaption = document.getElementById('modalCaption');
-        const modalClose = document.getElementById('modalClose');
-
         function renderGallery() {
-            // Filtragem
-            const filtered = artworks.filter(item => {
+            const filtered = artworksData.filter(item => {
                 if (currentFilter === 'all') return true;
                 return item.medium === currentFilter;
             });
 
-            // Cálculo das Páginas
             const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
             if (currentPage > totalPages) currentPage = 1;
 
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-            const endIndex = startIndex + ITEMS_PER_PAGE;
-            const currentItems = filtered.slice(startIndex, endIndex);
+            const currentItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-            // Renderização dos Cartões
-            galleryGrid.innerHTML = '';
+            grid.innerHTML = '';
             if (currentItems.length === 0) {
-                galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem 0;">No artworks found in this category.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 4rem 0;">No artworks available in this category.</p>';
             } else {
                 currentItems.forEach(art => {
-                    const card = document.createElement('div');
-                    card.className = 'art-card';
-                    card.innerHTML = `
-                        <div class="art-image-wrap">
+                    const item = document.createElement('a');
+                    item.className = 'artwork-item';
+                    item.href = `artwork-detail.html?id=${art.id}`;
+                    item.innerHTML = `
+                        <div class="artwork-frame">
                             <img src="${art.src}" alt="${art.title}" onerror="this.onerror=null; this.src='${art.fallback}';">
                         </div>
-                        <div class="art-info">
-                            <h3 class="art-title">${art.title}</h3>
-                            <div class="art-meta">
-                                <span class="art-medium-badge">${art.mediumLabel}</span>
-                                <span>${art.dimensions}</span>
-                                <span>&middot;</span>
-                                <span>${art.year}</span>
-                            </div>
+                        <div class="artwork-caption">
+                            <div class="artwork-title">${art.title}</div>
+                            <div class="artwork-meta">${art.year} &middot; ${art.mediumLabel}</div>
                         </div>
                     `;
-                    card.addEventListener('click', () => openModal(art));
-                    galleryGrid.appendChild(card);
+                    grid.appendChild(item);
                 });
             }
 
-            // Renderizar Controlos de Paginação e Contador
-            renderPagination(totalPages, filtered.length, startIndex, endIndex);
+            renderPagination(totalPages, filtered.length, startIndex, startIndex + currentItems.length);
         }
 
-        function renderPagination(totalPages, totalItems, startIndex, endIndex) {
-            paginationControls.innerHTML = '';
-            pageInfo.innerHTML = '';
+        function renderPagination(totalPages, totalItems, start, end) {
+            paginationLinks.innerHTML = '';
+            pageSummary.innerHTML = '';
 
             if (totalItems === 0) return;
 
-            // Contador de itens visíveis
-            const displayEnd = Math.min(endIndex, totalItems);
-            pageInfo.textContent = `Showing ${startIndex + 1}–${displayEnd} of ${totalItems} artworks (Page ${currentPage} of ${totalPages})`;
+            pageSummary.textContent = `${start + 1}–${end} of ${totalItems} Works &middot; Page ${currentPage} of ${totalPages}`;
 
             if (totalPages <= 1) return;
 
-            // Botão Página Anterior
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'page-btn';
-            prevBtn.innerHTML = '&larr; Prev';
-            prevBtn.disabled = (currentPage === 1);
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderGallery();
-                    scrollToGallery();
-                }
-            });
-            paginationControls.appendChild(prevBtn);
+            // Botão Prev
+            const prev = document.createElement('button');
+            prev.className = 'page-link-btn';
+            prev.textContent = '← Prev';
+            prev.disabled = (currentPage === 1);
+            prev.onclick = () => {
+                currentPage--;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            paginationLinks.appendChild(prev);
 
-            // Botões Numéricos
+            // Páginas 1, 2...
             for (let i = 1; i <= totalPages; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                pageBtn.textContent = i;
-                pageBtn.addEventListener('click', () => {
+                const btn = document.createElement('button');
+                btn.className = `page-link-btn ${i === currentPage ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.onclick = () => {
                     currentPage = i;
                     renderGallery();
-                    scrollToGallery();
-                });
-                paginationControls.appendChild(pageBtn);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                paginationLinks.appendChild(btn);
             }
 
-            // Botão Página Seguinte
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'page-btn';
-            nextBtn.innerHTML = 'Next &rarr;';
-            nextBtn.disabled = (currentPage === totalPages);
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderGallery();
-                    scrollToGallery();
-                }
-            });
-            paginationControls.appendChild(nextBtn);
-        }
-
-        function scrollToGallery() {
-            window.scrollTo({
-                top: document.querySelector('.gallery-header').offsetTop - 90,
-                behavior: 'smooth'
-            });
+            // Botão Next
+            const next = document.createElement('button');
+            next.className = 'page-link-btn';
+            next.textContent = 'Next →';
+            next.disabled = (currentPage === totalPages);
+            next.onclick = () => {
+                currentPage++;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            paginationLinks.appendChild(next);
         }
 
         // Filtros
         filterBtns.forEach(btn => {
-            const filterValue = btn.getAttribute('data-filter');
-            if (filterValue === currentFilter) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
+            const val = btn.getAttribute('data-filter');
+            if (val === currentFilter) btn.classList.add('active');
+            else btn.classList.remove('active');
 
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                currentFilter = filterValue;
+                currentFilter = val;
                 currentPage = 1;
                 renderGallery();
-            });
+            };
         });
 
-        // Modal Lightbox
-        function openModal(art) {
-            modalImg.src = art.src;
-            modalImg.onerror = () => { modalImg.src = art.fallback; };
-            modalTitle.textContent = art.title;
-            modalCaption.textContent = `${art.mediumLabel} · ${art.dimensions} · ${art.year}`;
-            artModal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            artModal.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        }
-
-        modalClose.addEventListener('click', closeModal);
-        artModal.addEventListener('click', (e) => {
-            if (e.target === artModal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && artModal.classList.contains('open')) closeModal();
-        });
-
-        // Script do menu hambúrguer para mobile
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        if (navToggle && navMenu) {
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('nav-open');
-            });
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('nav-open');
-                });
-            });
-        }
-
-        // Inicializar exibição
         renderGallery();
     </script>
-
 </body>
 </html>
