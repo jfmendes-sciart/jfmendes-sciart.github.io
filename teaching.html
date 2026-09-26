@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Teaching and academic course syllabi by José Fernando Mendes at the Department of Physics, University of Aveiro.">
+    <meta name="description" content="Teaching, academic course syllabi, student awards, and pedagogical recognition of José Fernando Mendes at the Department of Physics, University of Aveiro.">
     <title>Teaching &amp; Academic Courses — José Fernando Mendes</title>
     
     <!-- Favicon -->
@@ -24,6 +24,9 @@
             --primary: #102a43;
             --secondary: #0b69a3;
             --accent: #00b4d8;
+            --gold: #b7791f;
+            --gold-bg: #fffaf0;
+            --gold-border: #fbd38d;
             --text-main: #334e68;
             --text-dark: #102a43;
             --text-muted: #627d98;
@@ -211,23 +214,20 @@
         /* -------------------------------------------------------------
            Hero Banner
            ------------------------------------------------------------- */
-    
-.hero-banner {
-    position: relative;
-    width: 100%;
-    height: 32vh;
-    min-height: 220px;
-    background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
-                url('banner-aula.jpg?v=1');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 32vh;
+            min-height: 220px;
+            background: linear-gradient(rgba(10, 25, 47, 0.55), rgba(10, 25, 47, 0.55)), 
+                        url('banner-aula.jpg?v=1');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-
-        
         .hero-banner .quote-text {
             text-align: center;
             max-width: 900px;
@@ -292,6 +292,93 @@
             flex-grow: 1;
             height: 1px;
             background: #e2e8f0;
+        }
+
+        /* -------------------------------------------------------------
+           Awards Section
+           ------------------------------------------------------------- */
+        .awards-intro {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .award-card {
+            background: var(--gold-bg);
+            border: 1px solid var(--gold-border);
+            border-left: 4.5px solid var(--gold);
+            border-radius: 8px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 14px rgba(183, 121, 31, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(183, 121, 31, 0.12);
+        }
+
+        .award-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .award-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 0.76rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .award-year {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .award-card h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: #744210;
+            line-height: 1.25;
+            margin-bottom: 0.4rem;
+        }
+
+        .award-subtitle {
+            font-size: 0.85rem;
+            color: #975a16;
+            font-weight: 500;
+            margin-bottom: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .award-desc {
+            font-size: 0.93rem;
+            color: #4a5568;
+            line-height: 1.65;
+            font-weight: 300;
         }
 
         /* -------------------------------------------------------------
@@ -517,7 +604,7 @@
                 margin-top: 0.2rem;
             }
 
-            .courses-grid {
+            .courses-grid, .awards-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -561,6 +648,7 @@
                     <li class="nav-item-dropdown">
                         <a href="teaching.html" class="nav-link active">Teaching</a>
                         <ul class="dropdown-menu">
+                            <li><a href="teaching.html#awards">Teaching Awards</a></li>
                             <li><a href="teaching.html#courses">Recent Courses</a></li>
                             <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
                             <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
@@ -608,10 +696,52 @@
         <!-- Header da Página -->
         <header class="teaching-header">
             <h1>Teaching &amp; Academic Courses</h1>
-            <p>Curricular units taught at the Department of Physics (DFis), University of Aveiro, emphasizing fundamental theoretical principles, physical modeling, and the development of analytical problem-solving intuition.</p>
+            <p>Curricular units, pedagogical awards, and academic mentorship at the Department of Physics (DFis), University of Aveiro, emphasizing theoretical rigor, physical modeling, and independent analytical intuition.</p>
         </header>
 
-        <!-- Secção 1: As 3 UCs -->
+        <!-- Secção: Reconhecimento e Prémios Pedagógicos -->
+        <section class="section-block" id="awards">
+            <h2 class="section-title">Teaching Recognition &amp; Student Awards</h2>
+            <p class="awards-intro">
+                Direct recognition from the student body at the Department of Physics, University of Aveiro, celebrating dedication to pedagogical excellence, clarity in lectures, and unwavering student support:
+            </p>
+
+            <div class="awards-grid">
+                
+                <!-- Award 2025 -->
+                <div class="award-card">
+                    <div>
+                        <div class="award-header">
+                            <span class="award-badge">Student Vote &middot; DFis</span>
+                            <span class="award-year">2025</span>
+                        </div>
+                        <h3>"Hero of Physics" Award</h3>
+                        <div class="award-subtitle">Department of Physics &middot; University of Aveiro</div>
+                        <p class="award-desc">
+                            Voted by undergraduate and graduate physics students in recognition of outstanding pedagogical clarity, inspirational lecturing, and continuous academic mentorship.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Award 2021 -->
+                <div class="award-card">
+                    <div>
+                        <div class="award-header">
+                            <span class="award-badge">Student Vote &middot; DFis</span>
+                            <span class="award-year">2021</span>
+                        </div>
+                        <h3>"Hero of Physics" Award</h3>
+                        <div class="award-subtitle">Department of Physics &middot; University of Aveiro</div>
+                        <p class="award-desc">
+                            Awarded by physics students honoring pedagogical dedication, accessibility, and high educational commitment during challenging academic teaching periods.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Secção: As 3 UCs -->
         <section class="section-block" id="courses">
             <h2 class="section-title">Core Curricular Units (DFis / UA)</h2>
             
@@ -696,7 +826,7 @@
             </div>
         </section>
 
-        <!-- Secção 2: Filosofia Pedagógica -->
+        <!-- Secção: Filosofia Pedagógica -->
         <section class="section-block" id="philosophy">
             <h2 class="section-title">Teaching Philosophy</h2>
             <div class="info-panel">
@@ -709,7 +839,7 @@
             </div>
         </section>
 
-        <!-- Secção 3: Orientação e Mentoria -->
+        <!-- Secção: Orientação e Mentoria -->
         <section class="section-block" id="supervision">
             <h2 class="section-title">Mentoring &amp; Student Supervision</h2>
             <div class="supervision-grid">
@@ -732,7 +862,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 José Fernando Mendes </p>
+        <p>&copy; 2026 José Fernando Mendes | University of Aveiro | Department of Physics &amp; i3N</p>
     </footer>
 
     <!-- Mobile Navigation Toggle Script -->
@@ -755,5 +885,3 @@
 
 </body>
 </html>
-
-```
