@@ -536,6 +536,42 @@
         }
 
         /* -------------------------------------------------------------
+           Books Layout with Book Cover Image
+           ------------------------------------------------------------- */
+        .book-entry {
+            padding: 1.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .book-entry:last-child {
+            border-bottom: none;
+        }
+
+        .book-cover-wrap {
+            flex-shrink: 0;
+            width: 110px;
+        }
+
+        .book-cover-img {
+            width: 100%;
+            height: auto;
+            max-height: 165px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            display: block;
+            background-color: #f1f5f9;
+        }
+
+        .book-details {
+            flex: 1;
+        }
+
+        /* -------------------------------------------------------------
            Editorial & Advisory Roles Table
            ------------------------------------------------------------- */
         .roles-table {
@@ -736,6 +772,15 @@
             .pub-entry {
                 flex-direction: column;
                 gap: 0.6rem;
+            }
+
+            .book-entry {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+
+            .book-cover-wrap {
+                width: 120px;
             }
             
             .role-row {
@@ -1123,37 +1168,51 @@
             </div>
         </section>
 
-        <!-- 4. Books & Monographs (SECÇÃO DEDICADA) -->
+        <!-- 4. Books & Monographs (COM IMAGENS DAS CAPAS: capa1.jpg e capa2.jpg) -->
         <section id="books" class="content-section">
             <h2>Books &amp; Monographs</h2>
             <p class="section-desc">Authored reference books and academic research monographs:</p>
             
             <div class="pub-list">
                 <!-- Book 1 -->
-                <div class="pub-entry">
-                    <div class="pub-main-info">
-                        <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank" class="pub-title">
-                            Evolution of Networks: From Biological Nets to the Internet and WWW ↗&#xFE0E;
+                <div class="book-entry">
+                    <div class="book-cover-wrap">
+                        <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank">
+                            <img src="capa1.jpg" alt="Cover of Evolution of Networks" class="book-cover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=300&q=80';">
                         </a>
-                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                        <div class="pub-venue">Oxford University Press (Oxford, 2003) — Foundational monograph on the topology, dynamics, and statistical physics of evolving networks.</div>
                     </div>
-                    <div>
-                        <span class="pub-cite-badge">Oxford Univ. Press</span>
+                    <div class="book-details">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                            <a href="https://global.oup.com/academic/product/evolution-of-networks-9780198515906" target="_blank" class="pub-title">
+                                Evolution of Networks: From Biological Nets to the Internet and WWW ↗&#xFE0E;
+                            </a>
+                            <span class="pub-cite-badge">Oxford Univ. Press</span>
+                        </div>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue" style="margin-top: 0.5rem; line-height: 1.6;">
+                            Oxford University Press (Oxford, 2003) — Foundational monograph on the topology, dynamics, and statistical physics of evolving networks.
+                        </div>
                     </div>
                 </div>
 
                 <!-- Book 2 -->
-                <div class="pub-entry">
-                    <div class="pub-main-info">
-                        <a href="https://global.oup.com/academic/product/the-nature-of-complex-networks-9780199695119" target="_blank" class="pub-title">
-                            The Nature of Complex Networks ↗&#xFE0E;
+                <div class="book-entry">
+                    <div class="book-cover-wrap">
+                        <a href="https://global.oup.com/academic/product/the-nature-of-complex-networks-9780199695119" target="_blank">
+                            <img src="capa2.jpg" alt="Cover of The Nature of Complex Networks" class="book-cover-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1532012164546-f432f2e3777f?auto=format&fit=crop&w=300&q=80';">
                         </a>
-                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
-                        <div class="pub-venue">Oxford University Press (Oxford, 2022) — Comprehensive contemporary treatise on non-equilibrium processes, structural phase transitions, and percolation in networked systems.</div>
                     </div>
-                    <div>
-                        <span class="pub-cite-badge">Oxford Univ. Press</span>
+                    <div class="book-details">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                            <a href="https://global.oup.com/academic/product/the-nature-of-complex-networks-9780199695119" target="_blank" class="pub-title">
+                                The Nature of Complex Networks ↗&#xFE0E;
+                            </a>
+                            <span class="pub-cite-badge">Oxford Univ. Press</span>
+                        </div>
+                        <div class="pub-authors">S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-venue" style="margin-top: 0.5rem; line-height: 1.6;">
+                            Oxford University Press (Oxford, 2022) — Comprehensive contemporary treatise on non-equilibrium processes, structural phase transitions, and percolation in networked systems.
+                        </div>
                     </div>
                 </div>
             </div>
