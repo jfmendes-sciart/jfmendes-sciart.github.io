@@ -336,6 +336,12 @@
             margin-top: 1.2rem;
         }
 
+        .hobby-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+        }
+
         .hobby-card {
             background: #ffffff;
             border: 1px solid var(--border-color);
@@ -346,17 +352,13 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
+            width: 100%;
         }
 
         .hobby-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.07);
             border-color: var(--secondary);
-        }
-
-        .hobby-card.clickable {
-            cursor: pointer;
         }
 
         .hobby-icon-header {
@@ -421,98 +423,12 @@
             font-size: 0.88rem;
             color: var(--secondary);
             font-weight: 500;
-            text-decoration: none;
             transition: gap 0.2s ease;
         }
 
         .hobby-card:hover .hobby-action-link {
             gap: 0.65rem;
             text-decoration: underline;
-        }
-
-        /* -------------------------------------------------------------
-           Modal de Vídeos de Bateria (Drums Lightbox)
-           ------------------------------------------------------------- */
-        .drums-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(10, 25, 47, 0.88);
-            backdrop-filter: blur(6px);
-            z-index: 3000;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .drums-modal.open {
-            display: flex;
-        }
-
-        .drums-modal-content {
-            background: #ffffff;
-            border-radius: 12px;
-            max-width: 860px;
-            width: 100%;
-            padding: 2.2rem;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .drums-modal-close {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.4rem;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: #627d98;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .drums-modal-close:hover {
-            color: #102a43;
-        }
-
-        .drums-modal h3 {
-            font-family: "Newsreader", Georgia, serif;
-            font-size: 2rem;
-            color: var(--text-dark);
-            margin-bottom: 0.4rem;
-            font-weight: 500;
-        }
-
-        .drums-modal p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .drums-video-placeholder {
-            background: #0b192c;
-            border-radius: 8px;
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            color: #fff;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 280px;
-        }
-
-        .drums-video-placeholder svg {
-            width: 48px;
-            height: 48px;
-            fill: #00b4d8;
-            margin-bottom: 1rem;
         }
 
         /* Motto blockquote */
@@ -769,6 +685,7 @@
                             <li><a href="about.html#personal-details">Personal Details</a></li>
                             <li><a href="about.html#passions">Passions</a></li>
                             <li><a href="about.html#hobbies">Hobbies &amp; Leisure</a></li>
+                            <li><a href="drums.html">Drums Sessions</a></li>
                             <li><a href="about.html#favourites">Favourites</a></li>
                             <li><a href="about.html#visited-places">Visited Places</a></li>
                             <li><a href="about.html#motto">Personal Motto</a></li>
@@ -852,7 +769,7 @@
             </p>
         </section>
 
-        <!-- NOVA SECÇÃO: Hobbies & Leisure -->
+        <!-- Hobbies & Leisure -->
         <section id="hobbies" class="content-section">
             <h2>Hobbies &amp; Leisure</h2>
             <p style="font-size: 0.98rem; color: var(--text-muted); margin-bottom: 1.5rem;">
@@ -861,32 +778,32 @@
 
             <div class="hobbies-grid">
                 
-                <!-- Hobby 1: Playing Drums (Clicável com Modal de Vídeos) -->
-                <div class="hobby-card clickable" id="openDrumsModal">
-                    <div>
-                        <div class="hobby-icon-header">
-                            <div class="hobby-icon-circle">
-                                <!-- Ícone Percussão / Drums -->
-                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 4.02 2 6.5v11C2 19.98 6.48 22 12 22s10-2.02 10-4.5v-11C22 4.02 17.52 2 12 2zm0 2c4.42 0 8 1.34 8 2.5S16.42 9 12 9 4 7.66 4 6.5 7.58 4 12 4zm8 13.5c0 .64-1.39 1.51-3.64 2.01l-2.61-4.71 1.74-.97 4.51 3.67zm-8 2.5c-4.42 0-8-1.34-8-2.5v-2.34l3.77 2.09 2.45-4.41L12 14.5l3.78.34 2.45 4.41L20 17.16v2.34c0 1.16-3.58 2.5-8 2.5z"/></svg>
+                <!-- Hobby 1: Playing Drums (Liga diretamente a drums.html) -->
+                <a href="drums.html" class="hobby-card-link">
+                    <div class="hobby-card">
+                        <div>
+                            <div class="hobby-icon-header">
+                                <div class="hobby-icon-circle">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 4.02 2 6.5v11C2 19.98 6.48 22 12 22s10-2.02 10-4.5v-11C22 4.02 17.52 2 12 2zm0 2c4.42 0 8 1.34 8 2.5S16.42 9 12 9 4 7.66 4 6.5 7.58 4 12 4zm8 13.5c0 .64-1.39 1.51-3.64 2.01l-2.61-4.71 1.74-.97 4.51 3.67zm-8 2.5c-4.42 0-8-1.34-8-2.5v-2.34l3.77 2.09 2.45-4.41L12 14.5l3.78.34 2.45 4.41L20 17.16v2.34c0 1.16-3.58 2.5-8 2.5z"/></svg>
+                                </div>
+                                <span class="hobby-badge action">Watch Videos ↗</span>
                             </div>
-                            <span class="hobby-badge action">Watch Videos ↗</span>
+                            <h3>Playing Drums</h3>
+                            <p class="hobby-desc">
+                                A lifelong passion for rhythm, jazz grooves, and rock tempo. Exploring polyrhythms and dynamic synchronization on the drum kit provides an exhilarating acoustic counterpart to structural physics.
+                            </p>
                         </div>
-                        <h3>Playing Drums</h3>
-                        <p class="hobby-desc">
-                            A lifelong passion for rhythm, jazz grooves, and rock tempo. Exploring polyrhythms and dynamic synchronization on the drum kit provides an exhilarating acoustic counterpart to structural physics.
-                        </p>
+                        <div>
+                            <span class="hobby-action-link">Open video session gallery &rarr;</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="hobby-action-link">Click to view performance videos &rarr;</span>
-                    </div>
-                </div>
+                </a>
 
                 <!-- Hobby 2: Playing Golf -->
                 <div class="hobby-card">
                     <div>
                         <div class="hobby-icon-header">
                             <div class="hobby-icon-circle">
-                                <!-- Ícone Golf -->
                                 <svg viewBox="0 0 24 24"><path d="M19.5 18a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-1.5-3.05V1.5a.5.5 0 0 0-.82-.38L11.5 5.5l-5.68-4.38a.5.5 0 0 0-.82.38v13.45a6.5 6.5 0 1 0 13 0zM7 3.44l4.68 3.61a.5.5 0 0 0 .64 0L17 3.44v10.51a6.47 6.47 0 0 0-10 0V3.44z"/></svg>
                             </div>
                             <span class="hobby-badge">Sport &amp; Focus</span>
@@ -1043,30 +960,6 @@
 
     </main>
 
-    <!-- Modal para Vídeos de Bateria -->
-    <div class="drums-modal" id="drumsModal">
-        <div class="drums-modal-content">
-            <button class="drums-modal-close" id="closeDrumsModal">&times;</button>
-            <h3>José Fernando Mendes &mdash; Drums Sessions</h3>
-            <p>Live jams, studio takes, and rhythm sessions exploring rock, jazz, and funk grooves.</p>
-
-            <!-- Espaço do Vídeo (pronto para colocar o teu ficheiro .mp4 ou link do YouTube) -->
-            <div class="drums-video-placeholder">
-                <svg viewBox="0 0 24 24"><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg>
-                <h4 style="font-size:1.15rem; margin-bottom:0.4rem; font-weight:500;">Drum Performance Video</h4>
-                <p style="color:#94a3b8; font-size:0.88rem; max-width:480px;">
-                    Para adicionares os teus vídeos aqui, podes colocar um ficheiro como <code>drums.mp4</code> no GitHub ou incorporar um link do YouTube / Vimeo.
-                </p>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end;">
-                <button class="nav-link-btn" id="closeDrumsModalBtn" style="border:none; cursor:pointer;">
-                    Close Viewer
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 José Fernando Mendes </p>
@@ -1154,38 +1047,8 @@
     })();
     </script>
 
-    <!-- Modal & Mobile Navigation Script -->
+    <!-- Mobile Navigation Toggle Script -->
     <script>
-        // Modal de Bateria
-        const openDrumsModal = document.getElementById('openDrumsModal');
-        const drumsModal = document.getElementById('drumsModal');
-        const closeDrumsModal = document.getElementById('closeDrumsModal');
-        const closeDrumsModalBtn = document.getElementById('closeDrumsModalBtn');
-
-        if (openDrumsModal && drumsModal) {
-            openDrumsModal.addEventListener('click', () => {
-                drumsModal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            });
-
-            function closeModal() {
-                drumsModal.classList.remove('open');
-                document.body.style.overflow = 'auto';
-            }
-
-            if (closeDrumsModal) closeDrumsModal.addEventListener('click', closeModal);
-            if (closeDrumsModalBtn) closeDrumsModalBtn.addEventListener('click', closeModal);
-
-            drumsModal.addEventListener('click', (e) => {
-                if (e.target === drumsModal) closeModal();
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && drumsModal.classList.contains('open')) closeModal();
-            });
-        }
-
-        // Mobile Nav Toggle
         const navToggle = document.querySelector('.nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
 
