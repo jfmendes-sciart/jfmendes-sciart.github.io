@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Golf player profile, handicap history, and performance stats of José Fernando Mendes at Amarante Golfe Clube.">
+    <title>Golf Profile &amp; Stats — José Fernando Mendes</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="icon" href="logo.jpg?v=2" type="image/jpeg">
+    <link rel="apple-touch-icon" href="logo.jpg?v=2">
+    
+    <!-- Google Fonts typography (Newsreader + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js para reproduzir com fidelidade os gráficos oficiais -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #102a43;
+            --secondary: #0b69a3;
+            --accent: #00b4d8;
+            --golf-green: #0d5f47;
+            --golf-green-light: #e8f5f0;
+            --text-main: #334e68;
+            --text-dark: #102a43;
+            --text-muted: #627d98;
+            --bg-light: #f4f7f6;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* -------------------------------------------------------------
+           Header & Navigation
+           ------------------------------------------------------------- */
+        .site-header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-brand {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            column-gap: 0.85rem;
+            align-items: center;
+        }
+
+        .nav-brand::before {
+            content: "";
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            display: block;
+            width: 42px;
+            height: 42px;
+            background-image: url('logo.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-brand h1 {
+            grid-column: 2;
+            grid-row: 1;
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        .nav-brand h1 a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .nav-subtitle {
+            grid-column: 2;
+            grid-row: 2;
+            font-family: "Inter", sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-top: 2px;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.35rem;
+            align-items: center;
+        }
+
+        .nav-item-dropdown {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.92rem;
+            font-weight: 400;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary);
+        }
+
+        .nav-link-btn {
+            background: var(--secondary);
+            color: #fff !important;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.88rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            min-width: 220px;
+            list-style: none;
+            padding: 0.5rem 0;
+            z-index: 110;
+        }
+
+        .nav-item-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 1.2rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background: var(--bg-light);
+            color: var(--secondary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 120;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        /* -------------------------------------------------------------
+           Hero Banner (Luminoso)
+           ------------------------------------------------------------- */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 28vh;
+            min-height: 200px;
+            background: linear-gradient(rgba(10, 25, 47, 0.2), rgba(10, 25, 47, 0.2)), 
+                        url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-banner .quote-text {
+            text-align: center;
+            max-width: 900px;
+            padding: 1.5rem;
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.85rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.5;
+            color: #ffffff;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+        }
+
+        /* -------------------------------------------------------------
+           Main Content Layout
+           ------------------------------------------------------------- */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
+        }
+
+        .golf-nav-bar {
+            margin-bottom: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s ease;
+        }
+
+        .back-link:hover {
+            gap: 0.65rem;
+            text-decoration: underline;
+        }
+
+        /* -------------------------------------------------------------
+           1. Header Card (Painel oficial verde escuro)
+           ------------------------------------------------------------- */
+        .golf-profile-card {
+            background: linear-gradient(135deg, #0d5f47 0%, #084332 100%);
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            box-shadow: 0 8px 24px rgba(13, 95, 71, 0.18);
+            margin-bottom: 2rem;
+        }
+
+        .golf-profile-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .golf-avatar {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            object-fit: cover;
+            background-color: #ffffff;
+        }
+
+        .golf-profile-info h2 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .golf-meta-list {
+            font-size: 0.88rem;
+            color: #d1fae5;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            font-weight: 300;
+        }
+
+        .golf-meta-list strong {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .golf-profile-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .golf-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 0.55rem 1rem;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.2s ease;
+        }
+
+        .golf-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+
+        /* -------------------------------------------------------------
+           2. Indicadores Oficiais (8 Caixas)
+           ------------------------------------------------------------- */
+        .golf-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .golf-stat-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .golf-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .stat-icon-green  { background: #e6f7f2; color: #0d5f47; }
+        .stat-icon-blue   { background: #eff6ff; color: #2563eb; }
+        .stat-icon-yellow { background: #fefce8; color: #ca8a04; }
+        .stat-icon-orange { background: #fff7ed; color: #ea580c; }
+        .stat-icon-cyan   { background: #ecfeff; color: #0891b2; }
+        .stat-icon-pink   { background: #fdf2f8; color: #db2777; }
+        .stat-icon-purple { background: #f5f3ff; color: #7c3aed; }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-family: "Inter", sans-serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.15;
+            margin-top: 0.15rem;
+        }
+
+        .stat-value.pending {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* Barra de Rankings */
+        .golf-ranking-banner {
+            background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+        }
+
+        /* -------------------------------------------------------------
+           3. Gráficos de Performance e Handicap
+           ------------------------------------------------------------- */
+        .golf-charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .golf-chart-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .golf-chart-header {
+            margin-bottom: 1.2rem;
+        }
+
+        .golf-chart-header h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.35rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .golf-chart-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .chart-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 290px;
+        }
+
+        /* Caixa de Reflexão sobre o Desporto */
+        .golf-reflection-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--golf-green);
+            border-radius: 8px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .golf-reflection-box h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .golf-reflection-box p {
+            font-size: 0.96rem;
+            line-height: 1.75;
+            color: #334e68;
+            font-weight: 300;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #829ab1;
+            font-size: 0.85rem;
+            font-weight: 300;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 980px) {
+            .golf-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .golf-charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.2rem 1.5rem 2rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+                gap: 0.8rem;
+                z-index: 100;
+                max-height: 75vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-menu.nav-open {
+                display: flex;
+            }
+
+            .nav-item-dropdown {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                display: block;
+                box-shadow: none;
+                border: none;
+                padding-left: 0.8rem;
+                margin-top: 0.2rem;
+            }
+
+            .golf-profile-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .golf-stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1><a href="index.html">José Fernando Mendes</a></h1>
+                    <p class="nav-subtitle">Professor of Physics and Artist</p>
+                </div>
+
+                <!-- Botão Hambúrguer Mobile -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Menu de Navegação -->
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    
+                    <!-- Research Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="research.html" class="nav-link">Research</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="research.html#stats">Overview &amp; Stats</a></li>
+                            <li><a href="research.html#interests">Interests</a></li>
+                            <li><a href="research.html#publications">Publications</a></li>
+                            <li><a href="research.html#books">Books &amp; Monographs</a></li>
+                            <li><a href="research.html#network">Collaboration Network</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Teaching Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="teaching.html" class="nav-link">Teaching</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="teaching.html#awards">Teaching Awards</a></li>
+                            <li><a href="teaching.html#courses">Courses</a></li>
+                            <li><a href="teaching.html#philosophy">Teaching Philosophy</a></li>
+                            <li><a href="teaching.html#supervision">Supervision &amp; Mentoring</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Art Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="art.html" class="nav-link">Art</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="art.html?medium=oil">Oil painting</a></li>
+                            <li><a href="art.html?medium=pastel">Pastel painting</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- About Me Dropdown -->
+                    <li class="nav-item-dropdown">
+                        <a href="about.html" class="nav-link active">About Me</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#biography">Biography</a></li>
+                            <li><a href="about.html#personal-details">Personal Details</a></li>
+                            <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#hobbies">Hobbies &amp; Leisure</a></li>
+                            <li><a href="drums.html">Drums Sessions</a></li>
+                            <li><a href="golf.html">Golf Profile</a></li>
+                            <li><a href="about.html#favourites">Favourites</a></li>
+                            <li><a href="about.html#visited-places">Visited Places</a></li>
+                            <li><a href="about.html#motto">Personal Motto</a></li>
+                            <li><a href="about.html#contact">Contact &amp; Media</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="cv.html" class="nav-link">CV</a></li>
+                    <li><a href="mailto:jfmendes@ua.pt" class="nav-link nav-link-btn">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Top Hero Banner -->
+    <div class="hero-banner">
+        <p class="quote-text">Precision, patience, and geometry across the fairway.</p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <div class="golf-nav-bar">
+            <a href="about.html#hobbies" class="back-link">&larr; Return to About Me</a>
+            <a href="https://golf-portugal.pt/players/53864" target="_blank" class="golf-btn" style="background:#0d5f47; color:#fff; border-color:#0d5f47;">
+                Open on Golf Portugal ↗&#xFE0E;
+            </a>
+        </div>
+
+        <!-- 1. Perfil Oficial / Header Card -->
+        <section class="golf-profile-card">
+            <div class="golf-profile-left">
+                <img src="MainPicture.jpg" alt="José Fernando Mendes" class="golf-avatar" onerror="this.src='logo.jpg'">
+                <div class="golf-profile-info">
+                    <h2>José Fernando Mendes</h2>
+                    <div class="golf-meta-list">
+                        <span>Federation Code: <strong>53864</strong></span>
+                        <span>Club: <strong>Amarante Golfe Clube</strong></span>
+                        <span>Status: <strong>Válido</strong> &middot; Country: <strong>Portugal</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="golf-profile-actions">
+                <a href="https://golf-portugal.pt/players/53864" target="_blank" class="golf-btn">★ My Profile</a>
+                <span class="golf-btn">🖩 Calculate Playing HCP</span>
+                <span class="golf-btn">📊 Performance Analysis</span>
+            </div>
+        </section>
+
+        <!-- 2. Grid com os 8 Indicadores Oficiais -->
+        <section class="golf-stats-grid">
+            
+            <!-- Total Rounds -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-green">📊</div>
+                <div class="stat-content">
+                    <span class="stat-label">Total Rounds</span>
+                    <span class="stat-value">43</span>
+                </div>
+            </div>
+
+            <!-- HCP -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-blue">📉</div>
+                <div class="stat-content">
+                    <span class="stat-label">HCP</span>
+                    <span class="stat-value">28</span>
+                </div>
+            </div>
+
+            <!-- VAC-F -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-yellow">⭐</div>
+                <div class="stat-content">
+                    <span class="stat-label">VAC-F</span>
+                    <span class="stat-value">101.8</span>
+                </div>
+            </div>
+
+            <!-- Avg Gross -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-orange">🎯</div>
+                <div class="stat-content">
+                    <span class="stat-label">Avg Gross</span>
+                    <span class="stat-value">97.3</span>
+                </div>
+            </div>
+
+            <!-- Avg Stableford -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-cyan">🏌️</div>
+                <div class="stat-content">
+                    <span class="stat-label">Avg Stableford</span>
+                    <span class="stat-value">30.2</span>
+                </div>
+            </div>
+
+            <!-- Qualifying -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-pink">📋</div>
+                <div class="stat-content">
+                    <span class="stat-label">Qualifying</span>
+                    <span class="stat-value">38</span>
+                </div>
+            </div>
+
+            <!-- Avg Position -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-blue">📈</div>
+                <div class="stat-content">
+                    <span class="stat-label">Avg Position</span>
+                    <span class="stat-value pending">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- Win Rate -->
+            <div class="golf-stat-card">
+                <div class="stat-icon-wrap stat-icon-purple">⏱</div>
+                <div class="stat-content">
+                    <span class="stat-label">Win Rate</span>
+                    <span class="stat-value pending">Coming Soon</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Barra de Rankings -->
+        <div class="golf-ranking-banner">
+            🏆 Rankings
+        </div>
+
+        <!-- 3. Gráficos Chart.js correspondentes à imagem oficial -->
+        <section class="golf-charts-grid">
+            
+            <!-- Performance Progression -->
+            <div class="golf-chart-box">
+                <div class="golf-chart-header">
+                    <h3>Performance Progression</h3>
+                    <p>Score differential and Stableford points over time</p>
+                </div>
+                <div class="chart-canvas-wrap">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Handicap History -->
+            <div class="golf-chart-box">
+                <div class="golf-chart-header">
+                    <h3>Handicap History</h3>
+                    <p>Handicap index changes over time</p>
+                </div>
+                <div class="chart-canvas-wrap">
+                    <canvas id="handicapChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 4. Reflexão sobre o Golfe -->
+        <div class="golf-reflection-box">
+            <h3>Focus, Geometry &amp; Flow</h3>
+            <p>
+                Beyond mathematical formulations and network models, golf provides a demanding exercise in mindfulness, body biomechanics, and spatial awareness. The serene landscapes of Amarante Golfe Clube demand emotional discipline, acute strategic planning, and unwavering focus on every stroke.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 José Fernando Mendes | Amarante Golfe Clube &amp; FPG Fed. Code 53864</p>
+    </footer>
+
+    <!-- Scripts dos Gráficos Interativos (Baseados na imagem do portal Golf Portugal) -->
+    <script>
+        // 1. Gráfico: Performance Progression
+        const perfCtx = document.getElementById('performanceChart').getContext('2d');
+        const perfLabels = [
+            '1 dez 2023', '1 jan 2024', '1 mar 2024', '1 abr 2024', '1 jun 2024',
+            '1 jul 2024', '1 set 2024', '1 nov 2024', '1 dez 2024', '22 fev 2025',
+            '1 abr 2025', '31 mai 2025', '12 jul 2025', '1 out 2025', '1 dez 2025',
+            '1 abr 2026', '27 jun 2026', '1 ago 2026'
+        ];
+
+        new Chart(perfCtx, {
+            type: 'line',
+            data: {
+                labels: perfLabels,
+                datasets: [
+                    {
+                        label: 'Score Differential',
+                        data: [32, 33, 31, 45, 36, 44, 39, 41, 31, 36, 25, 38, 30, 41, 30, 46, 38, 32],
+                        borderColor: '#0d9488',
+                        backgroundColor: '#0d9488',
+                        tension: 0.25,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Stableford Points',
+                        data: [38, 37, 28, 39, 26, 31, 33, 41, 32, 31, 43, 42, 30, 40, 29, 39, 36, 38],
+                        borderColor: '#ea580c',
+                        backgroundColor: '#ea580c',
+                        tension: 0.25,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 10,
+                        max: 50,
+                        ticks: { stepSize: 10, font: { size: 10 } },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 9 },
+                            maxRotation: 45,
+                            minRotation: 45
+                        },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Gráfico: Handicap History
+        const hcpCtx = document.getElementById('handicapChart').getContext('2d');
+        const hcpLabels = [
+            '11 jul 2023', '23 dez 2023', '27 jan 2024', '16 mar 2024', '13 abr 2024',
+            '10 jun 2024', '13 jul 2024', '28 set 2024', '9 nov 2024', '21 dez 2024',
+            '22 fev 2025', '5 abr 2025', '31 mai 2025', '19 jul 2025', '4 out 2025',
+            '15 dez 2025', '20 dez 2025', '18 abr 2026', '27 jun 2026', '28 ago 2026'
+        ];
+
+        new Chart(hcpCtx, {
+            type: 'line',
+            data: {
+                labels: hcpLabels,
+                datasets: [
+                    {
+                        label: 'Handicap Index',
+                        data: [31.5, 31.4, 29.8, 30.7, 30.6, 29.7, 30.8, 30.7, 30.2, 30.4, 30.9, 29.6, 28.4, 28.6, 27.8, 28.0, 27.9, 28.2, 27.8, 28.0],
+                        borderColor: '#0d9488',
+                        backgroundColor: '#0d9488',
+                        tension: 0.25,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 27,
+                        max: 32,
+                        ticks: { stepSize: 1, font: { size: 10 } },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 9 },
+                            maxRotation: 45,
+                            minRotation: 45
+                        },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Mobile Nav Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('nav-open');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('nav-open');
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
