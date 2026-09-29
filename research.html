@@ -465,6 +465,147 @@
             transform: translateY(-1px);
         }
 
+        /* -------------------------------------------------------------
+           Continuous Moving Collaborators Ticker (Marquee)
+           ------------------------------------------------------------- */
+        .collab-ticker-section {
+            margin-top: 2.2rem;
+            margin-bottom: 3.8rem;
+        }
+
+        .collab-ticker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+
+        .collab-ticker-header h3 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .collab-ticker-header span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .marquee-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 0.6rem 0;
+            /* Máscara de desvanecimento suave nas laterais */
+            mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            gap: 1.4rem;
+            animation: scrollMarquee 42s linear infinite;
+        }
+
+        /* Pausa a rotação ao passar com o cursor */
+        .marquee-wrapper:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .collab-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+            width: 290px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            user-select: none;
+        }
+
+        .collab-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .collab-card-top {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .collab-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--border-color);
+            background-color: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .collab-identity {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .collab-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .collab-role {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .collab-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 0.65rem;
+            font-size: 0.75rem;
+        }
+
+        .collab-papers {
+            color: var(--secondary);
+            font-weight: 600;
+            background: #e1f0fa;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .collab-status {
+            color: #829ab1;
+            font-style: italic;
+        }
+
         /* Publications List & Entries */
         .pub-list {
             background: #ffffff;
@@ -535,9 +676,7 @@
             letter-spacing: 0.02em;
         }
 
-        /* -------------------------------------------------------------
-           Books Layout with Book Cover Image
-           ------------------------------------------------------------- */
+        /* Books Layout */
         .book-entry {
             padding: 1.8rem 0;
             border-bottom: 1px solid var(--border-color);
@@ -571,9 +710,7 @@
             flex: 1;
         }
 
-        /* -------------------------------------------------------------
-           Editorial & Advisory Roles Table
-           ------------------------------------------------------------- */
+        /* Editorial & Advisory Roles Table */
         .roles-table {
             display: flex;
             flex-direction: column;
@@ -615,9 +752,7 @@
             text-align: right;
         }
 
-        /* -------------------------------------------------------------
-           Interactive Collaboration Network
-           ------------------------------------------------------------- */
+        /* Interactive Collaboration Network */
         .network-controls-bar {
             display: flex;
             align-items: center;
@@ -829,6 +964,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#stats">Summary &amp; Stats</a></li>
                             <li><a href="#interests">Interests</a></li>
+                            <li><a href="#collabs-marquee">Collaborators</a></li>
                             <li><a href="#publications">Selected Publications</a></li>
                             <li><a href="#books">Books &amp; Monographs</a></li>
                             <li><a href="#editorial">Editorial &amp; Advisory</a></li>
@@ -863,6 +999,9 @@
                             <li><a href="about.html#biography">Biography</a></li>
                             <li><a href="about.html#personal-details">Personal Details</a></li>
                             <li><a href="about.html#passions">Passions</a></li>
+                            <li><a href="about.html#hobbies">Hobbies &amp; Leisure</a></li>
+                            <li><a href="drums.html">Drums Sessions</a></li>
+                            <li><a href="golf.html">Golf Profile</a></li>
                             <li><a href="about.html#favourites">Favourites</a></li>
                             <li><a href="about.html#visited-places">Visited Places</a></li>
                             <li><a href="about.html#motto">Personal Motto</a></li>
@@ -985,7 +1124,7 @@
         </section>
 
         <!-- 2. Research Interests -->
-        <section id="interests" class="content-section">
+        <section id="interests" class="content-section" style="margin-bottom: 2rem;">
             <h2>Interests</h2>
             <p class="section-desc">Key scientific domains and theoretical focus areas:</p>
             <div class="research-keywords">
@@ -999,6 +1138,262 @@
                 <span class="keyword-tag">Neuronal &amp; Biological Networks</span>
                 <span class="keyword-tag">Self-Organized Criticality</span>
                 <span class="keyword-tag">SciArt &amp; Visual Form Aesthetics</span>
+            </div>
+        </section>
+
+        <!-- NOVA SECCAO: BARRA A MOVER-SE PARA A ESQUERDA (COLLABORATORS TICKER) -->
+        <section id="collabs-marquee" class="collab-ticker-section">
+            <div class="collab-ticker-header">
+                <h3>Key &amp; Longstanding Collaborators</h3>
+                <span>Hover to pause · scrolling continuously</span>
+            </div>
+            
+            <div class="marquee-wrapper">
+                <div class="marquee-track">
+                    
+                    <!-- Bloco Original -->
+                    <!-- 1. S. N. Dorogovtsev -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-dorogovtsev.jpg" alt="S. N. Dorogovtsev" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Sergey+Dorogovtsev&background=0b69a3&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">S. N. Dorogovtsev</span>
+                                <span class="collab-role">Statistical Physics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">140+ joint papers</span>
+                            <span class="collab-status">Core Monograph Co-Author</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. A. V. Goltsev -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-goltsev.jpg" alt="A. V. Goltsev" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Alexander+Goltsev&background=007D69&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">A. V. Goltsev</span>
+                                <span class="collab-role">Condensed Matter &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">48+ joint papers</span>
+                            <span class="collab-status">Critical Phenomena &amp; k-Core</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. G. J. Baxter -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-baxter.jpg" alt="G. J. Baxter" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gareth+Baxter&background=102a43&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">G. J. Baxter</span>
+                                <span class="collab-role">Multiplex Percolation &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">32+ joint papers</span>
+                            <span class="collab-status">Avalanche Collapse &amp; Books</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. R. A. da Costa -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-dacosta.jpg" alt="R. A. da Costa" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Rui+Costa&background=0b69a3&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">R. A. da Costa</span>
+                                <span class="collab-role">Statistical Mechanics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">26+ joint papers</span>
+                            <span class="collab-status">Multiplex Percolation</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. A. N. Samukhin -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-samukhin.jpg" alt="A. N. Samukhin" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Alexander+Samukhin&background=486581&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">A. N. Samukhin</span>
+                                <span class="collab-role">Theoretical Physics &middot; Ioffe</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">18+ joint papers</span>
+                            <span class="collab-status">Preferential Linking (PRL)</span>
+                        </div>
+                    </div>
+
+                    <!-- 6. D. Cellai -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-cellai.jpg" alt="D. Cellai" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Davide+Cellai&background=007D69&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">D. Cellai</span>
+                                <span class="collab-role">Complex Systems &middot; Univ. Limerick</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">15+ joint papers</span>
+                            <span class="collab-status">Percolation Transitions</span>
+                        </div>
+                    </div>
+
+                    <!-- 7. N. Azimi-Tafreshi -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-azimi.jpg" alt="N. Azimi-Tafreshi" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Negar+Azimi&background=b7791f&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">N. Azimi-Tafreshi</span>
+                                <span class="collab-role">Complex Networks &middot; IASBS</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">12+ joint papers</span>
+                            <span class="collab-status">General Bootstrap Percolation</span>
+                        </div>
+                    </div>
+
+                    <!-- 8. G. Timár -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-timar.jpg" alt="G. Timár" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gabor+Timar&background=102a43&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">G. Timár</span>
+                                <span class="collab-role">Graph Dynamics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">9+ joint papers</span>
+                            <span class="collab-status">Topological Robustness</span>
+                        </div>
+                    </div>
+
+                    <!-- Bloco Duplicado (necessário para o efeito contínuo infinito perfeito) -->
+                    <!-- 1b. S. N. Dorogovtsev -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-dorogovtsev.jpg" alt="S. N. Dorogovtsev" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Sergey+Dorogovtsev&background=0b69a3&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">S. N. Dorogovtsev</span>
+                                <span class="collab-role">Statistical Physics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">140+ joint papers</span>
+                            <span class="collab-status">Core Monograph Co-Author</span>
+                        </div>
+                    </div>
+
+                    <!-- 2b. A. V. Goltsev -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-goltsev.jpg" alt="A. V. Goltsev" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Alexander+Goltsev&background=007D69&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">A. V. Goltsev</span>
+                                <span class="collab-role">Condensed Matter &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">48+ joint papers</span>
+                            <span class="collab-status">Critical Phenomena &amp; k-Core</span>
+                        </div>
+                    </div>
+
+                    <!-- 3b. G. J. Baxter -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-baxter.jpg" alt="G. J. Baxter" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gareth+Baxter&background=102a43&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">G. J. Baxter</span>
+                                <span class="collab-role">Multiplex Percolation &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">32+ joint papers</span>
+                            <span class="collab-status">Avalanche Collapse &amp; Books</span>
+                        </div>
+                    </div>
+
+                    <!-- 4b. R. A. da Costa -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-dacosta.jpg" alt="R. A. da Costa" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Rui+Costa&background=0b69a3&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">R. A. da Costa</span>
+                                <span class="collab-role">Statistical Mechanics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">26+ joint papers</span>
+                            <span class="collab-status">Multiplex Percolation</span>
+                        </div>
+                    </div>
+
+                    <!-- 5b. A. N. Samukhin -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-samukhin.jpg" alt="A. N. Samukhin" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Alexander+Samukhin&background=486581&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">A. N. Samukhin</span>
+                                <span class="collab-role">Theoretical Physics &middot; Ioffe</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">18+ joint papers</span>
+                            <span class="collab-status">Preferential Linking (PRL)</span>
+                        </div>
+                    </div>
+
+                    <!-- 6b. D. Cellai -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-cellai.jpg" alt="D. Cellai" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Davide+Cellai&background=007D69&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">D. Cellai</span>
+                                <span class="collab-role">Complex Systems &middot; Univ. Limerick</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">15+ joint papers</span>
+                            <span class="collab-status">Percolation Transitions</span>
+                        </div>
+                    </div>
+
+                    <!-- 7b. N. Azimi-Tafreshi -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-azimi.jpg" alt="N. Azimi-Tafreshi" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Negar+Azimi&background=b7791f&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">N. Azimi-Tafreshi</span>
+                                <span class="collab-role">Complex Networks &middot; IASBS</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">12+ joint papers</span>
+                            <span class="collab-status">General Bootstrap Percolation</span>
+                        </div>
+                    </div>
+
+                    <!-- 8b. G. Timár -->
+                    <div class="collab-card">
+                        <div class="collab-card-top">
+                            <img src="collab-timar.jpg" alt="G. Timár" class="collab-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gabor+Timar&background=102a43&color=fff';">
+                            <div class="collab-identity">
+                                <span class="collab-name">G. Timár</span>
+                                <span class="collab-role">Graph Dynamics &middot; UA</span>
+                            </div>
+                        </div>
+                        <div class="collab-card-bottom">
+                            <span class="collab-papers">9+ joint papers</span>
+                            <span class="collab-status">Topological Robustness</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -1168,7 +1563,7 @@
             </div>
         </section>
 
-        <!-- 4. Books & Monographs (COM IMAGENS DAS CAPAS: capa1.jpg e capa2.jpg) -->
+        <!-- 4. Books & Monographs -->
         <section id="books" class="content-section">
             <h2>Books &amp; Monographs</h2>
             <p class="section-desc">Authored reference books and academic research monographs:</p>
@@ -1216,7 +1611,7 @@
                     </div>
                 </div>
                 
-           <!-- Book 3 -->
+                <!-- Book 3 -->
                 <div class="book-entry">
                     <div class="book-cover-wrap">
                         <a href="https://www.cambridge.org/na/universitypress/subjects/physics/statistical-physics/weak-multiplex-percolation?format=PB&isbn=9781108791076" target="_blank">
@@ -1230,7 +1625,7 @@
                             </a>
                             <span class="pub-cite-badge">Cambridge Univ. Press</span>
                         </div>
-                        <div class="pub-authors">G. J. Baxter, R. A. da Costa,  S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
+                        <div class="pub-authors">G. J. Baxter, R. A. da Costa, S. N. Dorogovtsev, <span class="pub-author-self">J. F. F. Mendes</span></div>
                         <div class="pub-venue" style="margin-top: 0.5rem; line-height: 1.6;">
                             Cambridge University Press (Cambridge, 2022) — Comprehensive book on multiplex networks and percolation in networked systems.
                         </div>
