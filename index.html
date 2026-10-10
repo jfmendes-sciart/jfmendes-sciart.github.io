@@ -337,7 +337,7 @@
         .icon-link.email:hover { color: var(--secondary); border-color: var(--secondary); }
 
         /* -------------------------------------------------------------
-           Recent Updates & Events (Estilo rpmenezes)
+           Recent Updates & Events (Estilo Ronaldo Menezes)
            ------------------------------------------------------------- */
         .updates-events-container {
             display: grid;
@@ -352,6 +352,8 @@
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
         }
 
         .section-block h2 {
@@ -373,25 +375,70 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 0.9rem;
         }
 
         .feed-item {
             position: relative;
-            padding-left: 1.15rem;
-            border-left: 2px solid #e2e8f0;
-            transition: border-color 0.2s ease;
+            padding: 0.9rem 1rem 0.9rem 1.15rem;
+            border-radius: 8px;
+            border-left: 3px solid #cbd5e1;
+            background: #ffffff;
+            transition: all 0.25s ease-in-out;
         }
 
-        .feed-item:hover {
-            border-left-color: var(--secondary);
+        /* Eventos e Itens Futuros (Destacados / Highlighted) */
+        .feed-item.upcoming {
+            background: #f0f7ff;
+            border-left: 3px solid var(--secondary);
+            border-top: 1px solid #dbeafe;
+            border-right: 1px solid #dbeafe;
+            border-bottom: 1px solid #dbeafe;
+            box-shadow: 0 2px 8px rgba(11, 105, 163, 0.05);
+        }
+
+        .feed-item.upcoming .feed-title {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .feed-item.upcoming:hover {
+            transform: translateX(3px);
+            box-shadow: 0 4px 12px rgba(11, 105, 163, 0.1);
+        }
+
+        /* Eventos e Itens Passados (Claro / Atenuado / Faded) */
+        .feed-item.past {
+            opacity: 0.65;
+            background: #fbfcfe;
+            border-left: 3px solid #cbd5e1;
+            border: 1px solid #f1f5f9;
+            border-left-width: 3px;
+        }
+
+        .feed-item.past .feed-title {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .feed-item.past .feed-desc {
+            color: #64748b;
+        }
+
+        .feed-item.past:hover {
+            opacity: 1;
+            background: #ffffff;
+            border-left-color: #94a3b8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transform: translateX(3px);
         }
 
         .feed-meta {
             display: flex;
             align-items: center;
-            gap: 0.55rem;
-            margin-bottom: 0.3rem;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+            flex-wrap: wrap;
         }
 
         .feed-date {
@@ -401,11 +448,11 @@
         }
 
         .feed-badge {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.03em;
-            padding: 0.12rem 0.5rem;
+            letter-spacing: 0.04em;
+            padding: 0.12rem 0.45rem;
             border-radius: 4px;
         }
 
@@ -424,12 +471,31 @@
             color: #059669;
         }
 
+        /* Status Badges para Upcoming / Past */
+        .status-badge {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+
+        .status-badge.status-upcoming {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.status-past {
+            background: #f1f5f9;
+            color: #94a3b8;
+        }
+
         .feed-title {
-            font-size: 0.96rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
             line-height: 1.4;
+            margin-bottom: 0.25rem;
         }
 
         .feed-desc {
@@ -744,18 +810,21 @@
             </div>
         </section>
 
-        <!-- Recent Updates and Upcoming Events (Similar ao modelo de rpmenezes) -->
+        <!-- Recent Updates and Upcoming Events -->
         <div class="updates-events-container">
+            
             <!-- Coluna 1: Recent Updates -->
             <section class="section-block">
                 <h2>Recent Updates</h2>
-                <p class="section-subtitle">Latest news, papers, and announcements</p>
+                <p class="section-subtitle">Latest news, papers, and team announcements</p>
 
                 <ul class="feed-list">
-                    <li class="feed-item">
+                    <!-- Novidade Recente -->
+                    <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge paper">Paper</span>
                             <span class="feed-date">October 2026</span>
+                            <span class="status-badge status-upcoming">New</span>
                         </div>
                         <h4 class="feed-title">New Paper on Multilayer &amp; Interdependent Networks</h4>
                         <p class="feed-desc">
@@ -763,23 +832,25 @@
                         </p>
                     </li>
 
-                    <li class="feed-item">
+                    <li class="feed-item past">
                         <div class="feed-meta">
                             <span class="feed-badge visitor">Visitor</span>
                             <span class="feed-date">September 2026</span>
+                            <span class="status-badge status-past">Past</span>
                         </div>
                         <h4 class="feed-title">Academic Visitors at i3N-Aveiro</h4>
                         <p class="feed-desc">
-                            Hosting collaborative sessions on non-equilibrium phase transitions and network dynamics.
+                            Hosted collaborative sessions on non-equilibrium phase transitions and network dynamics.
                         </p>
                     </li>
 
-                    <li class="feed-item">
+                    <li class="feed-item past">
                         <div class="feed-meta">
                             <span class="feed-badge news">SciArt</span>
                             <span class="feed-date">August 2026</span>
+                            <span class="status-badge status-past">Past</span>
                         </div>
-                        <h4 class="feed-title">New Oil &amp; Pastel Artwork Series</h4>
+                        <h4 class="feed-title">New Oil &amp; Pastel Artwork Series Completed</h4>
                         <p class="feed-desc">
                             New pieces exploring emergent complexity and equilibrium on canvas. <a href="art.html">Visit Art Gallery &rarr;</a>
                         </p>
@@ -787,16 +858,18 @@
                 </ul>
             </section>
 
-            <!-- Coluna 2: Recent and Upcoming Events -->
+            <!-- Coluna 2: Recent and Upcoming Events (Com destaque para Upcoming e atenuado para Past) -->
             <section class="section-block">
                 <h2>Recent &amp; Upcoming Events</h2>
-                <p class="section-subtitle">Talks, conferences, and travel schedule</p>
+                <p class="section-subtitle">If you are in any of these locations and would like to meet, please get in touch.</p>
 
                 <ul class="feed-list">
-                    <li class="feed-item">
+                    <!-- Evento Futuro 1 (Destacado) -->
+                    <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge conf">Conference</span>
                             <span class="feed-date">November 2026</span>
+                            <span class="status-badge status-upcoming">Upcoming</span>
                         </div>
                         <h4 class="feed-title">Invited Speaker — Complex Systems &amp; Statistical Physics</h4>
                         <p class="feed-desc">
@@ -804,10 +877,12 @@
                         </p>
                     </li>
 
-                    <li class="feed-item">
+                    <!-- Evento Futuro 2 (Destacado) -->
+                    <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge talk">Seminar</span>
                             <span class="feed-date">December 2026</span>
+                            <span class="status-badge status-upcoming">Upcoming</span>
                         </div>
                         <h4 class="feed-title">Complexity Science Hub (CSH), Vienna</h4>
                         <p class="feed-desc">
@@ -815,18 +890,34 @@
                         </p>
                     </li>
 
-                    <li class="feed-item">
+                    <!-- Evento Futuro 3 (Destacado) -->
+                    <li class="feed-item upcoming">
                         <div class="feed-meta">
-                            <span class="feed-badge conf">Showcase</span>
+                            <span class="feed-badge conf">Exhibition</span>
                             <span class="feed-date">January 2027</span>
+                            <span class="status-badge status-upcoming">Upcoming</span>
                         </div>
                         <h4 class="feed-title">SciArt Colloquium &amp; Exhibition</h4>
                         <p class="feed-desc">
                             Roundtable and exhibition exploring the intersection of physics and fine arts.
                         </p>
                     </li>
+
+                    <!-- Evento Passado (Atenuado / Claro) -->
+                    <li class="feed-item past">
+                        <div class="feed-meta">
+                            <span class="feed-badge conf">Conference</span>
+                            <span class="feed-date">July 2026</span>
+                            <span class="status-badge status-past">Past</span>
+                        </div>
+                        <h4 class="feed-title">International Conference on Network Science (NetSci)</h4>
+                        <p class="feed-desc">
+                            Participated in sessions on higher-order interactions and percolation in physical systems.
+                        </p>
+                    </li>
                 </ul>
             </section>
+
         </div>
 
         <!-- Highlights (Overview Cards com 4 secções) -->
