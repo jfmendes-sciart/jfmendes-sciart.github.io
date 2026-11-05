@@ -1756,11 +1756,12 @@
                     <div><span class="net-stat-value" id="net-stat-links">38</span><span class="net-stat-label">Connections</span></div>
                 </div>
                 <div class="network-select-wrapper">
-                    <label for="top-n-select">Show top</label>
+                    <label for="top-n-select">Show</label>
                     <select id="top-n-select">
-                        <option value="10">10</option>
-                        <option value="20" selected>20</option>
-                        <option value="0">All</option>
+                        <option value="20" selected>Top 20</option>
+                        <option value="40">Top 40</option>
+                        <option value="70">Top 70</option>
+                        <option value="0">All Co-authors</option>
                     </select>
                 </div>
             </div>
@@ -1791,7 +1792,7 @@
         <p>&copy; 2026 José Fernando Mendes </p>
     </footer>
 
-    <!-- Interactive D3 Force Simulation -->
+   <!-- Interactive D3 Force Simulation -->
     <script>
         (function() {
             const svgEl = document.getElementById('network-svg');
@@ -1801,27 +1802,173 @@
             const statCollabs = document.getElementById('net-stat-collabs');
             const statLinks = document.getElementById('net-stat-links');
 
+            // Lista consolidada e deduplicada com contagens exatas da base de dados
             const AUTHENTIC_COLLABS = [
-                { name: 'S. N. Dorogovtsev', weight: 140, cluster: 1 },
-                { name: 'A. V. Goltsev', weight: 48, cluster: 1 },
-                { name: 'G. J. Baxter', weight: 32, cluster: 1 },
-                { name: 'R. A. da Costa', weight: 26, cluster: 1 },
-                { name: 'A. N. Samukhin', weight: 18, cluster: 1 },
-                { name: 'D. Cellai', weight: 15, cluster: 1 },
-                { name: 'N. Azimi-Tafreshi', weight: 12, cluster: 1 },
-                { name: 'M. Ostilli', weight: 10, cluster: 2 },
-                { name: 'G. Timár', weight: 9, cluster: 1 },
-                { name: 'K.-E. Lee', weight: 8, cluster: 2 },
-                { name: 'M. D. Santos', weight: 7, cluster: 1 },
-                { name: 'P. L. Krapivsky', weight: 6, cluster: 3 },
-                { name: 'M. A. F. Sanjuán', weight: 6, cluster: 4 },
-                { name: 'E. J. S. Lage', weight: 5, cluster: 5 },
-                { name: 'X.-J. Xu', weight: 5, cluster: 2 },
-                { name: 'T. M. Rocha Filho', weight: 5, cluster: 5 },
-                { name: 'F. Mukhamedov', weight: 4, cluster: 2 },
-                { name: 'M. A. Moret', weight: 4, cluster: 5 },
-                { name: 'D. S. Lee', weight: 4, cluster: 2 },
-                { name: 'F. Radicchi', weight: 3, cluster: 4 }
+                { name: "Dorogóvtsev, Sergey N.", weight: 91 },
+                { name: "Goltsev, Alexander V.", weight: 51 },
+                { name: "da Costa, Rui A.", weight: 19 },
+                { name: "Baxter, Gareth J.", weight: 16 },
+                { name: "Samukhin, Alexander N.", weight: 16 },
+                { name: "Yoon, Sooyeon", weight: 12 },
+                { name: "Timár, Gábor", weight: 9 },
+                { name: "Ostilli, Massimo", weight: 8 },
+                { name: "Oliveira, João Gama", weight: 7 },
+                { name: "MUKHAMEDOV, Farrukh M.", weight: 7 },
+                { name: "Lee, Kyoungeun", weight: 6 },
+                { name: "Lopes, M. A.", weight: 6 },
+                { name: "Moret, Marcelo Albano", weight: 6 },
+                { name: "Zhang, Chaoyang", weight: 6 },
+                { name: "Gao, Liang", weight: 6 },
+                { name: "Lage, E. J.S.", weight: 5 },
+                { name: "Rocha-Filho, Tarcísio M.", weight: 6 },
+                { name: "Santos, Maria Augusta", weight: 5 },
+                { name: "Ferreira, A. L.", weight: 4 },
+                { name: "Marques, Maria C.", weight: 4 },
+                { name: "Wright, Edgar A.P.", weight: 4 },
+                { name: "Xu, Xin-Jian", weight: 4 },
+                { name: "Bianconi, Ginestra", weight: 3 },
+                { name: "Cellai, Davide", weight: 3 },
+                { name: "Krapivsky, Paul L.", weight: 3 },
+                { name: "López-Fernández, Luis", weight: 3 },
+                { name: "Miguéns, Joana I.L.", weight: 3 },
+                { name: "Murari, Thiago B.", weight: 3 },
+                { name: "Sanjuán, Miguel A.F.", weight: 3 },
+                { name: "Scorza, Fúlvio Alexandre", weight: 3 },
+                { name: "Ullah, Aman", weight: 3 },
+                { name: "de Almeida, Antônio-Carlos G.", weight: 3 },
+                { name: "Dickman, Ronald", weight: 2 },
+                { name: "Zhang, Xun", weight: 2 },
+                { name: "Almendral, Juan A.", weight: 2 },
+                { name: "Araújo, Nuno A.M.", weight: 2 },
+                { name: "Azimi-Tafreshi, Nahid", weight: 2 },
+                { name: "Ben-Avraham, Daniel", weight: 2 },
+                { name: "Castro-e-Silva, Alcides", weight: 2 },
+                { name: "Chang, Shixin", weight: 2 },
+                { name: "Chen, Cheng", weight: 2 },
+                { name: "Cohen, R.", weight: 2 },
+                { name: "Cordeiro, Antônio Jose A.", weight: 2 },
+                { name: "Crowcroft, Jon A.", weight: 2 },
+                { name: "Erez, Keren", weight: 2 },
+                { name: "Fardilha, Margarida", weight: 2 },
+                { name: "Han, Xiao", weight: 2 },
+                { name: "Hase, M. O.", weight: 2 },
+                { name: "Havlin, Shlomo R.", weight: 2 },
+                { name: "Herrmann, Hans Jürgen", weight: 2 },
+                { name: "Khan, Nasrullah", weight: 2 },
+                { name: "Lio', Pietro P.", weight: 2 },
+                { name: "Machado, Ricado J.", weight: 2 },
+                { name: "Nascimento Filho, Aloísio Santos", weight: 2 },
+                { name: "Povolotsky, Alexander M.", weight: 2 },
+                { name: "Redner, Sidney", weight: 2 },
+                { name: "Rozikov, Utkir A.", weight: 2 },
+                { name: "Si, Bingfeng", weight: 2 },
+                { name: "Silva, Joana V.", weight: 2 },
+                { name: "Sousa, José Luis R.", weight: 2 },
+                { name: "Yu, Ting", weight: 2 },
+                { name: "de Barros Pereira, Hernane Borges B.", weight: 2 },
+                { name: "Aguiar, Rui Luís", weight: 1 },
+                { name: "Aleixo, Beatriz", weight: 1 },
+                { name: "Allen, Stuart M.", weight: 1 },
+                { name: "Antunes, Mário Luis Pinto", weight: 1 },
+                { name: "Badaró, Roberto José Da Silva", weight: 1 },
+                { name: "Böttcher, Lucas", weight: 1 },
+                { name: "Chen, Xiqun (Michael)", weight: 1 },
+                { name: "Conti, Marco", weight: 1 },
+                { name: "Cornell, Stephen J.", weight: 1 },
+                { name: "Corominas-Murtra, Bernat", weight: 1 },
+                { name: "Costa, Carlos Manuel Martins", weight: 1 },
+                { name: "Coutinho, Bruno Coelho", weight: 1 },
+                { name: "Da Cruz E Silva, Edgar F.", weight: 1 },
+                { name: "Da Cruz e Silva, Odete A.B.", weight: 1 },
+                { name: "Davids, Keith W.", weight: 1 },
+                { name: "Di Matteo, Tiziana", weight: 1 },
+                { name: "Domingues, Sara Catarina Timóteo Santos", weight: 1 },
+                { name: "Dos Santos Fonseca, Larissa Moraes S.", weight: 1 },
+                { name: "Droz, Michel", weight: 1 },
+                { name: "Dunbar, Robin I.M.", weight: 1 },
+                { name: "Dutra, Rafael De Sousa", weight: 1 },
+                { name: "Fan, Jingfang", weight: 1 },
+                { name: "Ferreira, Douglas S.R.", weight: 1 },
+                { name: "Ferreira, Ronan S.", weight: 1 },
+                { name: "Forgerini, Fabricio L.", weight: 1 },
+                { name: "Freitas, Renato Pereira", weight: 1 },
+                { name: "Ganikhodjaev, Nasir N.", weight: 1 },
+                { name: "Gao, Ziyou", weight: 1 },
+                { name: "Gevaert, Kris", weight: 1 },
+                { name: "Gonçalves, B. M.T.", weight: 1 },
+                { name: "Guimaraes, Sofia Cunha", weight: 1 },
+                { name: "Helbing, Dirk", weight: 1 },
+                { name: "Henkel, Malte", weight: 1 },
+                { name: "Holstein, Detlef", weight: 1 },
+                { name: "Jesus, Ricardo J.", weight: 1 },
+                { name: "Jia, Bin", weight: 1 },
+                { name: "Jędrzejewski, Arkadiusz", weight: 1 },
+                { name: "Khajeh, E.", weight: 1 },
+                { name: "Khawaja, Faiza Riaz", weight: 1 },
+                { name: "Khrennikov, Andrei Yu", weight: 1 },
+                { name: "Kovacs, Gy", weight: 1 },
+                { name: "Kurths, Jürgen G.", weight: 1 },
+                { name: "Laureano, Rosário D.", weight: 1 },
+                { name: "Leal da Silva, J. Kamphorst", weight: 1 },
+                { name: "Leung, Ian X.Y.", weight: 1 },
+                { name: "Li, Daqing", weight: 1 },
+                { name: "Li, Yunfei", weight: 1 },
+                { name: "Lopes, E. M.", weight: 1 },
+                { name: "Lucio, Magda L.", weight: 1 },
+                { name: "MacHado, Bruna Aparecida Souza", weight: 1 },
+                { name: "Maciel, E. L.", weight: 1 },
+                { name: "Meng, Yahui", weight: 1 },
+                { name: "Minguéns, J.", weight: 1 },
+                { name: "Molva, Refik", weight: 1 },
+                { name: "O'Keeffe, Kevin P.", weight: 1 },
+                { name: "Oliveira, Paulo S.L.", weight: 1 },
+                { name: "Passarella, Andrea", weight: 1 },
+                { name: "Passos, Pedro José Madaleno", weight: 1 },
+                { name: "Paz, N.", weight: 1 },
+                { name: "Phillips, James C.", weight: 1 },
+                { name: "Pimenta, André Rocha", weight: 1 },
+                { name: "Pogorelov, Yu G.", weight: 1 },
+                { name: "Ramalho, Walter Massa Assa", weight: 1 },
+                { name: "Ribeiro, Jennifer", weight: 1 },
+                { name: "Ribeiro, Pedro Manuel Pinto", weight: 1 },
+                { name: "Saba, Hugo", weight: 1 },
+                { name: "Santos, Marta D.", weight: 1 },
+                { name: "Silva, Fernando M. A.", weight: 1 },
+                { name: "Solé, Ricard V.", weight: 1 },
+                { name: "Sorbaro Sindaci, M.", weight: 1 },
+                { name: "Stavrakakis, Ioannis", weight: 1 },
+                { name: "Stinchcombe, Robin B.", weight: 1 },
+                { name: "Sun, Zejun", weight: 1 },
+                { name: "Tripathy, G.", weight: 1 },
+                { name: "Whitaker, Roger M.", weight: 1 },
+                { name: "Zhang, Peiran", weight: 1 },
+                { name: "Zhou, Guangjing", weight: 1 },
+                { name: "Zyuzin, Alexander Yu", weight: 1 },
+                { name: "da Silva, Diamantino C.", weight: 1 },
+                { name: "de Abreu, Fernão Vístulo", weight: 1 },
+                { name: "de Bock, Pieter Jan", weight: 1 },
+                { name: "de Oliveira, Mário J.", weight: 1 },
+                { name: "Ódor, Géza", weight: 1 }
+            ];
+
+            // Co-autoria cruzada conhecida entre colaboradores centrais
+            const KNOWN_CROSS_LINKS = [
+                ["Dorogóvtsev, Sergey N.", "Goltsev, Alexander V."],
+                ["Dorogóvtsev, Sergey N.", "Baxter, Gareth J."],
+                ["Goltsev, Alexander V.", "Baxter, Gareth J."],
+                ["Dorogóvtsev, Sergey N.", "da Costa, Rui A."],
+                ["Goltsev, Alexander V.", "da Costa, Rui A."],
+                ["Baxter, Gareth J.", "da Costa, Rui A."],
+                ["Dorogóvtsev, Sergey N.", "Samukhin, Alexander N."],
+                ["Dorogóvtsev, Sergey N.", "Timár, Gábor"],
+                ["Dorogóvtsev, Sergey N.", "Oliveira, João Gama"],
+                ["Goltsev, Alexander V.", "Oliveira, João Gama"],
+                ["Dorogóvtsev, Sergey N.", "Ostilli, Massimo"],
+                ["Dorogóvtsev, Sergey N.", "Cellai, Davide"],
+                ["Baxter, Gareth J.", "Cellai, Davide"],
+                ["Dorogóvtsev, Sergey N.", "Azimi-Tafreshi, Nahid"],
+                ["Dorogóvtsev, Sergey N.", "Santos, Maria Augusta"],
+                ["Dorogóvtsev, Sergey N.", "Lopes, M. A."]
             ];
 
             let simulation = null;
@@ -1836,7 +1983,7 @@
                 svgSel.selectAll('*').remove();
 
                 const nodes = [
-                    { id: 'center', name: 'J. F. F. Mendes', isCenter: true, weight: 150 },
+                    { id: 'center', name: 'J. F. F. Mendes', isCenter: true, weight: 120 },
                     ...collaborators.map((c, i) => ({ id: 'c' + i, ...c, isCenter: false }))
                 ];
 
@@ -1850,25 +1997,12 @@
                 const nameIndex = {};
                 collaborators.forEach((c, idx) => { nameIndex[c.name] = 'c' + idx; });
 
-                const crossPairs = [
-                    ['S. N. Dorogovtsev', 'A. V. Goltsev'],
-                    ['S. N. Dorogovtsev', 'G. J. Baxter'],
-                    ['A. V. Goltsev', 'G. J. Baxter'],
-                    ['S. N. Dorogovtsev', 'R. A. da Costa'],
-                    ['A. V. Goltsev', 'R. A. da Costa'],
-                    ['S. N. Dorogovtsev', 'A. N. Samukhin'],
-                    ['S. N. Dorogovtsev', 'D. Cellai'],
-                    ['G. J. Baxter', 'D. Cellai'],
-                    ['S. N. Dorogovtsev', 'N. Azimi-Tafreshi'],
-                    ['S. N. Dorogovtsev', 'M. D. Santos']
-                ];
-
-                crossPairs.forEach(([a, b]) => {
+                KNOWN_CROSS_LINKS.forEach(([a, b]) => {
                     if (nameIndex[a] && nameIndex[b]) {
                         links.push({
                             source: nameIndex[a],
                             target: nameIndex[b],
-                            weight: 4,
+                            weight: 3,
                             isEgo: false
                         });
                     }
@@ -1879,20 +2013,28 @@
 
                 const g = svgSel.append('g');
 
-                svgSel.call(d3.zoom().scaleExtent([0.2, 5]).on('zoom', e => g.attr('transform', e.transform)));
+                const zoom = d3.zoom()
+                    .scaleExtent([0.15, 6])
+                    .on('zoom', e => g.attr('transform', e.transform));
+
+                svgSel.call(zoom);
+
+                const count = collaborators.length;
+                const distanceFactor = count > 50 ? 190 : 130;
+                const chargeStrength = count > 50 ? -120 : -180;
 
                 simulation = d3.forceSimulation(nodes)
-                    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.isCenter ? 140 : 65).strength(d => d.isEgo ? 0.6 : 0.3))
-                    .force('charge', d3.forceManyBody().strength(d => d.isCenter ? -700 : -160))
+                    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.isCenter ? distanceFactor : 60).strength(d => d.isEgo ? 0.6 : 0.25))
+                    .force('charge', d3.forceManyBody().strength(d => d.isCenter ? -1000 : chargeStrength))
                     .force('center', d3.forceCenter(W / 2, H / 2))
-                    .force('collision', d3.forceCollide().radius(d => d.isCenter ? 36 : Math.max(10, Math.min(24, Math.sqrt(d.weight) * 3)) + 6));
+                    .force('collision', d3.forceCollide().radius(d => d.isCenter ? 32 : Math.max(5, Math.min(22, Math.sqrt(d.weight) * 3.5)) + 4));
 
                 const link = g.append('g')
                     .selectAll('line')
                     .data(links)
                     .join('line')
-                    .attr('stroke', d => d.isEgo ? 'rgba(0, 125, 105, 0.45)' : 'rgba(0, 0, 0, 0.16)')
-                    .attr('stroke-width', d => d.isEgo ? (d.weight > 20 ? 2 : 1.2) : 1);
+                    .attr('stroke', d => d.isEgo ? 'rgba(0, 125, 105, 0.35)' : 'rgba(0, 0, 0, 0.12)')
+                    .attr('stroke-width', d => d.isEgo ? (d.weight > 15 ? 2 : 1) : 0.8);
 
                 const node = g.append('g')
                     .selectAll('g')
@@ -1906,14 +2048,18 @@
                     );
 
                 node.append('circle')
-                    .attr('r', d => d.isCenter ? 26 : Math.max(7, Math.min(22, Math.sqrt(d.weight) * 3.4)))
-                    .attr('fill', d => d.isCenter ? '#007D69' : (d.weight > 20 ? '#004a3f' : '#7dd4c4'))
+                    .attr('r', d => d.isCenter ? 26 : Math.max(5, Math.min(24, Math.sqrt(d.weight) * 3.2)))
+                    .attr('fill', d => d.isCenter ? '#007D69' : (d.weight >= 15 ? '#004a3f' : (d.weight >= 5 ? '#0b69a3' : '#7dd4c4')))
                     .attr('stroke', d => d.isCenter ? '#00332c' : '#ffffff')
-                    .attr('stroke-width', d => d.isCenter ? 2.5 : 1.5);
+                    .attr('stroke-width', d => d.isCenter ? 2.5 : 1.2);
 
-                node.filter(d => !d.isCenter && d.weight >= 10)
+                // Iniciais / abreviaturas para nós com mais de 8 artigos
+                node.filter(d => !d.isCenter && d.weight >= 8)
                     .append('text')
-                    .text(d => d.name.split(' ').pop().slice(0, 3).toUpperCase())
+                    .text(d => {
+                        const parts = d.name.split(',');
+                        return parts[0].slice(0, 3).toUpperCase();
+                    })
                     .attr('text-anchor', 'middle')
                     .attr('dy', '0.35em')
                     .attr('fill', '#ffffff')
@@ -1921,6 +2067,7 @@
                     .attr('font-weight', '500')
                     .attr('pointer-events', 'none');
 
+                // Nó central Mendes
                 node.filter(d => d.isCenter)
                     .append('text')
                     .text('JFM')
@@ -1931,8 +2078,9 @@
                     .attr('font-weight', '700')
                     .attr('pointer-events', 'none');
 
+                // Tooltip
                 node.on('mouseenter', (e, d) => {
-                    tooltip.innerHTML = `<strong>${d.name}</strong>${!d.isCenter ? `<br><span style="color:#007D69;font-weight:600;">${d.weight}</span> co-authored papers with JFM` : '<br><em>Center ego</em>'}`;
+                    tooltip.innerHTML = `<strong>${d.name}</strong>${!d.isCenter ? `<br><span style="color:#007D69;font-weight:600;">${d.weight}</span> co-authored papers` : '<br><em>Ego Center</em>'}`;
                     tooltip.style.display = 'block';
                     tooltip.style.left = (e.clientX + 14) + 'px';
                     tooltip.style.top = (e.clientY - 14) + 'px';
