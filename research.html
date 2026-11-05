@@ -15,8 +15,9 @@
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
-    <!-- D3.js for the Collaboration Network -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- D3.js for the Collaboration Network (jsDelivr, with cdnjs fallback) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"
+            onerror="var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js';document.head.appendChild(s);"></script>
 
     <style>
         :root {
@@ -844,7 +845,7 @@
         .network-graph-area {
             position: relative;
             width: 100%;
-            height: 600px;
+            height: 620px;
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 8px;
@@ -853,7 +854,26 @@
             user-select: none;
         }
 
-        #network-svg { width: 100%; height: 100%; }
+        #network-svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+
+        #network-svg:active { cursor: grabbing; }
+
+        .network-msg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            color: #627d98;
+            font-size: 0.95rem;
+        }
 
         .network-tooltip {
             position: fixed;
@@ -979,7 +999,7 @@
                 color: #829ab1;
             }
 
-            .network-graph-area { height: 460px; }
+            .network-graph-area { height: 480px; }
         }
     </style>
 </head>
@@ -1752,22 +1772,22 @@
 
             <div class="network-controls-bar">
                 <div class="network-stats-inline">
-                    <div><span class="net-stat-value" id="net-stat-collabs">20</span><span class="net-stat-label">Collaborators</span></div>
-                    <div><span class="net-stat-value" id="net-stat-links">38</span><span class="net-stat-label">Connections</span></div>
+                    <div><span class="net-stat-value" id="net-stat-collabs">145</span><span class="net-stat-label">Collaborators</span></div>
+                    <div><span class="net-stat-value" id="net-stat-links">160</span><span class="net-stat-label">Connections</span></div>
                 </div>
                 <div class="network-select-wrapper">
                     <label for="top-n-select">Show</label>
                     <select id="top-n-select">
-                        <option value="20" selected>Top 20</option>
+                        <option value="20">Top 20</option>
                         <option value="40">Top 40</option>
                         <option value="70">Top 70</option>
-                        <option value="0">All Co-authors</option>
+                        <option value="0" selected>All Co-authors</option>
                     </select>
                 </div>
             </div>
 
             <div class="network-graph-area" id="network-container">
-                <svg id="network-svg"></svg>
+                <svg id="network-svg" role="img" aria-label="Co-authorship network around J. F. F. Mendes"></svg>
             </div>
 
             <div class="network-tooltip" id="network-tooltip" style="display:none"></div>
@@ -1792,9 +1812,9 @@
         <p>&copy; 2026 José Fernando Mendes </p>
     </footer>
 
-   <!-- Interactive D3 Force Simulation -->
+    <!-- Interactive D3 Force Simulation -->
     <script>
-        (function() {
+        (function () {
             const svgEl = document.getElementById('network-svg');
             const container = document.getElementById('network-container');
             const tooltip = document.getElementById('network-tooltip');
@@ -1802,7 +1822,7 @@
             const statCollabs = document.getElementById('net-stat-collabs');
             const statLinks = document.getElementById('net-stat-links');
 
-            // Lista consolidada e deduplicada com contagens exatas da base de dados
+            // Consolidated, deduplicated co-author list with exact counts from the database
             const AUTHENTIC_COLLABS = [
                 { name: "Dorogóvtsev, Sergey N.", weight: 91 },
                 { name: "Goltsev, Alexander V.", weight: 51 },
@@ -1951,7 +1971,11 @@
                 { name: "Ódor, Géza", weight: 1 }
             ];
 
-            // Co-autoria cruzada conhecida entre colaboradores centrais
+            // FIX: the list is not strictly ordered by weight (e.g. Rocha-Filho 6 comes after Lage 5),
+            // so "Top N" must sort first. Array.prototype.sort is stable, so ties keep their order.
+            const SORTED_COLLABS = AUTHENTIC_COLLABS.slice().sort((a, b) => b.weight - a.weight);
+
+            // Known cross co-authorship between core collaborators
             const KNOWN_CROSS_LINKS = [
                 ["Dorogóvtsev, Sergey N.", "Goltsev, Alexander V."],
                 ["Dorogóvtsev, Sergey N.", "Baxter, Gareth J."],
@@ -1971,19 +1995,59 @@
             ];
 
             let simulation = null;
+            let lastWidth = 0;
+
+            const idOf = x => (typeof x === 'object' ? x.id : x);
+            const nodeRadius = d => d.isCenter ? 26 : Math.max(6, Math.min(24, Math.sqrt(d.weight) * 3.2));
+            const nodeColor = d => d.isCenter ? '#007D69' : (d.weight >= 15 ? '#004a3f' : (d.weight >= 5 ? '#0b69a3' : '#4fc3a8'));
+
+            function showMessage(text) {
+                if (simulation) simulation.stop();
+                d3 && d3.select(svgEl).selectAll('*').remove();
+                const old = container.querySelector('.network-msg');
+                if (old) old.remove();
+                const m = document.createElement('div');
+                m.className = 'network-msg';
+                m.textContent = text;
+                container.appendChild(m);
+            }
 
             function renderGraph(collaborators) {
+                const oldMsg = container.querySelector('.network-msg');
+                if (oldMsg) oldMsg.remove();
+
                 const W = container.clientWidth || 800;
                 const H = container.clientHeight || 600;
+                lastWidth = W;
 
                 if (simulation) simulation.stop();
 
                 const svgSel = d3.select(svgEl);
                 svgSel.selectAll('*').remove();
+                svgSel.attr('viewBox', `0 0 ${W} ${H}`).attr('preserveAspectRatio', 'xMidYMid meet');
+
+                const count = collaborators.length;
+
+                // Virtual canvas: larger for big networks, then zoomed out to fit the viewport
+                const k = count > 100 ? 2.4 : count > 60 ? 1.9 : count > 30 ? 1.35 : 1;
+                const VW = W * k, VH = H * k;
+                const cx = VW / 2, cy = VH / 2;
+                const R = Math.max(130, Math.min(VW, VH) / 2 - 45);
+                const maxW = d3.max(collaborators, c => c.weight) || 1;
+
+                // Strong collaborators sit close to the centre, weak ones further out
+                const targetRadius = d => d.isCenter ? 0 : 75 + (R - 75) * (1 - Math.sqrt(d.weight / maxW));
 
                 const nodes = [
-                    { id: 'center', name: 'J. F. F. Mendes', isCenter: true, weight: 120 },
-                    ...collaborators.map((c, i) => ({ id: 'c' + i, ...c, isCenter: false }))
+                    { id: 'center', name: 'J. F. F. Mendes', isCenter: true, weight: 120, x: cx, y: cy, fx: cx, fy: cy },
+                    ...collaborators.map((c, i) => {
+                        const node = { id: 'c' + i, ...c, isCenter: false };
+                        const angle = i * 2.399963; // golden angle -> even initial spread
+                        const r = targetRadius(node);
+                        node.x = cx + r * Math.cos(angle);
+                        node.y = cy + r * Math.sin(angle);
+                        return node;
+                    })
                 ];
 
                 const links = collaborators.map((c, i) => ({
@@ -1998,42 +2062,42 @@
 
                 KNOWN_CROSS_LINKS.forEach(([a, b]) => {
                     if (nameIndex[a] && nameIndex[b]) {
-                        links.push({
-                            source: nameIndex[a],
-                            target: nameIndex[b],
-                            weight: 3,
-                            isEgo: false
-                        });
+                        links.push({ source: nameIndex[a], target: nameIndex[b], weight: 3, isEgo: false });
                     }
                 });
 
-                statCollabs.textContent = collaborators.length;
+                statCollabs.textContent = count;
                 statLinks.textContent = links.length;
 
                 const g = svgSel.append('g');
 
                 const zoom = d3.zoom()
-                    .scaleExtent([0.15, 6])
+                    .scaleExtent([0.2, 6])
                     .on('zoom', e => g.attr('transform', e.transform));
 
                 svgSel.call(zoom);
+                // Initial view: fit the virtual canvas into the viewport
+                const s = 1 / k;
+                svgSel.call(zoom.transform, d3.zoomIdentity.translate(W / 2 - cx * s, H / 2 - cy * s).scale(s));
 
-                const count = collaborators.length;
-                const distanceFactor = count > 50 ? 190 : 130;
-                const chargeStrength = count > 50 ? -120 : -180;
-
+                // FIX: the old code used d.isCenter on LINKS (always undefined) so every ego link got
+                // distance 60 and the whole graph collapsed into a clump. Now uses the node's target radius.
                 simulation = d3.forceSimulation(nodes)
-                    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.isCenter ? distanceFactor : 60).strength(d => d.isEgo ? 0.6 : 0.25))
-                    .force('charge', d3.forceManyBody().strength(d => d.isCenter ? -1000 : chargeStrength))
-                    .force('center', d3.forceCenter(W / 2, H / 2))
-                    .force('collision', d3.forceCollide().radius(d => d.isCenter ? 32 : Math.max(5, Math.min(22, Math.sqrt(d.weight) * 3.5)) + 4));
+                    .force('link', d3.forceLink(links).id(d => d.id)
+                        .distance(d => d.isEgo ? targetRadius(d.target) : 55)
+                        .strength(d => d.isEgo ? 0.35 : 0.02))
+                    .force('charge', d3.forceManyBody().strength(d => d.isCenter ? 0 : -70).distanceMax(220))
+                    .force('radial', d3.forceRadial(d => targetRadius(d), cx, cy).strength(d => d.isCenter ? 0 : 0.55))
+                    .force('collision', d3.forceCollide().radius(d => nodeRadius(d) + 3).iterations(2))
+                    .alphaDecay(0.03)
+                    .stop();
 
                 const link = g.append('g')
                     .selectAll('line')
                     .data(links)
                     .join('line')
-                    .attr('stroke', d => d.isEgo ? 'rgba(0, 125, 105, 0.35)' : 'rgba(0, 0, 0, 0.12)')
-                    .attr('stroke-width', d => d.isEgo ? (d.weight > 15 ? 2 : 1) : 0.8);
+                    .attr('stroke', d => d.isEgo ? 'rgba(0, 125, 105, 0.35)' : 'rgba(0, 0, 0, 0.16)')
+                    .attr('stroke-width', d => d.isEgo ? (d.weight > 15 ? 2 : 1) : 0.9);
 
                 const node = g.append('g')
                     .selectAll('g')
@@ -2041,32 +2105,21 @@
                     .join('g')
                     .attr('cursor', 'pointer')
                     .call(d3.drag()
-                        .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                        .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.2).restart(); d.fx = d.x; d.fy = d.y; })
                         .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
-                        .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+                        .on('end', (e, d) => {
+                            if (!e.active) simulation.alphaTarget(0);
+                            if (!d.isCenter) { d.fx = null; d.fy = null; }
+                        })
                     );
 
                 node.append('circle')
-                    .attr('r', d => d.isCenter ? 26 : Math.max(5, Math.min(24, Math.sqrt(d.weight) * 3.2)))
-                    .attr('fill', d => d.isCenter ? '#007D69' : (d.weight >= 15 ? '#004a3f' : (d.weight >= 5 ? '#0b69a3' : '#7dd4c4')))
-                    .attr('stroke', d => d.isCenter ? '#00332c' : '#ffffff')
-                    .attr('stroke-width', d => d.isCenter ? 2.5 : 1.2);
+                    .attr('r', nodeRadius)
+                    .attr('fill', nodeColor)
+                    .attr('stroke', d => d.isCenter ? '#00332c' : (d.weight >= 5 ? '#ffffff' : '#007D69'))
+                    .attr('stroke-width', d => d.isCenter ? 2.5 : (d.weight >= 5 ? 1.2 : 0.8));
 
-                // Iniciais / abreviaturas para nós com mais de 8 artigos
-                node.filter(d => !d.isCenter && d.weight >= 8)
-                    .append('text')
-                    .text(d => {
-                        const parts = d.name.split(',');
-                        return parts[0].slice(0, 3).toUpperCase();
-                    })
-                    .attr('text-anchor', 'middle')
-                    .attr('dy', '0.35em')
-                    .attr('fill', '#ffffff')
-                    .attr('font-size', '8px')
-                    .attr('font-weight', '500')
-                    .attr('pointer-events', 'none');
-
-                // Nó central Mendes
+                // Centre label
                 node.filter(d => d.isCenter)
                     .append('text')
                     .text('JFM')
@@ -2077,36 +2130,91 @@
                     .attr('font-weight', '700')
                     .attr('pointer-events', 'none');
 
-                // Tooltip
-                node.on('mouseenter', (e, d) => {
-                    tooltip.innerHTML = `<strong>${d.name}</strong>${!d.isCenter ? `<br><span style="color:#007D69;font-weight:600;">${d.weight}</span> co-authored papers` : '<br><em>Ego Center</em>'}`;
-                    tooltip.style.display = 'block';
-                    tooltip.style.left = (e.clientX + 14) + 'px';
-                    tooltip.style.top = (e.clientY - 14) + 'px';
-                })
-                .on('mousemove', e => {
-                    tooltip.style.left = (e.clientX + 14) + 'px';
-                    tooltip.style.top = (e.clientY - 14) + 'px';
-                })
-                .on('mouseleave', () => tooltip.style.display = 'none');
+                // Surname labels for the main collaborators (5+ papers)
+                node.filter(d => !d.isCenter && d.weight >= 5)
+                    .append('text')
+                    .text(d => d.name.split(',')[0])
+                    .attr('text-anchor', 'middle')
+                    .attr('y', d => nodeRadius(d) + 11)
+                    .attr('fill', '#334e68')
+                    .attr('font-size', '10px')
+                    .attr('font-weight', '500')
+                    .attr('stroke', '#ffffff')
+                    .attr('stroke-width', 3)
+                    .attr('paint-order', 'stroke')
+                    .attr('pointer-events', 'none');
 
-                simulation.on('tick', () => {
+                // Adjacency (after forceLink resolves source/target ids into node objects)
+                const neighbours = new Map(nodes.map(n => [n.id, new Set([n.id])]));
+                links.forEach(l => {
+                    const a = idOf(l.source), b = idOf(l.target);
+                    neighbours.get(a).add(b);
+                    neighbours.get(b).add(a);
+                });
+
+                function placeTooltip(e) {
+                    tooltip.style.left = (e.clientX + 14) + 'px';
+                    tooltip.style.top = (e.clientY - 14) + 'px';
+                }
+
+                node.on('mouseenter', (e, d) => {
+                        tooltip.innerHTML = `<strong>${d.name}</strong>` +
+                            (!d.isCenter ? `<br><span style="color:#007D69;font-weight:600;">${d.weight}</span> co-authored papers` : '<br><em>Ego Center</em>');
+                        tooltip.style.display = 'block';
+                        placeTooltip(e);
+                        const nb = neighbours.get(d.id);
+                        node.attr('opacity', n => nb.has(n.id) ? 1 : 0.25);
+                        link.attr('opacity', l => (idOf(l.source) === d.id || idOf(l.target) === d.id) ? 1 : 0.1);
+                    })
+                    .on('mousemove', placeTooltip)
+                    .on('mouseleave', () => {
+                        tooltip.style.display = 'none';
+                        node.attr('opacity', 1);
+                        link.attr('opacity', 1);
+                    });
+
+                function ticked() {
                     link
                         .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
                         .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
                     node.attr('transform', d => `translate(${d.x},${d.y})`);
-                });
+                }
+
+                // Pre-compute the layout so the graph appears already settled, then keep it live for dragging
+                for (let i = 0; i < 220; i++) simulation.tick();
+                ticked();
+                simulation.on('tick', ticked).alpha(0.08).restart();
             }
 
             function updateNetwork() {
+                if (typeof d3 === 'undefined') {
+                    container.querySelector('svg') && (container.querySelector('svg').innerHTML = '');
+                    const m = document.createElement('div');
+                    m.className = 'network-msg';
+                    m.textContent = 'The network could not be loaded (the D3.js library failed to load). Please check your connection and reload the page.';
+                    container.appendChild(m);
+                    return;
+                }
                 const val = parseInt(topNSel.value, 10);
-                const subset = val === 0 ? AUTHENTIC_COLLABS : AUTHENTIC_COLLABS.slice(0, val);
+                const subset = val === 0 ? SORTED_COLLABS : SORTED_COLLABS.slice(0, val);
                 renderGraph(subset);
             }
 
-            updateNetwork();
+            // Debounced resize; only re-render when the width actually changes
+            // (mobile browsers fire resize on scroll when the URL bar collapses)
+            let resizeTimer = null;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (Math.abs(container.clientWidth - lastWidth) > 4) updateNetwork();
+                }, 200);
+            });
+
             topNSel.addEventListener('change', updateNetwork);
-            window.addEventListener('resize', updateNetwork);
+
+            // Wait for the page (and the D3 fallback script, if it was needed) to finish loading
+            if (document.readyState === 'complete') updateNetwork();
+            else window.addEventListener('load', updateNetwork);
         })();
     </script>
 
@@ -2130,3 +2238,4 @@
 
 </body>
 </html>
+
