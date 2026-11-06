@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jfmendes-sciart.github.io/sitemap.xml
