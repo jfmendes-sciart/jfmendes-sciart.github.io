@@ -759,46 +759,91 @@
 
     
 <!-- Página / Vista de Detalhe Individual da Obra -->
-    <div class="modal" id="artModal">
-        <div class="detail-page-container">
-            <div class="detail-nav-bar">
-                <button class="detail-back-btn" id="modalClose">
-                    &larr; Return to Artworks
-                </button>
-                <span style="font-size: 0.85rem; color: #888;">Esc to close</span>
+<div class="modal" id="artModal">
+    <div class="detail-page-container">
+        <div class="detail-nav-bar">
+            <button class="detail-back-btn" id="modalClose">
+                &larr; Return to Artworks
+            </button>
+            <span style="font-size: 0.85rem; color: #888;">Esc to close</span>
+        </div>
+
+        <div class="detail-layout">
+            <div class="detail-img-box">
+                <img id="modalImg" src="" alt="Artwork detailed display">
             </div>
 
-            <div class="detail-layout">
-                <div class="detail-img-box">
-                    <img id="modalImg" src="" alt="Artwork detailed display">
-                </div>
+            <div class="detail-info-col">
+                <h1 class="detail-title" id="modalTitle">Artwork Title</h1>
+                
+                <ul class="detail-specs-table">
+                    <li><strong>Year:</strong> <span id="modalYear">2024</span></li>
+                    <li><strong>Medium:</strong> <span id="modalMedium">Oil on Canvas</span></li>
+                    <li><strong>Dimensions:</strong> <span id="modalDimensions">80 x 100 cm</span></li>
+                </ul>
 
-                <div class="detail-info-col">
-                    <h1 class="detail-title" id="modalTitle">Artwork Title</h1>
-                    
-                    <ul class="detail-specs-table">
-                        <li><strong>Year:</strong> <span id="modalYear">2024</span></li>
-                        <li><strong>Medium:</strong> <span id="modalMedium">Oil on Canvas</span></li>
-                        <li><strong>Dimensions:</strong> <span id="modalDimensions">80 x 100 cm</span></li>
-                    </ul>
+                <p class="detail-statement" id="modalDesc">
+                    Painterly investigation bridging structural complexity with spontaneous pigment interactions.
+                </p>
 
-                    <p class="detail-statement" id="modalDesc">
-                        Painterly investigation bridging structural complexity with spontaneous pigment interactions.
-                    </p>
+                <a id="modalMailLink" href="mailto:jfmendes@ua.pt" class="inquire-btn">
+                    Inquire About This Work
+                </a>
 
-                    <a id="modalMailLink" href="mailto:jfmendes@ua.pt" class="inquire-btn">
-                        Inquire About This Work
-                    </a>
-
-                    <a id="modalOfferLink" 
-                       href="mailto:jfmendes@ua.pt?subject=Offer%20for%20Artwork&body=I%20am%20very%20interested%20in%20your%20painting%20and%20would%20like%20to%20make%20an%20offer%20of%20%5Bamount%5D%20%E2%82%AC%20for%20it.%0D%0A%0D%0AI%20hope%20you%20will%20consider%20my%20offer%2C%20as%20I%20would%20be%20delighted%20to%20have%20this%20artwork%20in%20my%20collection.%0D%0A%0D%0AThank%20you%20for%20your%20time%20and%20consideration.%20I%20look%20forward%20to%20hearing%20from%20you.%0D%0A%0D%0ABest%20regards%2C" 
-                       class="offer-btn">
-                        MAKE AN OFFER
-                    </a>
-                </div>
+                <!-- Caixa MAKE AN OFFER com estilo forçado e disparo via JS -->
+                <button type="button" id="modalOfferBtn" class="offer-box-btn">
+                    MAKE AN OFFER
+                </button>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+/* Estilos da caixa Make an Offer com alta prioridade para não falhar */
+.offer-box-btn {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    padding: 16px 20px !important;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border: 2px solid #000000 !important;
+    font-family: inherit !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+.offer-box-btn:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+</style>
+
+<script>
+document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Obtém o título da obra do próprio elemento modal, ou usa valor padrão
+    const titleElem = document.getElementById('modalTitle');
+    const title = titleElem ? titleElem.innerText.trim() : "Artwork";
+
+    const recipient = "jfmendes@ua.pt";
+    const subject = `Offer for: ${title}`;
+    
+    const body = `I am very interested in your painting and would like to make an offer of [amount] € for it.\n\nI hope you will consider my offer, as I would be delighted to have this artwork in my collection.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,`;
+
+    // Cria o link codificado corretamente para evitar que o navegador corte o texto
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+</script>
 
     <!-- Footer -->
     <footer>
