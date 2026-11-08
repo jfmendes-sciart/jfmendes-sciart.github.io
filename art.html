@@ -838,7 +838,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
     const recipient = "jfmendes@ua.pt";
     const subject = `Offer for: ${title}`;
     
-    const body = `I am very interested in your painting and would like to make an offer of [amount] € for it.\n\nI hope you will consider my offer, as I would be delighted to have this artwork in my collection.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,`;
+    const body = `Dear Jose,\n\n I am very interested in your painting and would like to make an offer of [amount] € for it.\n\nI hope you will consider my offer, as I would be delighted to have this artwork in my collection.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,`;
 
     // Cria o link codificado corretamente para evitar que o navegador corte o texto
     window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
