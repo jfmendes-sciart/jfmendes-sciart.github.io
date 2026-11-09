@@ -129,7 +129,6 @@
             font-size: 0.88rem;
         }
 
-        /* Submenus dropdown no ecrã grande */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -164,7 +163,6 @@
             color: var(--secondary);
         }
 
-        /* Botão hambúrguer no mobile */
         .nav-toggle {
             display: none;
             background: none;
@@ -244,7 +242,6 @@
             padding: 2.5rem 1.5rem;
         }
 
-        /* Intro Profile Card */
         .intro {
             background: var(--card-bg);
             border-radius: 12px;
@@ -296,7 +293,6 @@
             background: #e2e8f0;
         }
 
-        /* Ícones Sociais / Académicos */
         .profile-social-icons {
             display: flex;
             gap: 0.75rem;
@@ -337,11 +333,11 @@
         .icon-link.email:hover { color: var(--secondary); border-color: var(--secondary); }
 
         /* -------------------------------------------------------------
-           Recent Updates & Events (Estilo Ronaldo Menezes)
+           Recent Updates & Events
            ------------------------------------------------------------- */
         .updates-events-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.05fr 0.95fr;
             gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
@@ -387,7 +383,6 @@
             transition: all 0.25s ease-in-out;
         }
 
-        /* Eventos e Itens Futuros (Destacados / Highlighted) */
         .feed-item.upcoming {
             background: #f0f7ff;
             border-left: 3px solid var(--secondary);
@@ -407,7 +402,6 @@
             box-shadow: 0 4px 12px rgba(11, 105, 163, 0.1);
         }
 
-        /* Eventos e Itens Passados (Claro / Atenuado / Faded) */
         .feed-item.past {
             opacity: 0.65;
             background: #fbfcfe;
@@ -471,7 +465,6 @@
             color: #059669;
         }
 
-        /* Status Badges para Upcoming / Past */
         .status-badge {
             font-size: 0.68rem;
             font-weight: 600;
@@ -505,17 +498,139 @@
             font-weight: 300;
         }
 
-        .feed-desc a {
-            color: var(--secondary);
-            text-decoration: none;
+        /* -------------------------------------------------------------
+           Featured Paper Highlight Card (Novo Destaque)
+           ------------------------------------------------------------- */
+        .featured-paper-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-top: 3px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1.4rem 1.4rem 1.2rem;
+            margin-bottom: 1.3rem;
+            box-shadow: 0 4px 16px rgba(11, 105, 163, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .featured-paper-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(11, 105, 163, 0.11);
+        }
+
+        .featured-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 0.6rem;
+        }
+
+        .featured-tags-left {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .tag-pill {
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.18rem 0.55rem;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #334e68;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .tag-pill.tag-oa {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-family: monospace;
+            font-size: 0.8rem;
+            padding: 0.1rem 0.45rem;
+        }
+
+        .tag-pill.tag-pages {
+            background: transparent;
+            color: #627d98;
+            font-size: 0.75rem;
+            margin-left: auto;
+            gap: 0.35rem;
+        }
+
+        .featured-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 1.22rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+
+        .featured-authors {
+            font-size: 0.88rem;
+            color: #486581;
             font-weight: 400;
+            line-height: 1.45;
         }
 
-        .feed-desc a:hover {
-            text-decoration: underline;
+        .featured-abstract {
+            font-size: 0.86rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            font-weight: 300;
+            background: #fbfcfe;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 2px solid var(--accent);
         }
 
-        /* Highlights (Grelha de 4 Cartões) */
+        .featured-journal-meta {
+            font-size: 0.84rem;
+            color: #627d98;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .featured-journal-meta em {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .featured-figure-wrap {
+            margin-top: 0.2rem;
+            background: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.4rem;
+        }
+
+        .featured-figure-wrap img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* -------------------------------------------------------------
+           Highlights (Cards) & Footer
+           ------------------------------------------------------------- */
         .highlights h2 {
             font-family: "Newsreader", Georgia, serif;
             font-size: 1.65rem;
@@ -595,7 +710,6 @@
             text-decoration: underline;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2.5rem 1rem;
@@ -607,14 +721,8 @@
             margin-top: 3rem;
         }
 
-        /* -------------------------------------------------------------
-           Ajustes Mobile
-           ------------------------------------------------------------- */
         @media (max-width: 860px) {
-            .nav-toggle {
-                display: flex;
-            }
-
+            .nav-toggle { display: flex; }
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -631,17 +739,9 @@
                 z-index: 100;
                 max-height: 75vh;
                 overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
             }
-
-            .nav-menu.nav-open {
-                display: flex;
-            }
-
-            .nav-item-dropdown {
-                width: 100%;
-            }
-
+            .nav-menu.nav-open { display: flex; }
+            .nav-item-dropdown { width: 100%; }
             .dropdown-menu {
                 position: static;
                 display: block;
@@ -650,21 +750,15 @@
                 padding-left: 0.8rem;
                 margin-top: 0.2rem;
             }
-
             .intro-inner {
                 flex-direction: column-reverse;
                 text-align: center;
                 gap: 1.8rem;
             }
-
             .updates-events-container {
                 grid-template-columns: 1fr;
             }
-
-            .hero-banner {
-                height: 25vh;
-            }
-
+            .hero-banner { height: 25vh; }
             .hero-banner .quote-text {
                 font-size: 1.4rem;
                 padding: 1rem;
@@ -683,18 +777,15 @@
                     <p class="nav-subtitle">Professor of Physics and Artist</p>
                 </div>
 
-                <!-- Botão Hambúrguer Mobile -->
                 <button class="nav-toggle" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
 
-                <!-- Menu de Navegação -->
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     
-                    <!-- Research Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="research.html" class="nav-link">Research</a>
                         <ul class="dropdown-menu">
@@ -707,7 +798,6 @@
                         </ul>
                     </li>
 
-                    <!-- Teaching Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="teaching.html" class="nav-link">Teaching</a>
                         <ul class="dropdown-menu">
@@ -717,7 +807,6 @@
                         </ul>
                     </li>
 
-                    <!-- Art Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="art.html" class="nav-link">Art</a>
                         <ul class="dropdown-menu">
@@ -726,7 +815,6 @@
                         </ul>
                     </li>
 
-                    <!-- About Me Dropdown -->
                     <li class="nav-item-dropdown">
                         <a href="about.html" class="nav-link">About Me</a>
                         <ul class="dropdown-menu">
@@ -750,7 +838,7 @@
         </nav>
     </header>
 
-    <!-- Top Hero Video Banner (Net.mp4) -->
+    <!-- Top Hero Video Banner -->
     <div class="hero-banner">
         <video class="hero-video-bg" autoplay muted loop playsinline poster="banner.jpg">
             <source src="Net.mp4" type="video/mp4">
@@ -779,29 +867,19 @@
                 <div class="profile-image-wrap">
                     <img src="art/MainPicture3.jpg" alt="José Fernando Mendes" onerror="this.src='https://ui-avatars.com/api/?name=Jose+Fernando+Mendes&size=200&background=0b69a3&color=fff'" class="profile-image">
                     
-                    <!-- Ícones Académicos / Sociais -->
                     <div class="profile-social-icons">
-                        <!-- Google Scholar -->
                         <a href="https://scholar.google.com/citations?user=g0PnXHIAAAAJ" target="_blank" class="icon-link scholar" title="Google Scholar" aria-label="Google Scholar">
                             <svg viewBox="0 0 24 24"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
                         </a>
-
-                        <!-- ResearchGate -->
                         <a href="https://www.researchgate.net/profile/Jose-Fernando-Mendes" target="_blank" class="icon-link rg" title="ResearchGate" aria-label="ResearchGate">
                             <svg viewBox="0 0 24 24"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a3.193 3.193 0 0 0-1.128-.854 3.73 3.73 0 0 0-1.636-.356c-1.282 0-2.316.48-3.1 1.442C9.654 3.44 9.262 4.75 9.262 6.41c0 1.635.394 2.932 1.18 3.89.788.958 1.83 1.436 3.127 1.436.6 0 1.154-.122 1.66-.367.505-.244.89-.594 1.155-1.047l.115.71h2.247V0h-.16zm-5.46 9.45c-.75 0-1.348-.32-1.794-.96-.445-.64-.668-1.565-.668-2.775 0-1.233.224-2.17.673-2.81.448-.642 1.045-.963 1.79-.963.753 0 1.346.32 1.78.96.434.64.65 1.577.65 2.81 0 1.21-.217 2.136-.653 2.776-.436.64-1.03 1.01-1.78 1.01zm5.553-4.22h-1.46V3.81c0-.49.123-.88.368-1.173.245-.292.593-.438 1.045-.438.167 0 .338.02.51.06v-1.6c-.29-.053-.598-.08-.925-.08-.94 0-1.682.302-2.227.906-.544.604-.817 1.472-.817 2.603V5.23h-1.44v1.854h1.44v6.864h2.506V7.084h1.46V5.23zM5.534 8.723H3.028v5.225H.522V3.418h5.012c1.233 0 2.215.352 2.946 1.055.73.704 1.096 1.677 1.096 2.92 0 .867-.205 1.62-.614 2.26-.41.64-1.01 1.127-1.802 1.46l2.87 2.836H6.963l-2.43-2.457v-.77h1.002c.594 0 1.053-.15 1.378-.45.325-.3.488-.732.488-1.295 0-.586-.163-1.026-.488-1.32-.325-.295-.784-.442-1.378-.442H3.028v3.454h2.506c.62 0 1.097-.087 1.43-.26z"/></svg>
                         </a>
-
-                        <!-- ORCID -->
                         <a href="https://orcid.org/0000-0002-4707-5945" target="_blank" class="icon-link orcid" title="ORCID" aria-label="ORCID">
                             <svg viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.306v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/></svg>
                         </a>
-
-                        <!-- LinkedIn -->
                         <a href="https://www.linkedin.com" target="_blank" class="icon-link linkedin" title="LinkedIn" aria-label="LinkedIn">
                             <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
-
-                        <!-- Email -->
                         <a href="mailto:jfmendes@ua.pt" class="icon-link email" title="Email" aria-label="Email">
                             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                         </a>
@@ -818,8 +896,44 @@
                 <h2>Recent Updates</h2>
                 <p class="section-subtitle">Latest news, papers, and team announcements</p>
 
+                <!-- Destaque do Artigo Científico (Featured Paper) -->
+                <article class="featured-paper-card">
+                    <div class="featured-header">
+                        <div class="featured-tags-left">
+                            <span class="tag-pill">Article</span>
+                            <span class="tag-pill tag-oa" title="Open Access">🔓</span>
+                        </div>
+                        <span class="tag-pill tag-pages">
+                            17 Pages 
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </span>
+                    </div>
+
+                    <h3 class="featured-title">
+                        Mechanisms of Crude Oil Mobilization in Multiscale Pore Throats of Tight Oil Reservoirs with Different Huff-n-Puff Agents
+                    </h3>
+
+                    <div class="featured-authors">
+                        Lyushuai Yang, Haibo Li and Zhengming Yang + 2 authors
+                    </div>
+
+                    <p class="featured-abstract">
+                        In this study, typical tight oil cores were selected to carry out perform huff-n-puff experiments under different media and shut-in times. Nuclear magnetic resonance (NMR) was used to characterize the utilization of crude oil in three-scale pores during huff-n-...
+                    </p>
+
+                    <div class="featured-journal-meta">
+                        <span><em>Energies</em></span>
+                        <span>9 November 2026</span>
+                    </div>
+
+                    <!-- Gráfico / Figura do Artigo -->
+                    <div class="featured-figure-wrap">
+                        <img src="featured-paper.png" alt="Mechanisms of Crude Oil Mobilization Plot — Permeability vs Porosity" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x340/eef2f6/102a43?text=Scientific+Plot+Image';">
+                    </div>
+                </article>
+
+                <!-- Lista de Outros Updates -->
                 <ul class="feed-list">
-                    <!-- Novidade Recente -->
                     <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge paper">Paper</span>
@@ -842,11 +956,11 @@
                         <h4 class="feed-title">Carbon footprint inequality: A scaling decomposition across 165 countries (1980–2019).</h4>
                         <p class="feed-desc">
                             Zhang, P., Gao, L., Li, Y., Kurths, Jürgen G., Mendes, JF
-                           Chaos, Solitons and Fractals, 208, 118215
+                            Chaos, Solitons and Fractals, 208, 118215
                         </p>
                     </li>
 
-                      <li class="feed-item upcoming">
+                    <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge paper">Paper</span>
                             <span class="feed-date">2026</span>
@@ -855,7 +969,7 @@
                         <h4 class="feed-title">Centrality-driven minimal hamiltonian loops to boost the resilience of spatially embedded networks.</h4>
                         <p class="feed-desc">
                             Zhang, C., Gao, L., Mendes, JFF
-                           International Journal of Modern Physics C, 2750118
+                            International Journal of Modern Physics C, 2750118
                         </p>
                     </li>
                     
@@ -866,21 +980,17 @@
                             <span class="status-badge status-upcoming">New</span>
                         </div>
                         <h4 class="feed-title">Yuting Wang, from Northwestern Polytechnical University, China. Doctoral Programme in Engineering Physics</h4>
-                        <p class="feed-desc"> 
-                        </p>
+                        <p class="feed-desc"></p>
                     </li>
-
-                    
                 </ul>
             </section>
 
-            <!-- Coluna 2: Recent and Upcoming Events (Com destaque para Upcoming e atenuado para Past) -->
+            <!-- Coluna 2: Recent and Upcoming Events -->
             <section class="section-block">
                 <h2>Recent &amp; Upcoming Events</h2>
                 <p class="section-subtitle">If you are in any of these locations and would like to meet, please get in touch.</p>
 
                 <ul class="feed-list">
-                    <!-- Evento Futuro 1 (Destacado) -->
                     <li class="feed-item upcoming">
                         <div class="feed-meta">
                             <span class="feed-badge conf">Conference</span>
@@ -893,10 +1003,6 @@
                         </p>
                     </li>
 
-                
-
-
-                    <!-- Evento Passado (Atenuado / Claro) -->
                     <li class="feed-item past">
                         <div class="feed-meta">
                             <span class="feed-badge conf">Conference</span>
@@ -908,7 +1014,6 @@
                             Invited Speaker — Collective Dynamics and Exact Solvability in Swarmalator Systems.
                         </p>
                     </li>
-                    
 
                     <li class="feed-item past">
                         <div class="feed-meta">
@@ -964,12 +1069,11 @@
                             <span class="feed-date">June 2026</span>
                             <span class="status-badge status-past">Past</span>
                         </div>
-                        <h4 class="feed-title">Asia-Pacific Summer School and Conference on Networks and Complex Systems, Singapore  </h4>
+                        <h4 class="feed-title">Asia-Pacific Summer School and Conference on Networks and Complex Systems, Singapore</h4>
                         <p class="feed-desc">
                             Invited Speaker — Navigating Through Complexity: FROM EMERGENCE TO NETWORKS
                         </p>
                     </li>
-                    
                 </ul>
             </section>
 
@@ -980,7 +1084,6 @@
             <h2>Highlights &amp; Focus Areas</h2>
             <div class="update-grid">
                 
-                <!-- Research Card -->
                 <div class="update-card">
                     <div>
                         <h3>Research &amp; Publications</h3>
@@ -1002,7 +1105,6 @@
                     <a href="research.html" class="card-link">Explore Research &rarr;</a>
                 </div>
 
-                <!-- Teaching Card -->
                 <div class="update-card">
                     <div>
                         <h3>Teaching &amp; Mentoring</h3>
@@ -1024,7 +1126,6 @@
                     <a href="teaching.html" class="card-link">Explore Teaching &rarr;</a>
                 </div>
 
-                <!-- SciArt Card -->
                 <div class="update-card">
                     <div>
                         <h3>Fine Arts &amp; SciArt</h3>
@@ -1046,7 +1147,6 @@
                     <a href="art.html" class="card-link">View Art Gallery &rarr;</a>
                 </div>
 
-                <!-- About Me Card -->
                 <div class="update-card">
                     <div>
                         <h3>Affiliations &amp; Profile</h3>
