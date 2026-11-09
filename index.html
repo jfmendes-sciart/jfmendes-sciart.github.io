@@ -30,6 +30,7 @@
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
+            --join-teal: #0c7c77;
         }
 
         * {
@@ -499,7 +500,7 @@
         }
 
         /* -------------------------------------------------------------
-           Featured Paper Highlight Card (Novo Destaque)
+           Featured Paper Highlight Card
            ------------------------------------------------------------- */
         .featured-paper-card {
             background: #ffffff;
@@ -626,6 +627,141 @@
             height: auto;
             display: block;
             border-radius: 4px;
+        }
+
+        /* -------------------------------------------------------------
+           Join or Visit the Group Section (New Feature Card)
+           ------------------------------------------------------------- */
+        .join-group-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-left: 4.5px solid var(--join-teal);
+            border-radius: 12px;
+            padding: 2.6rem 2.8rem;
+            margin-bottom: 2.8rem;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+        }
+
+        .join-group-title {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 2.1rem;
+            font-weight: 500;
+            color: var(--join-teal);
+            margin-bottom: 1.1rem;
+            letter-spacing: -0.015em;
+        }
+
+        .join-group-lead {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #243b53;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .join-roles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .join-role-col h3 {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #102a43;
+            margin-bottom: 0.65rem;
+            letter-spacing: -0.01em;
+        }
+
+        .join-role-col p {
+            font-size: 0.93rem;
+            color: #486581;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+
+        .join-instructions-box {
+            margin-bottom: 2.2rem;
+        }
+
+        .join-instructions-box p.instruct-title {
+            font-size: 0.98rem;
+            color: #102a43;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .join-instructions-list {
+            list-style: decimal;
+            margin-left: 1.35rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .join-instructions-list li {
+            font-size: 0.95rem;
+            color: #334e68;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .join-subject-note {
+            font-size: 0.95rem;
+            color: #334e68;
+            margin-top: 0.85rem;
+        }
+
+        .code-tag {
+            color: var(--join-teal);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-weight: 600;
+        }
+
+        .join-cta-group {
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .btn-join-primary {
+            display: inline-block;
+            background: #111111;
+            color: #ffffff !important;
+            padding: 0.85rem 1.9rem;
+            font-size: 0.92rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1.5px solid #111111;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-join-primary:hover {
+            background: #2d3748;
+            border-color: #2d3748;
+        }
+
+        .btn-join-secondary {
+            display: inline-block;
+            background: #ffffff;
+            color: #111111 !important;
+            padding: 0.85rem 1.9rem;
+            font-size: 0.92rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1.5px solid #111111;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-join-secondary:hover {
+            background: #111111;
+            color: #ffffff !important;
         }
 
         /* -------------------------------------------------------------
@@ -757,6 +893,13 @@
             }
             .updates-events-container {
                 grid-template-columns: 1fr;
+            }
+            .join-group-card {
+                padding: 1.8rem 1.4rem;
+            }
+            .join-roles-grid {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
             }
             .hero-banner { height: 25vh; }
             .hero-banner .quote-text {
@@ -901,77 +1044,73 @@
                     <div class="featured-header">
                         <div class="featured-tags-left">
                             <span class="tag-pill">Article</span>
-                            <span class="tag-pill tag-oa" title="Open Access"> <a href="https://www.sciencedirect.com/science/article/pii/S0960077926005461" target="_blank">🔓</a></span>
+                            <span class="tag-pill tag-oa" title="Open Access">🔓</span>
                         </div>
                         <span class="tag-pill tag-pages">
-                            23 Pages 
+                            17 Pages 
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         </span>
                     </div>
 
                     <h3 class="featured-title">
-                        Continual knowledge base enhancement for communal recommendation using homogeneous opinion-dynamics in heterogeneous social-networks
+                        Mechanisms of Crude Oil Mobilization in Multiscale Pore Throats of Tight Oil Reservoirs with Different Huff-n-Puff Agents
                     </h3>
 
                     <div class="featured-authors">
-                        Nasrullah Khan, Aman Ullah and José F.F. Mendes 
+                        Lyushuai Yang, Haibo Li and Zhengming Yang + 2 authors
                     </div>
 
+                    <p class="featured-abstract">
+                        In this study, typical tight oil cores were selected to carry out perform huff-n-puff experiments under different media and shut-in times. Nuclear magnetic resonance (NMR) was used to characterize the utilization of crude oil in three-scale pores during huff-n-...
+                    </p>
+
                     <div class="featured-journal-meta">
-                        <span><em>Chaos, Solitons and Fractals</em></span>
-                        <span> May 2026</span>
+                        <span><em>Energies</em></span>
+                        <span>9 November 2026</span>
                     </div>
 
                     <!-- Gráfico / Figura do Artigo -->
                     <div class="featured-figure-wrap">
-                        <img src="/fotos/gr5.jpg" alt="Low-level working mechanism of the CROS framework. " onerror="this.onerror=null; this.src='https://via.placeholder.com/600x340/eef2f6/102a43?text=Scientific+Plot+Image';">
-                    </div>
-                </article>
-
-            <!-- Destaque do Artigo Científico (Featured Paper) 2 -->
-                <article class="featured-paper-card">
-                    <div class="featured-header">
-                        <div class="featured-tags-left">
-                            <span class="tag-pill">Article</span>
-                            <span class="tag-pill tag-oa" title="Open Access"> <a href="https://www.sciencedirect.com/science/article/pii/S0960077926003565?pes=vor&utm_source=scopus&getft_integrator=scopus" target="_blank">🔓</a></span>
-                        </div>
-                        <span class="tag-pill tag-pages">
-                            12 Pages 
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        </span>
-                    </div>
-
-                    <h3 class="featured-title">
-                        Carbon footprint inequality: A scaling decomposition across 165 countries (1980–2019).
-                    </h3>
-
-                    <div class="featured-authors">
-                        Peiran Zhang, et al. and José F.F. Mendes 
-                    </div>
-
-                    <div class="featured-journal-meta">
-                        <span><em>Chaos, Solitons and Fractals</em></span>
-                        <span>July 2026</span>
-                    </div>
-
-                    <!-- Gráfico / Figura do Artigo -->
-                    <div class="featured-figure-wrap">
-                        <img src="/fotos/climat.jpg" alt="Overview of the countries analyzed in this study and their emission and population scales.  " onerror="this.onerror=null; this.src='https://via.placeholder.com/600x340/eef2f6/102a43?text=Scientific+Plot+Image';">
+                        <img src="featured-paper.png" alt="Mechanisms of Crude Oil Mobilization Plot — Permeability vs Porosity" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x340/eef2f6/102a43?text=Scientific+Plot+Image';">
                     </div>
                 </article>
 
                 <!-- Lista de Outros Updates -->
                 <ul class="feed-list">
-
+                    <li class="feed-item upcoming">
+                        <div class="feed-meta">
+                            <span class="feed-badge paper">Paper</span>
+                            <span class="feed-date">2026</span>
+                            <span class="status-badge status-upcoming">New</span>
+                        </div>
+                        <h4 class="feed-title">Continual knowledge base enhancement for communal recommendation using homogeneous opinion-dynamics in heterogeneous social-networks.</h4>
+                        <p class="feed-desc">
+                            Nasrullah Khan, Aman Ullah, José F.F. Mendes.
+                            Chaos, Solitons and Fractals
+                        </p>
+                    </li>
 
                     <li class="feed-item upcoming">
                         <div class="feed-meta">
-                            <span class="feed-badge paper">Article</span>
+                            <span class="feed-badge paper">Paper</span>
+                            <span class="feed-date">2026</span>
+                            <span class="status-badge status-upcoming">New</span>
+                        </div>
+                        <h4 class="feed-title">Carbon footprint inequality: A scaling decomposition across 165 countries (1980–2019).</h4>
+                        <p class="feed-desc">
+                            Zhang, P., Gao, L., Li, Y., Kurths, Jürgen G., Mendes, JF
+                            Chaos, Solitons and Fractals, 208, 118215
+                        </p>
+                    </li>
+
+                    <li class="feed-item upcoming">
+                        <div class="feed-meta">
+                            <span class="feed-badge paper">Paper</span>
                             <span class="feed-date">2026</span>
                             <span class="status-badge status-upcoming">New</span>
                         </div>
                         <h4 class="feed-title">Centrality-driven minimal hamiltonian loops to boost the resilience of spatially embedded networks.</h4>
-                        <p class="feed-desc"> 
+                        <p class="feed-desc">
                             Zhang, C., Gao, L., Mendes, JFF
                             International Journal of Modern Physics C, 2750118
                         </p>
@@ -1082,6 +1221,51 @@
             </section>
 
         </div>
+
+        <!-- Join or Visit the Group Section -->
+        <section class="join-group-card">
+            <h2 class="join-group-title">Join or Visit the Group</h2>
+            <p class="join-group-lead">
+                I am always happy to hear from people who want to work on network science, mobility science, complex systems and related areas, and who share an interest in using data to understand and reduce inequalities.
+            </p>
+
+            <div class="join-roles-grid">
+                <div class="join-role-col">
+                    <h3>PhD students</h3>
+                    <p>Prospective students interested in a PhD at the University of Exeter under my supervision.</p>
+                </div>
+                <div class="join-role-col">
+                    <h3>Visiting PhD students</h3>
+                    <p>Students enrolled elsewhere who would like to spend a few weeks or months working with us.</p>
+                </div>
+                <div class="join-role-col">
+                    <h3>Visiting researchers</h3>
+                    <p>Postdocs and academics interested in collaborating, from short visits to sabbaticals.</p>
+                </div>
+            </div>
+
+            <div class="join-instructions-box">
+                <p class="instruct-title">To help me reply meaningfully, please include:</p>
+                <ol class="join-instructions-list">
+                    <li>Which of my research areas or papers interest you, and why.</li>
+                    <li>A short idea you would like to explore (a paragraph is enough).</li>
+                    <li>Your CV.</li>
+                    <li>How the PhD or visit would be funded (e.g. a scholarship, fellowship or your home institution).</li>
+                </ol>
+                <p class="join-subject-note">
+                    Please start your email subject with <span class="code-tag">[PhD]</span> or <span class="code-tag">[Visiting]</span>.
+                </p>
+            </div>
+
+            <div class="join-cta-group">
+                <a href="mailto:jfmendes@ua.pt?subject=%5BPhD%20%2F%20Visiting%5D%20Inquiry" class="btn-join-primary">
+                    Get in touch
+                </a>
+                <a href="research.html" class="btn-join-secondary">
+                    Explore my research
+                </a>
+            </div>
+        </section>
 
         <!-- Highlights (Overview Cards com 4 secções) -->
         <section class="highlights">
