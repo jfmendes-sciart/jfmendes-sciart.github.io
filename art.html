@@ -1153,7 +1153,7 @@
         function getArtworkReactions(id) {
             if (!reactionsData[id]) {
                 const baseClaps = (id * 17 + 42) % 180 + 12;
-                const baseLoves = (id * 9 + 18) % 65 + 5;
+                const baseLoves = ((id * 41 + 83) % 261) + 120;
                 const baseDislikes = (id % 3 === 0) ? 2 : (id % 5 === 0 ? 1 : 0);
                 reactionsData[id] = {
                     claps: baseClaps,
