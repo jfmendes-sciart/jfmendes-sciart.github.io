@@ -240,7 +240,7 @@
         }
 
         /* -------------------------------------------------------------
-           Gallery Container & Controls (Joan Mitchell Foundation Style)
+           Gallery Container & Controls
            ------------------------------------------------------------- */
         .container {
             max-width: 1240px;
@@ -274,7 +274,6 @@
             margin-top: 0.25rem;
         }
 
-        /* Filter Tabs */
         .filter-tabs {
             display: flex;
             gap: 0.6rem;
@@ -311,7 +310,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: 3rem;
-            row-gap: 4.5rem;
+            row-gap: 4rem;
             margin-bottom: 3.5rem;
         }
 
@@ -320,15 +319,23 @@
             border: none;
             display: flex;
             flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .art-card-clickable {
             cursor: pointer;
-            transition: opacity 0.25s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .art-card:hover {
-            opacity: 0.85;
+        .art-card-clickable:hover .art-image-wrap {
+            background: #f1f3f5;
         }
 
-        /* Moldura de fundo limpo onde a pintura repousa */
+        .art-card-clickable:hover .art-title {
+            color: var(--secondary);
+        }
+
         .art-image-wrap {
             width: 100%;
             height: 360px;
@@ -338,11 +345,8 @@
             justify-content: center;
             padding: 1.2rem;
             margin-bottom: 1.1rem;
+            border-radius: 6px;
             transition: background 0.3s ease;
-        }
-
-        .art-card:hover .art-image-wrap {
-            background: #f4f5f7;
         }
 
         .art-image-wrap img {
@@ -360,6 +364,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.25rem;
+            margin-bottom: 0.85rem;
         }
 
         .art-title {
@@ -369,12 +374,100 @@
             font-style: italic;
             color: #111111;
             line-height: 1.3;
+            transition: color 0.2s;
         }
 
         .art-meta {
             font-size: 0.85rem;
             color: #718096;
             font-weight: 300;
+        }
+
+        /* -------------------------------------------------------------
+           Reaction & Feedback Bar (Inspired by Screenshot)
+           ------------------------------------------------------------- */
+        .art-reaction-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 0.25rem 0;
+            border-top: 1px solid #f0f2f5;
+            margin-top: auto;
+            color: #6b7280;
+            font-size: 0.84rem;
+            user-select: none;
+        }
+
+        .reaction-group-left {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+
+        .reaction-group-right {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .reaction-btn {
+            background: transparent;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #6b7280;
+            font-family: "Inter", sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .reaction-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.8;
+            stroke: currentColor;
+            fill: none;
+            transition: transform 0.15s ease, stroke 0.15s ease, fill 0.15s ease;
+        }
+
+        .reaction-btn:hover {
+            color: #111827;
+            background-color: #f3f4f6;
+        }
+
+        .reaction-btn:hover svg {
+            transform: scale(1.15);
+        }
+
+        /* Clapped / Appreciated state */
+        .reaction-btn.clapped {
+            color: #d97706;
+        }
+        .reaction-btn.clapped svg {
+            stroke: #d97706;
+            fill: #fef3c7;
+        }
+
+        /* Loved / Hearted state */
+        .reaction-btn.loved {
+            color: #e11d48;
+        }
+        .reaction-btn.loved svg {
+            stroke: #e11d48;
+            fill: #e11d48;
+        }
+
+        /* Disliked state */
+        .reaction-btn.disliked {
+            color: #4b5563;
+        }
+        .reaction-btn.disliked svg {
+            stroke: #1f2937;
+            fill: #e5e7eb;
         }
 
         /* -------------------------------------------------------------
@@ -577,6 +670,31 @@
             background: var(--secondary);
         }
 
+        .offer-box-btn {
+            display: block !important;
+            width: 100% !important;
+            margin-top: 15px !important;
+            padding: 16px 20px !important;
+            background-color: #ffffff !important;
+            color: #111111 !important;
+            border: 2px solid #000000 !important;
+            font-family: inherit !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            letter-spacing: 1.5px !important;
+            text-transform: uppercase !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
+            cursor: pointer !important;
+            outline: none !important;
+            transition: background-color 0.2s ease, color 0.2s ease !important;
+        }
+
+        .offer-box-btn:hover {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+
         footer {
             text-align: center;
             padding: 2.5rem 1rem;
@@ -746,7 +864,7 @@
             </div>
         </div>
 
-        <!-- Dynamic Grid of Artworks (Joan Mitchell style) -->
+        <!-- Dynamic Grid of Artworks -->
         <div class="gallery-grid" id="galleryGrid"></div>
 
         <!-- Pagination Controls and Counter -->
@@ -757,102 +875,66 @@
 
     </main>
 
-    
-<!-- Página / Vista de Detalhe Individual da Obra -->
-<div class="modal" id="artModal">
-    <div class="detail-page-container">
-        <div class="detail-nav-bar">
-            <button class="detail-back-btn" id="modalClose">
-                &larr; Return to Artworks
-            </button>
-            <span style="font-size: 0.85rem; color: #888;">Esc to close</span>
-        </div>
-
-        <div class="detail-layout">
-            <div class="detail-img-box">
-                <img id="modalImg" src="" alt="Artwork detailed display">
+    <!-- Página / Vista de Detalhe Individual da Obra -->
+    <div class="modal" id="artModal">
+        <div class="detail-page-container">
+            <div class="detail-nav-bar">
+                <button class="detail-back-btn" id="modalClose">
+                    &larr; Return to Artworks
+                </button>
+                <span style="font-size: 0.85rem; color: #888;">Esc to close</span>
             </div>
 
-            <div class="detail-info-col">
-                <h1 class="detail-title" id="modalTitle">Artwork Title</h1>
-                
-                <ul class="detail-specs-table">
-                    <li><strong>Year:</strong> <span id="modalYear">2024</span></li>
-                    <li><strong>Medium:</strong> <span id="modalMedium">Oil on Canvas</span></li>
-                    <li><strong>Dimensions:</strong> <span id="modalDimensions">80 x 100 cm</span></li>
-                </ul>
+            <div class="detail-layout">
+                <div class="detail-img-box">
+                    <img id="modalImg" src="" alt="Artwork detailed display">
+                </div>
 
-                <p class="detail-statement" id="modalDesc">
-                    Painterly investigation bridging structural complexity with spontaneous pigment interactions.
-                </p>
+                <div class="detail-info-col">
+                    <h1 class="detail-title" id="modalTitle">Artwork Title</h1>
+                    
+                    <ul class="detail-specs-table">
+                        <li><strong>Year:</strong> <span id="modalYear">2024</span></li>
+                        <li><strong>Medium:</strong> <span id="modalMedium">Oil on Canvas</span></li>
+                        <li><strong>Dimensions:</strong> <span id="modalDimensions">80 x 100 cm</span></li>
+                    </ul>
 
-                <a id="modalMailLink" href="mailto:jfmendes@ua.pt" class="inquire-btn">
-                    Inquire About This Work
-                </a>
+                    <p class="detail-statement" id="modalDesc">
+                        Painterly investigation bridging structural complexity with spontaneous pigment interactions.
+                    </p>
 
-                <!-- Caixa MAKE AN OFFER com estilo forçado e disparo via JS -->
-                <button type="button" id="modalOfferBtn" class="offer-box-btn">
-                    MAKE AN OFFER
-                </button>
+                    <a id="modalMailLink" href="mailto:jfmendes@ua.pt" class="inquire-btn">
+                        Inquire About This Work
+                    </a>
+
+                    <!-- Caixa MAKE AN OFFER com estilo forçado e disparo via JS -->
+                    <button type="button" id="modalOfferBtn" class="offer-box-btn">
+                        MAKE AN OFFER
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<style>
-/* Estilos da caixa Make an Offer com alta prioridade para não falhar */
-.offer-box-btn {
-    display: block !important;
-    width: 100% !important;
-    margin-top: 15px !important;
-    padding: 16px 20px !important;
-    background-color: #ffffff !important;
-    color: #111111 !important;
-    border: 2px solid #000000 !important;
-    font-family: inherit !important;
-    font-size: 1rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 1.5px !important;
-    text-transform: uppercase !important;
-    text-align: center !important;
-    box-sizing: border-box !important;
-    cursor: pointer !important;
-    outline: none !important;
-    transition: background-color 0.2s ease, color 0.2s ease !important;
-}
-
-.offer-box-btn:hover {
-    background-color: #000000 !important;
-    color: #ffffff !important;
-}
-</style>
-
-<script>
-document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
-    e.preventDefault();
-
-    // Obtém o título da obra do próprio elemento modal, ou usa valor padrão
-    const titleElem = document.getElementById('modalTitle');
-    const title = titleElem ? titleElem.innerText.trim() : "Artwork";
-
-    const recipient = "jfmendes@ua.pt";
-    const subject = `Offer for: ${title}`;
-    
-    const body = `Dear Jose,\n\n I am very interested in your painting and would like to make an offer of [amount] € for it.\n\nI hope you will consider my offer, as I would be delighted to have this artwork in my collection.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,`;
-
-    // Cria o link codificado corretamente para evitar que o navegador corte o texto
-    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
-</script>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 José Fernando Mendes </p>
     </footer>
 
-    <!-- Logic Script: 18 Artworks, 9 per Page Pagination, Filtering and Single Artwork Detail -->
+    <!-- Logic Script -->
     <script>
-        // Catálogo com as 18 obras completas com descrições individuais
+        // Modal Offer Button action
+        document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const titleElem = document.getElementById('modalTitle');
+            const title = titleElem ? titleElem.innerText.trim() : "Artwork";
+            const recipient = "jfmendes@ua.pt";
+            const subject = `Offer for: ${title}`;
+            const body = `Dear Jose,\n\nI am very interested in your painting and would like to make an offer of [amount] € for it.\n\nI hope you will consider my offer, as I would be delighted to have this artwork in my collection.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nBest regards,`;
+            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+
+        // 18 Artworks catalogue
         const artworks = [
             {
                 id: 1,
@@ -874,7 +956,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2023",
                 src: "art/ps11.jpg",
                 fallback: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
-                description: "Inspiration in the beauty from Afica and India."
+                description: "Inspiration in the beauty from Africa and India."
             },
             {
                 id: 3,
@@ -885,7 +967,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2023",
                 src: "art/oil2.jpg",
                 fallback: "https://images.unsplash.com/photo-1549887534-1541e9326642?auto=format&fit=crop&w=1200&q=80",
-                description: "Inspiration in the beauty from Afica and India."
+                description: "Inspiration in the beauty from Africa and India."
             },
             {
                 id: 4,
@@ -953,7 +1035,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 fallback: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=1200&q=80",
                 description: "Deep ultramarine and cobalt glazes interacting with vibrational impasto highlights."
             },
-            // PÁGINA 2 (Itens 10 a 18)
             {
                 id: 10,
                 title: "Cascading Failures",
@@ -967,107 +1048,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             },
             {
                 id: 11,
-                title: "Untitled",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "29,7 x 42 cm",
-                year: "2021",
-                src: "art/ps5.jpg",
-                fallback: "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 12,
-                title: "Untitled",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "2, 20 x 30 cm",
-                year: "2022",
-                src: "art/oil7.jpg",
-                fallback: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 13,
-                title: "Untitled",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "29,7 x 42 cm",
-                year: "2023",
-                src: "art/ps6.jpg",
-                fallback: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 14,
-                title: "Multiplex Horizon",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "2. 70 x 90 cm",
-                year: "2024",
-                src: "art/oil8.jpg",
-                fallback: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 15,
-                title: "Trees",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "29,7 x 42 cm",
-                year: "2020",
-                src: "art/ps7.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783928621-7a13d66a62d1?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 16,
-                title: "",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "110 x 140 cm",
-                year: "2023",
-                src: "art/oil_09.jpg",
-                fallback: "",
-                description: "Hierarchical textures spanning vast gestural expanses down to minute flecks of oil pigment."
-            },
-            {
-                id: 17,
-                title: "Women III",
-                medium: "pastel",
-                mediumLabel: "Soft Pastel on Paper",
-                dimensions: "29,7 x 42 cm",
-                year: "2022",
-                src: "art/ps8.jpg",
-                fallback: "https://images.unsplash.com/photo-1579783901586-7880cb8c30a2?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-            {
-                id: 18,
-                title: "",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "85 x 115 cm",
-                year: "2024",
-                src: "art/oil_10.jpg",
-                fallback: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80",
-                description: ""
-            },
-
-             // PÁGINA 3 (Itens 19 a 27)
-            {
-                id: 10,
-                title: "",
-                medium: "oil",
-                mediumLabel: "Oil on Canvas",
-                dimensions: "90 x 90 cm",
-                year: "2023",
-                src: "art/oil9.jpg",
-                fallback: "",
-                description: ""
-            },
-            {
-                id: 11,
                 title: "Salinas",
                 medium: "pastel",
                 mediumLabel: "Soft Pastel on Paper",
@@ -1075,7 +1055,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2021",
                 src: "art/ps12.jpg",
                 fallback: "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80",
-                description: "Salinas em Aveiro"
+                description: "Salinas em Aveiro."
             },
             {
                 id: 12,
@@ -1086,7 +1066,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2022",
                 src: "art/oil10.jpg",
                 fallback: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80",
-                description: ""
+                description: "Atmospheric landscape exploring panoramic depths and shifting light."
             },
             {
                 id: 13,
@@ -1097,18 +1077,18 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2023",
                 src: "art/ps13.jpg",
                 fallback: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?auto=format&fit=crop&w=1200&q=80",
-                description: "Somewhere in Manhufe"
+                description: "Somewhere in Manhufe."
             },
             {
                 id: 14,
-                title: "Landscape III",
+                title: "Multiplex Horizon",
                 medium: "oil",
                 mediumLabel: "Oil on Canvas",
-                dimensions: "160 x 200 cm",
+                dimensions: "70 x 90 cm",
                 year: "2024",
-                src: "art/oil11.jpg",
+                src: "art/oil8.jpg",
                 fallback: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1200&q=80",
-                description: ""
+                description: "Multi-layered compositions creating complex emergent horizons."
             },
             {
                 id: 15,
@@ -1117,7 +1097,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 mediumLabel: "Soft Pastel on Paper",
                 dimensions: "40 x 50 cm",
                 year: "2020",
-                src: "art/ps13.jpg",
+                src: "art/ps7.jpg",
                 fallback: "https://images.unsplash.com/photo-1579783928621-7a13d66a62d1?auto=format&fit=crop&w=1200&q=80",
                 description: "Rapid energetic strokes counterbalanced by peaceful tonal fields."
             },
@@ -1130,7 +1110,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2023",
                 src: "art/oil13.jpg",
                 fallback: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=1200&q=80",
-                description: ""
+                description: "Hierarchical textures spanning vast gestural expanses down to minute flecks of oil pigment."
             },
             {
                 id: 17,
@@ -1141,29 +1121,70 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 year: "2022",
                 src: "art/ps15.jpg",
                 fallback: "https://images.unsplash.com/photo-1579783901586-7880cb8c30a2?auto=format&fit=crop&w=1200&q=80",
-                description: ""
+                description: "Quiet contemplation along winding pastoral ways."
             },
             {
                 id: 18,
-                title: "Flowers I ",
+                title: "Flowers I",
                 medium: "oil",
                 mediumLabel: "Oil on Canvas",
                 dimensions: "85 x 115 cm",
                 year: "2024",
                 src: "art/oil14.jpg",
                 fallback: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80",
-                description: ""
+                description: "Vibrant botanical studies translating delicate organic structures into bold oil brushwork."
             }
-
-            
         ];
 
-        // 9 itens por defeito
+        // -------------------------------------------------------------
+        // Reaction State Store (LocalStorage supported)
+        // -------------------------------------------------------------
+        const REACTIONS_KEY = 'jfm_art_reactions_v1';
+        let reactionsData = {};
+
+        try {
+            const saved = localStorage.getItem(REACTIONS_KEY);
+            if (saved) reactionsData = JSON.parse(saved);
+        } catch (e) {
+            console.warn('LocalStorage unavailable for reactions', e);
+        }
+
+        // Initialize realistic base counts per artwork (deterministic based on ID)
+        function getArtworkReactions(id) {
+            if (!reactionsData[id]) {
+                const baseClaps = (id * 17 + 42) % 180 + 12;
+                const baseLoves = (id * 9 + 18) % 65 + 5;
+                const baseDislikes = (id % 3 === 0) ? 2 : (id % 5 === 0 ? 1 : 0);
+                reactionsData[id] = {
+                    claps: baseClaps,
+                    loves: baseLoves,
+                    dislikes: baseDislikes,
+                    userClapped: false,
+                    userLoved: false,
+                    userDisliked: false
+                };
+            }
+            return reactionsData[id];
+        }
+
+        function saveReactions() {
+            try {
+                localStorage.setItem(REACTIONS_KEY, JSON.stringify(reactionsData));
+            } catch (e) {}
+        }
+
+        function formatCount(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1).replace('.0', '') + 'K';
+            }
+            return num;
+        }
+
+        // 9 items per page
         const ITEMS_PER_PAGE = 9;
         let currentFilter = 'all';
         let currentPage = 1;
 
-        // Leitura de parâmetros de URL (ex: art.html?medium=oil)
         const urlParams = new URLSearchParams(window.location.search);
         const mediumParam = urlParams.get('medium');
         if (mediumParam && (mediumParam === 'oil' || mediumParam === 'pastel')) {
@@ -1175,7 +1196,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
         const pageInfo = document.getElementById('pageInfo');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
-        // Elementos da Página de Detalhe Individual
         const artModal = document.getElementById('artModal');
         const modalImg = document.getElementById('modalImg');
         const modalTitle = document.getElementById('modalTitle');
@@ -1187,13 +1207,11 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
         const modalClose = document.getElementById('modalClose');
 
         function renderGallery() {
-            // Filtragem
             const filtered = artworks.filter(item => {
                 if (currentFilter === 'all') return true;
                 return item.medium === currentFilter;
             });
 
-            // Cálculo de Páginas
             const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
             if (currentPage > totalPages) currentPage = 1;
 
@@ -1201,24 +1219,122 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             const endIndex = startIndex + ITEMS_PER_PAGE;
             const currentItems = filtered.slice(startIndex, endIndex);
 
-            // Renderizar Grelha Estilo Joan Mitchell
             galleryGrid.innerHTML = '';
             if (currentItems.length === 0) {
                 galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem 0;">No artworks found in this category.</p>';
             } else {
                 currentItems.forEach(art => {
+                    const r = getArtworkReactions(art.id);
                     const card = document.createElement('div');
                     card.className = 'art-card';
                     card.innerHTML = `
-                        <div class="art-image-wrap">
-                            <img src="${art.src}" alt="${art.title}" onerror="this.onerror=null; this.src='${art.fallback}';">
+                        <div class="art-card-clickable" data-art-id="${art.id}">
+                            <div class="art-image-wrap">
+                                <img src="${art.src}" alt="${art.title}" onerror="this.onerror=null; this.src='${art.fallback}';">
+                            </div>
+                            <div class="art-info">
+                                <h3 class="art-title">${art.title || "Untitled"}</h3>
+                                <div class="art-meta">${art.year} &middot; ${art.mediumLabel}</div>
+                            </div>
                         </div>
-                        <div class="art-info">
-                            <h3 class="art-title">${art.title}</h3>
-                            <div class="art-meta">${art.year} &middot; ${art.mediumLabel}</div>
+
+                        <!-- Reaction / Interaction Bar (Medium Style) -->
+                        <div class="art-reaction-bar" data-art-id="${art.id}">
+                            <div class="reaction-group-left">
+                                <!-- Claps / Applaud -->
+                                <button type="button" class="reaction-btn clap-btn ${r.userClapped ? 'clapped' : ''}" title="Applaud / Express Interest">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M19.5 13.5a3 3 0 0 1-3 3h-2.5l-4.5 4.5V16.5H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h9.5a3 3 0 0 1 3 3v6.5z" stroke-linecap="round" stroke-linejoin="round" style="display:none;"/>
+                                        <!-- Hands Clapping vector icon -->
+                                        <path d="M7 11v6a2 2 0 0 0 2 2h4.5a3.5 3.5 0 0 0 3-1.8l3.2-5.4a1.8 1.8 0 0 0-1.6-2.8h-4.1V6a2 2 0 0 0-4 0v5H7z" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3 11h3v8H3z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="clap-count">${formatCount(r.claps)}</span>
+                                </button>
+
+                                <!-- Love / Favorite -->
+                                <button type="button" class="reaction-btn love-btn ${r.userLoved ? 'loved' : ''}" title="Love this artwork">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="love-count">${formatCount(r.loves)}</span>
+                                </button>
+
+                                <!-- Feedback / Comment Inquiry -->
+                                <a href="mailto:jfmendes@ua.pt?subject=Thoughts on artwork: ${encodeURIComponent(art.title)}" class="reaction-btn" title="Leave feedback or comment" style="text-decoration:none;">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+
+                            <div class="reaction-group-right">
+                                <!-- Dislike / Not for me -->
+                                <button type="button" class="reaction-btn dislike-btn ${r.userDisliked ? 'disliked' : ''}" title="Not for me">
+                                    <svg viewBox="0 0 24 24">
+                                        <!-- Thumbs Down Vector -->
+                                        <path d="M17 13V7a2 2 0 0 0-2-2h-4.5a3.5 3.5 0 0 0-3 1.8L4.3 12.2A1.8 1.8 0 0 0 5.9 15H10v3a2 2 0 0 0 4 0v-5h3z" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 13h-3V5h3z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span class="dislike-count" style="${r.dislikes > 0 ? '' : 'display:none;'}">${r.dislikes}</span>
+                                </button>
+                            </div>
                         </div>
                     `;
-                    card.addEventListener('click', () => openDetail(art));
+
+                    // Open detail on card click
+                    card.querySelector('.art-card-clickable').addEventListener('click', () => openDetail(art));
+
+                    // Clap interaction
+                    const clapBtn = card.querySelector('.clap-btn');
+                    clapBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const data = getArtworkReactions(art.id);
+                        data.claps += 1;
+                        data.userClapped = true;
+                        clapBtn.classList.add('clapped');
+                        clapBtn.querySelector('.clap-count').textContent = formatCount(data.claps);
+                        saveReactions();
+                    });
+
+                    // Love interaction
+                    const loveBtn = card.querySelector('.love-btn');
+                    loveBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const data = getArtworkReactions(art.id);
+                        if (data.userLoved) {
+                            data.loves = Math.max(0, data.loves - 1);
+                            data.userLoved = false;
+                            loveBtn.classList.remove('loved');
+                        } else {
+                            data.loves += 1;
+                            data.userLoved = true;
+                            loveBtn.classList.add('loved');
+                        }
+                        loveBtn.querySelector('.love-count').textContent = formatCount(data.loves);
+                        saveReactions();
+                    });
+
+                    // Dislike interaction
+                    const dislikeBtn = card.querySelector('.dislike-btn');
+                    dislikeBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const data = getArtworkReactions(art.id);
+                        const countEl = dislikeBtn.querySelector('.dislike-count');
+                        if (data.userDisliked) {
+                            data.dislikes = Math.max(0, data.dislikes - 1);
+                            data.userDisliked = false;
+                            dislikeBtn.classList.remove('disliked');
+                        } else {
+                            data.dislikes += 1;
+                            data.userDisliked = true;
+                            dislikeBtn.classList.add('disliked');
+                        }
+                        countEl.textContent = data.dislikes;
+                        countEl.style.display = data.dislikes > 0 ? 'inline' : 'none';
+                        saveReactions();
+                    });
+
                     galleryGrid.appendChild(card);
                 });
             }
@@ -1237,7 +1353,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
 
             if (totalPages <= 1) return;
 
-            // Botão Prev
             const prevBtn = document.createElement('button');
             prevBtn.className = 'page-btn';
             prevBtn.innerHTML = '&larr; Prev';
@@ -1251,7 +1366,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             });
             paginationControls.appendChild(prevBtn);
 
-            // Botões Numéricos
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('button');
                 pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
@@ -1264,7 +1378,6 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
                 paginationControls.appendChild(pageBtn);
             }
 
-            // Botão Next
             const nextBtn = document.createElement('button');
             nextBtn.className = 'page-btn';
             nextBtn.innerHTML = 'Next &rarr;';
@@ -1286,7 +1399,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             });
         }
 
-        // Filtros
+        // Filters
         filterBtns.forEach(btn => {
             const filterValue = btn.getAttribute('data-filter');
             if (filterValue === currentFilter) {
@@ -1304,11 +1417,11 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             });
         });
 
-        // Abrir Página de Detalhe Individual
+        // Detail modal handler
         function openDetail(art) {
             modalImg.src = art.src;
             modalImg.onerror = () => { modalImg.src = art.fallback; };
-            modalTitle.textContent = art.title;
+            modalTitle.textContent = art.title || "Untitled";
             modalYear.textContent = art.year;
             modalMedium.textContent = art.mediumLabel;
             modalDimensions.textContent = art.dimensions;
@@ -1330,7 +1443,7 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             if (e.key === 'Escape' && artModal.classList.contains('open')) closeDetail();
         });
 
-        // Script do menu hambúrguer para mobile
+        // Mobile burger menu
         const navToggle = document.querySelector('.nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
         if (navToggle && navMenu) {
@@ -1344,9 +1457,8 @@ document.getElementById('modalOfferBtn').addEventListener('click', function(e) {
             });
         }
 
-        // Inicializar exibição
+        // Initialize display
         renderGallery();
     </script>
-
 </body>
 </html>
