@@ -209,7 +209,7 @@
         }
 
         /* -------------------------------------------------------------
-           LiveArt-Style Artwork Ticker & Hover Detail Card
+           LiveArt-Style Global Art Market Ticker & Hover Card
            ------------------------------------------------------------- */
         .art-ticker-wrapper {
             background: #0f172a;
@@ -255,7 +255,7 @@
             align-items: center;
             white-space: nowrap;
             will-change: transform;
-            animation: tickerScroll 42s linear infinite;
+            animation: tickerScroll 48s linear infinite;
         }
 
         .art-ticker-wrapper:hover .art-ticker-track {
@@ -282,36 +282,53 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
+        .ticker-rank {
+            color: #64748b;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+
         .ticker-item-title {
             font-weight: 500;
             color: #ffffff;
         }
 
-        .ticker-item-meta {
-            color: #94a3b8;
-            font-size: 0.78rem;
+        .ticker-item-cap {
+            color: #cbd5e1;
+            font-size: 0.79rem;
+            font-weight: 400;
         }
 
-        .ticker-item-badge {
+        .ticker-badge-up {
             font-weight: 600;
-            font-size: 0.76rem;
+            font-size: 0.75rem;
             padding: 2px 6px;
             border-radius: 4px;
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.16);
             color: #34d399;
         }
 
+        .ticker-badge-down {
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(244, 63, 94, 0.16);
+            color: #fb7185;
+        }
+
+        /* Cartão Flutuante de Detalhe ao Passar o Rato */
         .ticker-hover-card {
             position: fixed;
             top: 112px;
             left: 20px;
-            width: 310px;
+            width: 330px;
             background: #ffffff;
             color: #102a43;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
-            padding: 1rem;
+            padding: 1.05rem;
             z-index: 9999;
             pointer-events: none;
             opacity: 0;
@@ -324,26 +341,27 @@
             transform: translateY(0);
         }
 
-        .thc-top {
+        .thc-header {
             display: flex;
-            gap: 0.85rem;
-            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.75rem;
             margin-bottom: 0.85rem;
         }
 
-        .thc-thumb {
-            width: 58px;
-            height: 58px;
-            border-radius: 6px;
-            object-fit: cover;
-            background: #f1f5f9;
+        .thc-rank-pill {
+            background: #102a43;
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 999px;
             flex-shrink: 0;
         }
 
         .thc-title {
             font-family: "Newsreader", Georgia, serif;
-            font-style: italic;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 500;
             color: #102a43;
             line-height: 1.2;
@@ -361,13 +379,13 @@
             gap: 0.5rem;
             background: #f8fafc;
             border-radius: 6px;
-            padding: 0.55rem;
+            padding: 0.6rem;
             margin-bottom: 0.75rem;
             text-align: center;
         }
 
         .thc-stat-label {
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             text-transform: uppercase;
             letter-spacing: 0.04em;
             color: #64748b;
@@ -379,14 +397,26 @@
             color: #0f172a;
         }
 
+        .thc-record {
+            font-size: 0.76rem;
+            color: #475569;
+            margin-bottom: 0.65rem;
+            line-height: 1.4;
+        }
+
+        .thc-record strong {
+            color: #102a43;
+            font-weight: 500;
+        }
+
         .thc-chart-box {
             border-top: 1px solid #f1f5f9;
             padding-top: 0.6rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.75rem;
-            color: #475569;
+            font-size: 0.74rem;
+            color: #64748b;
         }
 
         /* -------------------------------------------------------------
@@ -1023,40 +1053,43 @@
         </nav>
     </header>
 
-    <!-- Barra Deslizante Estilo LiveArt -->
+    <!-- Barra Deslizante com Cotações Reais de Pintores Famosos (LiveArt Market Index) -->
     <div class="art-ticker-wrapper" id="artTickerWrapper">
         <div class="art-ticker-label">
             <span class="art-ticker-dot"></span>
-            <span>SciArt Index</span>
+            <span>Art Market Index</span>
         </div>
         <div class="art-ticker-track" id="artTickerTrack"></div>
     </div>
 
-    <!-- Cartão Flutuante de Detalhe ao Passar o Rato -->
+    <!-- Cartão Flutuante de Detalhe do Pintor ao Passar o Rato -->
     <div class="ticker-hover-card" id="tickerHoverCard">
-        <div class="thc-top">
-            <img id="thcImg" class="thc-thumb" src="" alt="">
+        <div class="thc-header">
             <div>
-                <div class="thc-title" id="thcTitle">Artwork Title</div>
-                <div class="thc-sub" id="thcSub">2024 · Oil on Canvas</div>
+                <div class="thc-title" id="thcTitle">Pablo Picasso</div>
+                <div class="thc-sub" id="thcSub">Spanish (1881–1973) · Cubism / Modern</div>
             </div>
+            <span class="thc-rank-pill" id="thcRank">#1 Global</span>
         </div>
         <div class="thc-stats">
             <div>
-                <div class="thc-stat-label">Dimensions</div>
-                <div class="thc-stat-val" id="thcDim">30×30 cm</div>
+                <div class="thc-stat-label">Market Cap</div>
+                <div class="thc-stat-val" id="thcCap">$10.5B</div>
             </div>
             <div>
-                <div class="thc-stat-label">Appreciation</div>
-                <div class="thc-stat-val" id="thcClaps" style="color:#d97706;">0</div>
+                <div class="thc-stat-label">12M Index</div>
+                <div class="thc-stat-val" id="thcChange">-6.1%</div>
             </div>
             <div>
-                <div class="thc-stat-label">Favorites</div>
-                <div class="thc-stat-val" id="thcLoves" style="color:#e11d48;">0</div>
+                <div class="thc-stat-label">12M Volume</div>
+                <div class="thc-stat-val" id="thcVol">$73.9M</div>
             </div>
         </div>
+        <div class="thc-record" id="thcRecord">
+            <strong>Auction Record:</strong> $179.4M (Les Femmes d'Alger)
+        </div>
         <div class="thc-chart-box">
-            <span>Engagement Trend</span>
+            <span>12-Month Price Trajectory (LiveArt)</span>
             <svg width="110" height="26" viewBox="0 0 110 26" fill="none">
                 <polyline id="thcSparkline" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,22 24,18 46,20 68,11 90,13 108,4"/>
             </svg>
@@ -1358,6 +1391,27 @@
         ];
 
         // -------------------------------------------------------------
+        // Famous Painters Real Market Quotes (LiveArt Index Data)
+        // -------------------------------------------------------------
+        const famousPaintersMarket = [
+            { rank: 1, name: "Pablo Picasso", years: "1881–1973 · Modern / Cubism", cap: "$10.5B", change: -6.1, vol: "$73.9M", record: "$179.4M — Les Femmes d'Alger", url: "https://www.liveart.ai/artists/pablo-picasso", points: "2,6 24,9 46,8 68,14 90,17 108,21" },
+            { rank: 2, name: "Andy Warhol", years: "1928–1987 · Pop Art", cap: "$8.6B", change: +39.2, vol: "$30.9M", record: "$195.0M — Shot Sage Blue Marilyn", url: "https://www.liveart.ai/artists/andy-warhol", points: "2,22 24,19 46,16 68,12 90,7 108,3" },
+            { rank: 3, name: "Claude Monet", years: "1840–1926 · Impressionism", cap: "$8.0B", change: +9.8, vol: "$48.5M", record: "$110.7M — Meules (Haystacks)", url: "https://www.liveart.ai/artists/claude-monet", points: "2,18 24,16 46,17 68,13 90,10 108,7" },
+            { rank: 4, name: "Mark Rothko", years: "1903–1970 · Abstract Expressionism", cap: "$7.1B", change: +49.2, vol: "$42.1M", record: "$86.9M — Orange, Red, Yellow", url: "https://www.liveart.ai/artists/mark-rothko", points: "2,23 24,20 46,14 68,11 90,6 108,3" },
+            { rank: 5, name: "Jean-Michel Basquiat", years: "1960–1988 · Neo-Expressionism", cap: "$7.0B", change: +8.0, vol: "$72.0M", record: "$110.5M — Untitled (1982)", url: "https://www.liveart.ai/artists/jean-michel-basquiat", points: "2,17 24,15 46,16 68,12 90,11 108,8" },
+            { rank: 6, name: "Gerhard Richter", years: "b. 1932 · Contemporary", cap: "$5.4B", change: +12.9, vol: "$21.1M", record: "$46.3M — Abstraktes Bild", url: "https://www.liveart.ai/artists/gerhard-richter", points: "2,19 24,18 46,14 68,13 90,9 108,6" },
+            { rank: 7, name: "Roy Lichtenstein", years: "1923–1997 · Pop Art", cap: "$4.3B", change: +98.3, vol: "$28.4M", record: "$165.0M — Masterpiece", url: "https://www.liveart.ai/artists/roy-lichtenstein", points: "2,24 24,21 46,17 68,10 90,5 108,2" },
+            { rank: 8, name: "René Magritte", years: "1898–1967 · Surrealism", cap: "$3.8B", change: +3.1, vol: "$21.0M", record: "$121.2M — L'Empire des lumières", url: "https://www.liveart.ai/artists/rene-magritte", points: "2,15 24,14 46,15 68,13 90,13 108,11" },
+            { rank: 9, name: "Zao Wou-Ki", years: "1920–2013 · Lyrical Abstraction", cap: "$2.9B", change: +39.7, vol: "$24.4M", record: "$65.2M — Juin-Octobre 1985", url: "https://www.liveart.ai/artists/zao-wou-ki", points: "2,22 24,18 46,15 68,11 90,8 108,4" },
+            { rank: 16, name: "Vincent van Gogh", years: "1853–1890 · Post-Impressionism", cap: "$2.3B", change: +0.4, vol: "$35.0M", record: "$117.2M — Verger avec cyprès", url: "https://www.liveart.ai/artists/vincent-van-gogh", points: "2,14 24,13 46,15 68,14 90,13 108,13" },
+            { rank: 17, name: "Yayoi Kusama", years: "b. 1929 · Contemporary", cap: "$2.3B", change: +15.4, vol: "$24.8M", record: "$10.5M — Interminable Net #4", url: "https://www.liveart.ai/artists/yayoi-kusama", points: "2,20 24,17 46,15 68,12 90,8 108,5" },
+            { rank: 18, name: "Lucio Fontana", years: "1899–1968 · Spatialism", cap: "$2.2B", change: +30.8, vol: "$30.3M", record: "$29.2M — Concetto spaziale", url: "https://www.liveart.ai/artists/lucio-fontana", points: "2,21 24,19 46,14 68,12 90,7 108,4" },
+            { rank: 20, name: "Henri Matisse", years: "1869–1954 · Fauvism / Modern", cap: "$2.2B", change: +6.5, vol: "$19.8M", record: "$80.8M — Odalisque couchée", url: "https://www.liveart.ai/artists/henri-matisse", points: "2,17 24,16 46,14 68,13 90,11 108,9" },
+            { rank: 21, name: "Joan Mitchell", years: "1925–1992 · Abstract Expressionism", cap: "$2.1B", change: +14.2, vol: "$18.6M", record: "$29.2M — Noon", url: "https://www.liveart.ai/artists/joan-mitchell", points: "2,20 24,16 46,15 68,11 90,9 108,6" },
+            { rank: 42, name: "Jackson Pollock", years: "1912–1956 · Abstract Expressionism", cap: "$849.1M", change: -2.1, vol: "$14.2M", record: "$61.2M — Number 17, 1951", url: "https://www.liveart.ai/artists/jackson-pollock", points: "2,11 24,12 46,11 68,14 90,15 108,16" }
+        ];
+
+        // -------------------------------------------------------------
         // Reaction State Store (LocalStorage supported)
         // -------------------------------------------------------------
         const REACTIONS_KEY = 'jfm_art_reactions_v1';
@@ -1370,7 +1424,6 @@
             console.warn('LocalStorage unavailable for reactions', e);
         }
 
-        // Initialize realistic base counts per artwork (deterministic based on ID)
         function getArtworkReactions(id) {
             if (!reactionsData[id]) {
                 const baseClaps = (id * 17 + 42) % 180 + 190;
@@ -1532,7 +1585,6 @@
                         }
                         loveBtn.querySelector('.love-count').textContent = formatCount(data.loves);
                         saveReactions();
-                        initArtTicker();
                     });
 
                     // Dislike interaction
@@ -1678,49 +1730,52 @@
         }
 
         // -------------------------------------------------------------
-        // LiveArt-Style Ticker Logic
+        // Famous Painters Market Ticker Logic (LiveArt Style)
         // -------------------------------------------------------------
         const tickerTrack = document.getElementById('artTickerTrack');
         const hoverCard = document.getElementById('tickerHoverCard');
 
-        function initArtTicker() {
+        function initFamousPaintersTicker() {
             if (!tickerTrack || !hoverCard) return;
 
-            const tickerItems = [...artworks, ...artworks];
+            const tickerItems = [...famousPaintersMarket, ...famousPaintersMarket];
             tickerTrack.innerHTML = '';
 
-            tickerItems.forEach((art) => {
-                const r = getArtworkReactions(art.id);
-                const growth = ((art.id * 7) % 18 + 6).toFixed(1);
+            tickerItems.forEach((artist) => {
+                const isUp = artist.change >= 0;
+                const badgeClass = isUp ? 'ticker-badge-up' : 'ticker-badge-down';
+                const arrow = isUp ? '▲' : '▼';
+                const sign = isUp ? '+' : '';
+
                 const item = document.createElement('div');
                 item.className = 'ticker-item';
                 item.innerHTML = `
-                    <span class="ticker-item-title">${art.title}</span>
-                    <span class="ticker-item-meta">(${art.year})</span>
-                    <span class="ticker-item-badge">♥ ${formatCount(r.loves)} &middot; +${growth}%</span>
+                    <span class="ticker-rank">#${artist.rank}</span>
+                    <span class="ticker-item-title">${artist.name}</span>
+                    <span class="ticker-item-cap">${artist.cap}</span>
+                    <span class="${badgeClass}">${arrow} ${sign}${artist.change.toFixed(1)}%</span>
                 `;
 
                 item.addEventListener('mouseenter', () => {
-                    const currentStats = getArtworkReactions(art.id);
                     const rect = item.getBoundingClientRect();
 
-                    document.getElementById('thcImg').src = art.src;
-                    document.getElementById('thcImg').onerror = function() { this.src = art.fallback; };
-                    document.getElementById('thcTitle').textContent = art.title;
-                    document.getElementById('thcSub').textContent = `${art.year} · ${art.mediumLabel}`;
-                    document.getElementById('thcDim').textContent = art.dimensions;
-                    document.getElementById('thcClaps').textContent = formatCount(currentStats.claps);
-                    document.getElementById('thcLoves').textContent = formatCount(currentStats.loves);
+                    document.getElementById('thcTitle').textContent = artist.name;
+                    document.getElementById('thcSub').textContent = artist.years;
+                    document.getElementById('thcRank').textContent = `#${artist.rank} Global`;
+                    document.getElementById('thcCap').textContent = artist.cap;
 
-                    const p2 = 14 + (art.id % 8);
-                    const p3 = 16 - (art.id % 7);
-                    const p4 = 8 + (art.id % 6);
-                    document.getElementById('thcSparkline').setAttribute(
-                        'points',
-                        `2,22 24,${p2} 46,${p3} 68,${p4} 90,9 108,3`
-                    );
+                    const changeEl = document.getElementById('thcChange');
+                    changeEl.textContent = `${arrow} ${sign}${artist.change.toFixed(1)}%`;
+                    changeEl.style.color = isUp ? '#10b981' : '#e11d48';
 
-                    const leftPos = Math.min(Math.max(12, rect.left), window.innerWidth - 325);
+                    document.getElementById('thcVol').textContent = artist.vol;
+                    document.getElementById('thcRecord').innerHTML = `<strong>Auction Record:</strong> ${artist.record}`;
+
+                    const sparkline = document.getElementById('thcSparkline');
+                    sparkline.setAttribute('points', artist.points);
+                    sparkline.setAttribute('stroke', isUp ? '#10b981' : '#e11d48');
+
+                    const leftPos = Math.min(Math.max(12, rect.left), window.innerWidth - 345);
                     hoverCard.style.left = `${leftPos}px`;
                     hoverCard.style.top = `${rect.bottom + 6}px`;
                     hoverCard.classList.add('visible');
@@ -1731,8 +1786,7 @@
                 });
 
                 item.addEventListener('click', () => {
-                    hoverCard.classList.remove('visible');
-                    openDetail(art);
+                    window.open(artist.url, '_blank', 'noopener,noreferrer');
                 });
 
                 tickerTrack.appendChild(item);
@@ -1741,7 +1795,7 @@
 
         // Initialize display
         renderGallery();
-        initArtTicker();
+        initFamousPaintersTicker();
     </script>
 </body>
 </html>
