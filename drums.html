@@ -71,6 +71,22 @@
       filter: brightness(1.25);
     }
 
+    .beat-pulse-1 {
+      background-color: #fbbf24 !important;
+      color: #090d16 !important;
+      border-color: #fef08a !important;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.85);
+      transform: scale(1.06);
+    }
+
+    .beat-pulse-other {
+      background-color: #38bdf8 !important;
+      color: #090d16 !important;
+      border-color: #bae6fd !important;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+      transform: scale(1.04);
+    }
+
     .pad-active {
       transform: scale(0.95);
       filter: brightness(1.3);
@@ -122,7 +138,7 @@
             Limpar
           </button>
 
-          <button id="metronomeBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition cursor-pointer" title="Ativar/Desativar Metrónomo (Tempos 1, 2, 3, 4)">
+          <button id="metronomeBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition cursor-pointer" title="Ativar/Desativar Metrónomo nos tempos 1, 2, 3 e 4">
             <span id="metronomeDot" class="w-2.5 h-2.5 rounded-full bg-slate-500 transition-transform duration-75"></span>
             Metrónomo
           </button>
@@ -702,27 +718,29 @@
     }
 
     // =========================================================================
-    // METRÓNOMO: TOCA APENAS NOS TEMPOS 1, 2, 3 E 4 (PASSOS 0, 4, 8, 12)
-    // COM ACENTO FORTE NO TEMPO 1 (PASSO 0)
+    // METRÓNOMO: TOCA EXCLUSIVAMENTE NOS TEMPOS 1, 2, 3 E 4 DO CABEÇALHO
+    // (Índices 0, 4, 8 e 12) COM ACENTO FORTE NA POSIÇÃO 1 (Índice 0)
     // =========================================================================
     function playMetronomeClick(time, isBeatOne) {
       initAudio();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
 
-      osc.type = 'triangle';
-      // Tempo 1 (isBeatOne = true): mais agudo (1600 Hz) e bem mais alto (0.85)
-      // Tempos 2, 3 e 4: mais grave (900 Hz) e volume moderado (0.30)
-      osc.frequency.setValueAtTime(isBeatOne ? 1600 : 900, time);
+      osc.type = 'sine';
+      // Posição 1 (isBeatOne = true): frequência aguda (1760 Hz) e volume alto (0.95)
+      // Posições 2, 3 e 4: frequência média (880 Hz) e volume suave (0.28)
+      osc.frequency.setValueAtTime(isBeatOne ? 1760 : 880, time);
 
-      const level = Math.max(0.05, state.masterVolume) * (isBeatOne ? 0.85 : 0.30);
-      gain.gain.setValueAtTime(level, time);
-      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.06);
+      const master = Math.max(0.1, state.masterVolume);
+      const clickLevel = master * (isBeatOne ? 0.95 : 0.28);
+
+      gain.gain.setValueAtTime(clickLevel, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.065);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(time);
-      osc.stop(time + 0.065);
+      osc.stop(time + 0.07);
     }
 
     // =========================================================================
@@ -749,13 +767,15 @@
     }
 
     function scheduleNote(stepNumber, time) {
-      // Índices das cabeças dos tempos na subdivisão 1 e & a 2 e & a 3 e & a 4 e & a:
-      // Tempo 1 -> passo 0
-      // Tempo 2 -> passo 4
-      // Tempo 3 -> passo 8
-      // Tempo 4 -> passo 12
-      const isQuarterBeat = (stepNumber === 0 || stepNumber === 4 || stepNumber === 8 || stepNumber === 12);
+      // Colunas exatas de 1, 2, 3 e 4 na grelha:
+      // 0 -> 1 | 4 -> 2 | 8 -> 3 | 12 -> 4
+      const isBeatHeader = (stepNumber % 4 === 0);
       const isBeatOne = (stepNumber === 0);
+
+      // Disparo sonoro do metrónomo APENAS nas posições 1, 2, 3 e 4
+      if (state.metronome && isBeatHeader) {
+        playMetronomeClick(time, isBeatOne);
+      }
 
       // Sincronização visual
       const delay = Math.max(0, (time - audioCtx.currentTime) * 1000);
@@ -763,24 +783,26 @@
         if (!state.isPlaying) return;
         highlightStep(stepNumber);
 
-        // Pulso visual no LED do metrónomo nos tempos 1, 2, 3 e 4
-        if (state.metronome && isQuarterBeat) {
+        // Destaque visual nos números 1, 2, 3, 4 do cabeçalho e no LED do metrónomo
+        if (state.metronome && isBeatHeader) {
+          const beatHeaderCell = document.getElementById(`beat-header-${stepNumber}`);
+          if (beatHeaderCell) {
+            const cls = isBeatOne ? 'beat-pulse-1' : 'beat-pulse-other';
+            beatHeaderCell.classList.add(cls);
+            setTimeout(() => beatHeaderCell.classList.remove(cls), 130);
+          }
+
           const dot = document.getElementById('metronomeDot');
           if (dot) {
-            dot.style.transform = isBeatOne ? 'scale(1.6)' : 'scale(1.25)';
-            dot.style.backgroundColor = isBeatOne ? '#fbbf24' : '#34d399';
+            dot.style.transform = isBeatOne ? 'scale(1.65)' : 'scale(1.25)';
+            dot.style.backgroundColor = isBeatOne ? '#fbbf24' : '#38bdf8';
             setTimeout(() => {
               dot.style.transform = 'scale(1)';
               dot.style.backgroundColor = state.metronome ? '#34d399' : '#64748b';
-            }, 90);
+            }, 110);
           }
         }
       }, delay);
-
-      // Disparo sonoro do metrónomo APENAS nos tempos 1, 2, 3 e 4
-      if (state.metronome && isQuarterBeat) {
-        playMetronomeClick(time, isBeatOne);
-      }
 
       // Verificar se existe alguma pista em Solo
       const anySolo = Object.values(state.soloed).some(Boolean);
@@ -851,7 +873,8 @@
         const isBeatStart = i % 4 === 0;
         const label = SUBDIVISION_LABELS[i] || '•';
         const cell = document.createElement('div');
-        cell.className = `text-center mono text-xs py-1 rounded ${
+        cell.id = `beat-header-${i}`;
+        cell.className = `text-center mono text-xs py-1 rounded transition-all duration-75 ${
           i === 0
             ? 'bg-amber-500/20 text-amber-300 font-extrabold border border-amber-400/50'
             : isBeatStart
