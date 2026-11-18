@@ -14,7 +14,7 @@
     <!-- Google Fonts typography (Newsreader + Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -390,6 +390,338 @@
         }
 
         /* -------------------------------------------------------------
+           Interactive Drum Sequencer Section (DrumGrid 4x4)
+           ------------------------------------------------------------- */
+        .sequencer-section {
+            margin-bottom: 4rem;
+        }
+
+        .sequencer-section-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .sequencer-section-header h2 {
+            font-family: "Newsreader", Georgia, serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .sequencer-section-header p {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            margin-top: 0.35rem;
+        }
+
+        .studio-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            user-select: none;
+        }
+
+        .toolbar {
+            background: #161922;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 10px 28px rgba(16, 42, 67, 0.14);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #60a5fa;
+            box-shadow: 0 0 10px #60a5fa;
+        }
+
+        .brand h3 {
+            font-family: "Inter", sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #f8fafc;
+            margin: 0;
+        }
+
+        .controls-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .studio-container button,
+        .studio-container select {
+            background: #222736;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 9px;
+            padding: 7px 13px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: "Inter", sans-serif;
+            line-height: 1.3;
+        }
+
+        .studio-container button:hover,
+        .studio-container select:hover {
+            background: #2c3347;
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .studio-container button:active {
+            transform: scale(0.97);
+        }
+
+        .studio-container .btn-play {
+            background: linear-gradient(180deg, #4f94ff 0%, #2563eb 100%);
+            border-color: rgba(147, 197, 253, 0.4);
+            color: #ffffff;
+            min-width: 98px;
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+
+        .studio-container .btn-play.playing {
+            background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+            border-color: rgba(254, 202, 202, 0.4);
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+        }
+
+        .bpm-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1b202c;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 9px;
+            padding: 5px 12px;
+        }
+
+        .bpm-box label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            letter-spacing: 0.05em;
+        }
+
+        .bpm-box input[type="range"] {
+            width: 85px;
+            accent-color: #60a5fa;
+            cursor: pointer;
+        }
+
+        .bpm-value {
+            font-variant-numeric: tabular-nums;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #93c5fd;
+            min-width: 56px;
+            text-align: right;
+        }
+
+        .studio-container .toggle-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            color: #cbd5e1;
+            background: #1b202c;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 9px;
+            padding: 7px 11px;
+        }
+
+        .studio-container .toggle-pill.active {
+            border-color: rgba(96, 165, 250, 0.5);
+            background: rgba(59, 130, 246, 0.16);
+            color: #93c5fd;
+        }
+
+        .grid-card {
+            background: #161922;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px 26px 20px 26px;
+            box-shadow: 0 16px 38px rgba(16, 42, 67, 0.18);
+            overflow-x: auto;
+        }
+
+        .sequencer-wrapper {
+            position: relative;
+            min-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .track-row {
+            display: grid;
+            grid-template-columns: 115px 1fr;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .track-label {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: #cbd5e1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 6px;
+            border-radius: 8px;
+            line-height: 1.2;
+            transition: background 0.15s, opacity 0.15s;
+        }
+
+        .track-label:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .track-label.color-band {
+            color: #7cb3ff;
+        }
+
+        .track-label.color-snare {
+            color: #4f94ff;
+        }
+
+        .track-label.muted {
+            color: #4b5563 !important;
+            opacity: 0.65;
+        }
+
+        .beats-container {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .beat-group {
+            background: #1d212d;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 5px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .pad {
+            height: 28px;
+            border-radius: 7px;
+            background: #232836;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+        }
+
+        .pad:hover {
+            background: #2c3346;
+        }
+
+        .pad.active.blue {
+            background: linear-gradient(180deg, #b8d8ff 0%, #5899ff 55%, #3b7be6 100%);
+            box-shadow: 0 0 12px rgba(88, 153, 255, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+        }
+
+        .pad.ghost.blue {
+            background: linear-gradient(180deg, #5c84bd 0%, #37578a 100%);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        }
+
+        .pad.active.silver {
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
+            box-shadow: 0 0 12px rgba(226, 232, 240, 0.4), inset 0 1px 1px #ffffff;
+        }
+
+        .pad.ghost.silver {
+            background: linear-gradient(180deg, #788496 0%, #525c6b 100%);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        }
+
+        .pad.triggered {
+            transform: scale(1.07);
+            filter: brightness(1.18);
+        }
+
+        .playhead {
+            position: absolute;
+            top: -8px;
+            bottom: -8px;
+            width: 3px;
+            background: #ffffff;
+            border-radius: 3px;
+            box-shadow: 0 0 10px #ffffff, 0 0 22px rgba(147, 197, 253, 0.95);
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0;
+            transform: translateX(0px);
+        }
+
+        .playhead.visible {
+            opacity: 1;
+        }
+
+        .beat-numbers-row {
+            display: grid;
+            grid-template-columns: 115px 1fr;
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .beat-numbers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .beat-num {
+            text-align: center;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #cbd5e1;
+            line-height: 1.2;
+            transition: color 0.1s, text-shadow 0.1s;
+        }
+
+        .beat-num.current {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(147, 197, 253, 0.9);
+        }
+
+        .sequencer-hint {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding: 0 4px;
+        }
+
+        /* -------------------------------------------------------------
            Rhythm Context Box
            ------------------------------------------------------------- */
         .rhythm-box {
@@ -618,6 +950,69 @@
 
         </div>
 
+        <!-- Interactive Drum Sequencer 4x4 -->
+        <section class="sequencer-section" aria-label="Interactive Rhythm Sequencer">
+            <div class="sequencer-section-header">
+                <h2>Interactive Rhythm Lab (4&times;4 Sequencer)</h2>
+                <p>Build custom 16-step grooves, generate rhythmic variations, and play along in real time.</p>
+            </div>
+
+            <div class="studio-container">
+                <div class="toolbar">
+                    <div class="brand">
+                        <div class="brand-dot"></div>
+                        <h3>DrumGrid 4&times;4</h3>
+                    </div>
+
+                    <div class="controls-group">
+                        <button id="playBtn" class="btn-play">&#9654; Play</button>
+
+                        <div class="bpm-box">
+                            <label for="bpmSlider">BPM</label>
+                            <input id="bpmSlider" type="range" min="45" max="220" value="105" />
+                            <span id="bpmValue" class="bpm-value">105 BPM</span>
+                        </div>
+
+                        <select id="presetSelect" title="Choose Groove Preset">
+                            <option value="groove4x4">Groove 4&times;4 (Default)</option>
+                            <option value="rock">Classic Rock</option>
+                            <option value="funk">Syncopated Funk</option>
+                            <option value="hiphop">Hip-Hop / Boom Bap</option>
+                            <option value="disco">Disco / House</option>
+                            <option value="bossanova">Bossa Nova</option>
+                        </select>
+
+                        <button id="randomBtn" title="Generate a new groove">&#127922; Random Groove</button>
+                        <button id="metroBtn" class="toggle-pill" title="Toggle Metronome Click">&#128276; Click</button>
+                        <button id="clearBtn" title="Clear Grid">Clear</button>
+                    </div>
+                </div>
+
+                <div class="grid-card">
+                    <div class="sequencer-wrapper" id="sequencerWrapper">
+                        <div id="tracksContainer" style="display:flex; flex-direction:column; gap:10px; position:relative;">
+                            <div id="playhead" class="playhead"></div>
+                        </div>
+
+                        <div class="beat-numbers-row">
+                            <div></div>
+                            <div class="beat-numbers" id="beatNumbers">
+                                <div class="beat-num" data-beat="0">1</div>
+                                <div class="beat-num" data-beat="1">2</div>
+                                <div class="beat-num" data-beat="2">3</div>
+                                <div class="beat-num" data-beat="3">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sequencer-hint">
+                    <span><strong>Left click:</strong> Toggle accent &nbsp;|&nbsp; <strong>Right click (or Shift+Click):</strong> Ghost note</span>
+                    <span><strong>Spacebar:</strong> Play / Pause &nbsp;|&nbsp; <strong>Click instrument name:</strong> Mute track</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Secção Contextual -->
         <div class="rhythm-box">
             <h3>The Physics of Rhythm</h3>
@@ -651,5 +1046,525 @@
         }
     </script>
 
+    <!-- DrumGrid 4x4 Audio & Sequencer Engine -->
+    <script>
+        (function() {
+            const TRACKS = [
+                { id: 'band',     name: 'Band',      style: 'blue',   labelClass: 'color-band' },
+                { id: 'ride',     name: 'Ride',      style: 'silver', labelClass: '' },
+                { id: 'crash',    name: 'Crash',     style: 'silver', labelClass: '' },
+                { id: 'hihat',    name: 'Hi-hat',    style: 'silver', labelClass: '' },
+                { id: 'snare',    name: 'Snare',     style: 'blue',   labelClass: 'color-snare' },
+                { id: 'tom',      name: 'Tom',       style: 'silver', labelClass: '' },
+                { id: 'floortom', name: 'Floor tom', style: 'silver', labelClass: '' },
+                { id: 'kick',     name: 'Kick',      style: 'silver', labelClass: '' }
+            ];
+
+            const STEPS = 16;
+            let bpm = 105;
+            let isPlaying = false;
+            let metronomeOn = false;
+            let currentStep = 0;
+            let nextNoteTime = 0;
+            let timerID = null;
+            let animFrameID = null;
+            let stepTimestamps = [];
+
+            let grid = {};
+            let muted = {};
+            TRACKS.forEach(t => {
+                grid[t.id] = new Array(STEPS).fill(0);
+                muted[t.id] = false;
+            });
+
+            const PRESETS = {
+                groove4x4: {
+                    band:     [0,0,0,1, 0,0,0,0, 1,0,0,0, 0,0,0,1],
+                    ride:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    crash:    [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [0,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0],
+                    snare:    [0,0,0,0, 1,0,0,2, 0,2,0,0, 1,0,0,0],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1],
+                    kick:     [1,0,0,1, 0,0,0,0, 1,0,1,0, 0,0,0,0]
+                },
+                rock: {
+                    band:     [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+                    ride:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    crash:    [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [0,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0],
+                    snare:    [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    kick:     [1,0,0,0, 0,0,0,1, 1,0,1,0, 0,0,0,0]
+                },
+                funk: {
+                    band:     [1,0,0,1, 0,0,1,0, 0,0,0,0, 1,0,0,0],
+                    ride:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    crash:    [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [0,1,1,1, 1,1,1,0, 1,1,1,1, 1,1,1,0],
+                    snare:    [0,0,0,0, 1,0,0,2, 0,2,0,2, 1,0,0,2],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1],
+                    kick:     [1,0,0,1, 0,0,1,0, 0,0,1,0, 0,0,0,0]
+                },
+                hiphop: {
+                    band:     [1,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,0,0],
+                    ride:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    crash:    [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [1,0,1,0, 1,0,1,1, 1,0,1,0, 1,0,1,0],
+                    snare:    [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,2],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    kick:     [1,0,0,1, 0,0,0,1, 0,0,1,0, 0,0,0,0]
+                },
+                disco: {
+                    band:     [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0],
+                    ride:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    crash:    [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0],
+                    snare:    [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    kick:     [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0]
+                },
+                bossanova: {
+                    band:     [1,0,0,1, 0,0,1,0, 0,0,1,0, 0,1,0,0],
+                    ride:     [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0],
+                    crash:    [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    hihat:    [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0],
+                    snare:    [1,0,0,1, 0,0,1,0, 0,0,1,0, 0,1,0,0],
+                    tom:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    floortom: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+                    kick:     [1,0,0,1, 1,0,0,1, 1,0,0,1, 1,0,0,1]
+                }
+            };
+
+            let audioCtx = null;
+            let noiseBuffer = null;
+
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const bufferSize = audioCtx.sampleRate * 1.5;
+                    noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = noiseBuffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }
+
+            function playSound(trackId, time, isGhost = false) {
+                if (!audioCtx || muted[trackId]) return;
+                const vel = isGhost ? 0.32 : 1.0;
+
+                if (trackId === 'kick') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(145, time);
+                    osc.frequency.exponentialRampToValueAtTime(42, time + 0.12);
+                    gain.gain.setValueAtTime(0.95 * vel, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(time);
+                    osc.stop(time + 0.36);
+                }
+                else if (trackId === 'snare') {
+                    const osc = audioCtx.createOscillator();
+                    const oscGain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(195, time);
+                    osc.frequency.exponentialRampToValueAtTime(85, time + 0.1);
+                    oscGain.gain.setValueAtTime(0.55 * vel, time);
+                    oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.16);
+                    osc.connect(oscGain);
+                    oscGain.connect(audioCtx.destination);
+                    osc.start(time);
+                    osc.stop(time + 0.17);
+
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = noiseBuffer;
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'highpass';
+                    filter.frequency.value = 1100;
+                    const nGain = audioCtx.createGain();
+                    nGain.gain.setValueAtTime(0.65 * vel, time);
+                    nGain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
+                    noise.connect(filter);
+                    filter.connect(nGain);
+                    nGain.connect(audioCtx.destination);
+                    noise.start(time);
+                    noise.stop(time + 0.21);
+                }
+                else if (trackId === 'hihat') {
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = noiseBuffer;
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'highpass';
+                    filter.frequency.value = 7500;
+                    const gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(0.38 * vel, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.065);
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    noise.start(time);
+                    noise.stop(time + 0.07);
+                }
+                else if (trackId === 'crash') {
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = noiseBuffer;
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 5200;
+                    filter.Q.value = 0.7;
+                    const gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(0.55 * vel, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.95);
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    noise.start(time);
+                    noise.stop(time + 0.96);
+                }
+                else if (trackId === 'ride') {
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = noiseBuffer;
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 6800;
+                    filter.Q.value = 2.5;
+                    const gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(0.35 * vel, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.45);
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    noise.start(time);
+                    noise.stop(time + 0.46);
+                }
+                else if (trackId === 'tom' || trackId === 'floortom') {
+                    const startFreq = trackId === 'tom' ? 165 : 112;
+                    const endFreq = trackId === 'tom' ? 75 : 48;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(startFreq, time);
+                    osc.frequency.exponentialRampToValueAtTime(endFreq, time + 0.22);
+                    gain.gain.setValueAtTime(0.75 * vel, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.28);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(time);
+                    osc.stop(time + 0.29);
+                }
+                else if (trackId === 'band') {
+                    const freqs = [261.63, 329.63, 392.00, 493.88];
+                    freqs.forEach(f => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(f, time);
+                        gain.gain.setValueAtTime(0.11 * vel, time);
+                        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.24);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(time);
+                        osc.stop(time + 0.25);
+                    });
+                }
+            }
+
+            function playClick(time, isDownbeat) {
+                if (!audioCtx || !metronomeOn) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(isDownbeat ? 1200 : 850, time);
+                gain.gain.setValueAtTime(0.22, time);
+                gain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(time);
+                osc.stop(time + 0.045);
+            }
+
+            const tracksContainer = document.getElementById('tracksContainer');
+            const padElements = {};
+
+            function buildGridUI() {
+                TRACKS.forEach(track => {
+                    padElements[track.id] = [];
+                    const row = document.createElement('div');
+                    row.className = 'track-row';
+
+                    const label = document.createElement('div');
+                    label.className = `track-label ${track.labelClass}`;
+                    label.textContent = track.name;
+                    label.title = 'Click to mute/unmute track';
+                    label.addEventListener('click', () => {
+                        muted[track.id] = !muted[track.id];
+                        label.classList.toggle('muted', muted[track.id]);
+                    });
+
+                    const beatsContainer = document.createElement('div');
+                    beatsContainer.className = 'beats-container';
+
+                    for (let b = 0; b < 4; b++) {
+                        const group = document.createElement('div');
+                        group.className = 'beat-group';
+
+                        for (let s = 0; s < 4; s++) {
+                            const stepIndex = b * 4 + s;
+                            const pad = document.createElement('div');
+                            pad.className = `pad ${track.style}`;
+                            pad.dataset.step = stepIndex;
+
+                            pad.addEventListener('click', (e) => {
+                                initAudio();
+                                if (e.shiftKey) {
+                                    grid[track.id][stepIndex] = grid[track.id][stepIndex] === 2 ? 0 : 2;
+                                } else {
+                                    grid[track.id][stepIndex] = grid[track.id][stepIndex] === 1 ? 0 : 1;
+                                }
+                                updatePadVisual(track.id, stepIndex);
+                                if (grid[track.id][stepIndex] > 0) {
+                                    playSound(track.id, audioCtx.currentTime, grid[track.id][stepIndex] === 2);
+                                }
+                            });
+
+                            pad.addEventListener('contextmenu', (e) => {
+                                e.preventDefault();
+                                initAudio();
+                                grid[track.id][stepIndex] = grid[track.id][stepIndex] === 2 ? 0 : 2;
+                                updatePadVisual(track.id, stepIndex);
+                                if (grid[track.id][stepIndex] > 0) {
+                                    playSound(track.id, audioCtx.currentTime, true);
+                                }
+                            });
+
+                            group.appendChild(pad);
+                            padElements[track.id][stepIndex] = pad;
+                        }
+                        beatsContainer.appendChild(group);
+                    }
+
+                    row.appendChild(label);
+                    row.appendChild(beatsContainer);
+                    tracksContainer.appendChild(row);
+                });
+            }
+
+            function updatePadVisual(trackId, stepIndex) {
+                const pad = padElements[trackId][stepIndex];
+                const val = grid[trackId][stepIndex];
+                pad.classList.remove('active', 'ghost');
+                if (val === 1) pad.classList.add('active');
+                if (val === 2) pad.classList.add('ghost');
+            }
+
+            function refreshAllPads() {
+                TRACKS.forEach(t => {
+                    for (let i = 0; i < STEPS; i++) {
+                        updatePadVisual(t.id, i);
+                    }
+                });
+            }
+
+            function loadPreset(name) {
+                const p = PRESETS[name];
+                if (!p) return;
+                TRACKS.forEach(t => {
+                    grid[t.id] = [...p[t.id]];
+                });
+                refreshAllPads();
+            }
+
+            function generateRandomGroove() {
+                initAudio();
+                TRACKS.forEach(t => grid[t.id].fill(0));
+
+                if (Math.random() > 0.4) grid.crash[0] = 1;
+
+                const cymbal = Math.random() > 0.3 ? 'hihat' : 'ride';
+                const patternType = Math.floor(Math.random() * 3);
+                for (let i = 0; i < 16; i++) {
+                    if (patternType === 0 && i % 2 === 0) grid[cymbal][i] = 1;
+                    if (patternType === 1 && i % 4 === 2) grid[cymbal][i] = 1;
+                    if (patternType === 2 && (i % 2 === 0 || Math.random() > 0.65)) grid[cymbal][i] = 1;
+                }
+
+                grid.snare[4] = 1;
+                grid.snare[12] = 1;
+                [7, 9, 15].forEach(idx => {
+                    if (Math.random() > 0.55) grid.snare[idx] = 2;
+                });
+
+                grid.kick[0] = 1;
+                [2, 3, 6, 7, 8, 10, 11, 14].forEach(idx => {
+                    if (Math.random() > 0.62) grid.kick[idx] = 1;
+                });
+
+                [0, 3, 8, 10, 15].forEach(idx => {
+                    if (Math.random() > 0.55) grid.band[idx] = 1;
+                });
+
+                if (Math.random() > 0.45) {
+                    grid.tom[14] = 1;
+                    grid.floortom[15] = 1;
+                }
+
+                refreshAllPads();
+            }
+
+            function scheduler() {
+                const secondsPer16th = (60.0 / bpm) / 4;
+                while (nextNoteTime < audioCtx.currentTime + 0.1) {
+                    const step = currentStep;
+                    const time = nextNoteTime;
+
+                    TRACKS.forEach(t => {
+                        const val = grid[t.id][step];
+                        if (val > 0) {
+                            playSound(t.id, time, val === 2);
+                        }
+                    });
+
+                    if (step % 4 === 0) {
+                        playClick(time, step === 0);
+                    }
+
+                    stepTimestamps.push({ step, time });
+
+                    nextNoteTime += secondsPer16th;
+                    currentStep = (currentStep + 1) % STEPS;
+                }
+                timerID = setTimeout(scheduler, 25);
+            }
+
+            let lastVisualStep = -1;
+            function updatePlayhead() {
+                if (!isPlaying || !audioCtx) return;
+
+                const now = audioCtx.currentTime;
+                const secondsPer16th = (60.0 / bpm) / 4;
+
+                while (stepTimestamps.length > 1 && stepTimestamps[1].time <= now) {
+                    stepTimestamps.shift();
+                }
+
+                if (stepTimestamps.length > 0) {
+                    const current = stepTimestamps[0];
+                    const progress = Math.min(1, Math.max(0, (now - current.time) / secondsPer16th));
+                    const activeStep = current.step;
+
+                    const firstRowPads = padElements[TRACKS[0].id];
+                    const currentPad = firstRowPads[activeStep];
+                    const nextPad = firstRowPads[(activeStep + 1) % STEPS];
+                    const containerRect = tracksContainer.getBoundingClientRect();
+                    const padRect = currentPad.getBoundingClientRect();
+
+                    let xPos = (padRect.left - containerRect.left) + (padRect.width * progress);
+                    if (activeStep < STEPS - 1) {
+                        const nextRect = nextPad.getBoundingClientRect();
+                        const startX = (padRect.left - containerRect.left) + padRect.width * 0.5;
+                        const endX = (nextRect.left - containerRect.left) + nextRect.width * 0.5;
+                        xPos = startX + (endX - startX) * progress;
+                    } else {
+                        const startX = (padRect.left - containerRect.left) + padRect.width * 0.5;
+                        xPos = startX + (padRect.width * 0.5 * progress);
+                    }
+
+                    const playhead = document.getElementById('playhead');
+                    playhead.style.transform = `translateX(${xPos}px)`;
+
+                    if (activeStep !== lastVisualStep) {
+                        lastVisualStep = activeStep;
+                        const beatIdx = Math.floor(activeStep / 4);
+                        document.querySelectorAll('.beat-num').forEach((el, idx) => {
+                            el.classList.toggle('current', idx === beatIdx);
+                        });
+
+                        TRACKS.forEach(t => {
+                            if (grid[t.id][activeStep] > 0 && !muted[t.id]) {
+                                const p = padElements[t.id][activeStep];
+                                p.classList.add('triggered');
+                                setTimeout(() => p.classList.remove('triggered'), 110);
+                            }
+                        });
+                    }
+                }
+
+                animFrameID = requestAnimationFrame(updatePlayhead);
+            }
+
+            function togglePlay() {
+                initAudio();
+                isPlaying = !isPlaying;
+                const playBtn = document.getElementById('playBtn');
+                const playhead = document.getElementById('playhead');
+
+                if (isPlaying) {
+                    currentStep = 0;
+                    stepTimestamps = [];
+                    lastVisualStep = -1;
+                    nextNoteTime = audioCtx.currentTime + 0.04;
+                    playBtn.innerHTML = '&#9209; Stop';
+                    playBtn.classList.add('playing');
+                    playhead.classList.add('visible');
+                    scheduler();
+                    animFrameID = requestAnimationFrame(updatePlayhead);
+                } else {
+                    clearTimeout(timerID);
+                    cancelAnimationFrame(animFrameID);
+                    playBtn.innerHTML = '&#9654; Play';
+                    playBtn.classList.remove('playing');
+                    playhead.classList.remove('visible');
+                    document.querySelectorAll('.beat-num').forEach(el => el.classList.remove('current'));
+                }
+            }
+
+            document.getElementById('playBtn').addEventListener('click', togglePlay);
+
+            document.getElementById('bpmSlider').addEventListener('input', (e) => {
+                bpm = parseInt(e.target.value, 10);
+                document.getElementById('bpmValue').textContent = `${bpm} BPM`;
+            });
+
+            document.getElementById('presetSelect').addEventListener('change', (e) => {
+                loadPreset(e.target.value);
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', generateRandomGroove);
+
+            document.getElementById('metroBtn').addEventListener('click', (e) => {
+                metronomeOn = !metronomeOn;
+                e.target.classList.toggle('active', metronomeOn);
+            });
+
+            document.getElementById('clearBtn').addEventListener('click', () => {
+                TRACKS.forEach(t => grid[t.id].fill(0));
+                refreshAllPads();
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && document.activeElement.tagName !== 'BUTTON' && document.activeElement.tagName !== 'SELECT') {
+                    e.preventDefault();
+                    togglePlay();
+                }
+            });
+
+            buildGridUI();
+            loadPreset('groove4x4');
+        })();
+    </script>
+
 </body>
 </html>
+       
