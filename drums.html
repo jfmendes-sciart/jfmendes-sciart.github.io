@@ -708,14 +708,16 @@
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(isDownbeat ? 1300 : 880, time);
-      gain.gain.setValueAtTime(state.masterVolume * 0.35, time);
-      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
+      // Tempo 1 (isDownbeat): tom mais agudo e volume acentuado; Tempos 2, 3, 4: volume normal
+      osc.frequency.setValueAtTime(isDownbeat ? 1500 : 880, time);
+      const clickVolume = isDownbeat ? 0.75 : 0.28;
+      gain.gain.setValueAtTime(state.masterVolume * clickVolume, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(time);
-      osc.stop(time + 0.045);
+      osc.stop(time + 0.055);
     }
 
     // =========================================================================
@@ -748,8 +750,8 @@
         if (state.isPlaying) highlightStep(stepNumber);
       }, delay);
 
-      // Metrónomo a cada semínima (a cada 2 passos)
-      if (state.metronome && stepNumber % 2 === 0) {
+      // Metrónomo a cada tempo (1, 2, 3, 4 -> a cada 4 passos de semicolcheia)
+      if (state.metronome && stepNumber % 4 === 0) {
         playMetronomeClick(time, stepNumber === 0);
       }
 
