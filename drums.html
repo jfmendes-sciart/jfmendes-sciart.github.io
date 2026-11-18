@@ -748,8 +748,8 @@
         if (state.isPlaying) highlightStep(stepNumber);
       }, delay);
 
-      // Metrónomo a cada semínima (a cada 4 passos)
-      if (state.metronome && stepNumber % 4 === 0) {
+      // Metrónomo a cada semínima (a cada 2 passos)
+      if (state.metronome && stepNumber % 2 === 0) {
         playMetronomeClick(time, stepNumber === 0);
       }
 
