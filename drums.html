@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drum Studio - Sequenciador de Bateria</title>
+  <title>Drum Studio - Multi-Barras</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
@@ -19,23 +19,22 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
-      height: 8px;
+      height: 10px;
     }
     ::-webkit-scrollbar-track {
       background: #0f172a;
+      border-radius: 6px;
     }
     ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 4px;
+      background: #475569;
+      border-radius: 6px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
+      background: #64748b;
     }
 
-    /* Range Inputs */
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
@@ -68,7 +67,8 @@
     .step-current {
       outline: 2px solid #ffffff;
       outline-offset: 1px;
-      filter: brightness(1.25);
+      filter: brightness(1.3);
+      z-index: 5;
     }
 
     .beat-pulse-1 {
@@ -95,14 +95,12 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between p-4 md:p-6">
 
-  <!-- CONTAINER PRINCIPAL -->
   <div class="max-w-7xl w-full mx-auto space-y-5">
 
     <!-- CABEÇALHO E TRANSPORT -->
     <header class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-2xl backdrop-blur-md">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         
-        <!-- Logo & Título -->
         <div class="flex items-center gap-3">
           <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-rose-500 to-violet-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -114,11 +112,10 @@
             <h1 class="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
               DRUM STUDIO PRO
             </h1>
-            <p class="text-xs text-slate-400">Sequenciador Rítmico &amp; Sintetizador de Percussão</p>
+            <p class="text-xs text-violet-300 font-medium">Sequenciador Multi-Barras &amp; Sintetizador de Percussão</p>
           </div>
         </div>
 
-        <!-- Controles Principais de Reprodução -->
         <div class="flex flex-wrap items-center gap-2.5">
           <button id="playPauseBtn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/25 cursor-pointer">
             <svg id="playIcon" class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -138,15 +135,15 @@
             Limpar
           </button>
 
-          <button id="metronomeBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition cursor-pointer" title="Ativar/Desativar Metrónomo nas posições 1, 2, 3 e 4">
+          <button id="metronomeBtn" class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition cursor-pointer" title="Ativar/Desativar Metrónomo">
             <span id="metronomeDot" class="w-2.5 h-2.5 rounded-full bg-slate-500 transition-transform duration-75"></span>
             Metrónomo
           </button>
         </div>
       </div>
 
-      <!-- BARRA DE PARÂMETROS: BPM, COMPASSO, SWING, PRESETS & EXPORT -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-5 pt-4 border-t border-slate-800/80">
+      <!-- BARRA DE PARÂMETROS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5 mt-5 pt-4 border-t border-slate-800/80">
         
         <!-- BPM -->
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex flex-col justify-between">
@@ -162,13 +159,26 @@
           <div class="flex items-center justify-between mb-1.5">
             <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Compasso</span>
             <select id="timeSignatureSelect" class="bg-slate-900 border border-slate-700 rounded-md px-2 py-0.5 text-xs font-bold text-cyan-400 focus:outline-none">
-              <option value="16" selected>4/4 (16 passos)</option>
-              <option value="12">3/4 (12 passos)</option>
+              <option value="16" selected>4/4 (16)</option>
+              <option value="12">3/4 (12)</option>
             </select>
           </div>
           <div class="flex items-center justify-between gap-2 mt-1">
             <span class="text-xs text-slate-400">Swing: <strong id="swingVal" class="text-slate-200 mono">0%</strong></span>
-            <input id="swingSlider" type="range" min="0" max="50" value="0" class="w-24">
+            <input id="swingSlider" type="range" min="0" max="50" value="0" class="w-20">
+          </div>
+        </div>
+
+        <!-- Compassos / Barras -->
+        <div class="bg-violet-950/40 border border-violet-500/50 rounded-xl p-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-violet-300">Barras</span>
+            <span id="barsCountDisplay" class="mono text-xs font-bold text-amber-400">1 Barra</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button id="removeBarBtn" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition cursor-pointer" title="Remover última barra">-1</button>
+            <button id="addBarBtn" class="flex-1 py-1 px-2 rounded-md bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white transition cursor-pointer shadow-sm" title="Adicionar nova barra vazia">+ Barra</button>
+            <button id="duplicateBarBtn" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] font-semibold text-slate-200 transition cursor-pointer" title="Duplicar a 1ª barra">Dup</button>
           </div>
         </div>
 
@@ -184,7 +194,7 @@
         <!-- Ritmos Predefinidos -->
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex flex-col justify-between">
           <label for="presetSelect" class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Ritmo Predefinido</label>
-          <select id="presetSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-200 focus:outline-none focus:border-sky-500">
+          <select id="presetSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-semibold text-slate-200 focus:outline-none focus:border-sky-500">
             <option value="rock">Rock Clássico (4/4)</option>
             <option value="pop">Pop Moderno (4/4)</option>
             <option value="funk">Funk Groove (4/4)</option>
@@ -199,9 +209,9 @@
         <!-- Exportar / Importar -->
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex flex-col justify-between">
           <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Guardar / Carregar</span>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5">
             <button id="exportBtn" class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-lg border border-slate-700 transition cursor-pointer">
-              Exportar JSON
+              Exportar
             </button>
             <label class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-lg border border-slate-700 text-center transition cursor-pointer">
               Importar
@@ -212,39 +222,68 @@
 
       </div>
 
-      <!-- LEGENDA DE CORES POR ELEMENTO -->
-      <div class="mt-4 pt-3 border-t border-slate-800/70 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-300">
-        <span class="font-semibold text-slate-400 uppercase tracking-wider">Código de Cores:</span>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-yellow-400 shadow-sm shadow-yellow-400/50"></span> Crash (Amarelo)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-orange-400"></span> Ride (Âmbar)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-cyan-400"></span> Hi-Hat (Ciano)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-rose-500"></span> Tarola (Coral)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-fuchsia-400"></span> Tom 1 (Fúcsia)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-purple-500"></span> Tom 2 (Roxo)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-violet-600"></span> Floor Tom (Violeta)</div>
-        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-emerald-500"></span> Bombo (Esmeralda)</div>
+      <!-- LEGENDA E OPÇÃO DE DESLIZAMENTO -->
+      <div class="mt-4 pt-3 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          <span class="font-semibold text-slate-400 uppercase tracking-wider">Cores:</span>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-yellow-400"></span> Crash</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-orange-400"></span> Ride</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-cyan-400"></span> Hi-Hat</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-rose-500"></span> Tarola</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-fuchsia-400"></span> Tom 1</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-purple-500"></span> Tom 2</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-violet-600"></span> Floor Tom</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-emerald-500"></span> Bombo</div>
+        </div>
+        <label class="flex items-center gap-2 text-xs font-medium text-sky-300 cursor-pointer bg-sky-950/40 px-2.5 py-1 rounded-lg border border-sky-800/50">
+          <input id="autoScrollToggle" type="checkbox" checked class="accent-sky-400 rounded cursor-pointer">
+          Deslizar barras para a esquerda ao tocar
+        </label>
       </div>
     </header>
 
     <!-- GRELHA DO SEQUENCIADOR -->
-    <main class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-2xl overflow-x-auto">
-      <div class="min-w-[820px]">
-        
-        <!-- Cabeçalho dos Tempos (1 e & a 2 e & a 3 e & a 4 e & a) -->
-        <div class="grid grid-cols-[240px_1fr] gap-3 mb-2 items-center">
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-500 pl-2">
-            Elemento / Mistura
-          </div>
-          <div id="stepHeaderGrid" class="grid gap-1.5">
-            <!-- Gerado via JS -->
-          </div>
-        </div>
+    <main class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-2xl space-y-3">
+      
+      <!-- Barra de Instrumentos Escondidos -->
+      <div id="hiddenTracksBar" class="hidden flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 text-xs">
+        <span class="text-slate-400 font-semibold flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/>
+          </svg>
+          Ocultos (clique para voltar a mostrar):
+        </span>
+        <div id="hiddenTracksChips" class="flex flex-wrap items-center gap-1.5"></div>
+        <button id="showAllTracksBtn" class="ml-auto px-2.5 py-1 rounded-md bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 font-semibold border border-sky-500/40 transition cursor-pointer">
+          Mostrar Todos
+        </button>
+      </div>
 
-        <!-- Linhas dos Instrumentos -->
-        <div id="sequencerRows" class="space-y-2">
-          <!-- Gerado via JS -->
-        </div>
+      <!-- Área com Scroll Horizontal -->
+      <div id="sequencerScrollContainer" class="overflow-x-auto pb-2">
+        <div id="sequencerCanvas" class="w-max min-w-full">
+          
+          <!-- Cabeçalho das Barras e dos Tempos -->
+          <div class="flex items-end gap-3 mb-2">
+            <div class="sticky left-0 z-20 w-[275px] shrink-0 bg-slate-900 pr-3 py-1.5 border-r border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500 pl-1">
+                Elemento / Mistura
+              </span>
+              <span id="currentBarIndicator" class="mono text-[11px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">
+                Barra 1 / 1
+              </span>
+            </div>
+            
+            <div id="stepHeaderWrapper" class="flex-1 space-y-1">
+              <div id="barLabelsRow" class="grid gap-1.5"></div>
+              <div id="stepHeaderGrid" class="grid gap-1.5"></div>
+            </div>
+          </div>
 
+          <!-- Linhas dos Instrumentos -->
+          <div id="sequencerRows" class="space-y-2"></div>
+
+        </div>
       </div>
     </main>
 
@@ -252,11 +291,9 @@
     <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-xl">
       <div class="flex items-center justify-between mb-3">
         <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300">Pads de Toque ao Vivo (Teclado ou Clique)</h2>
-        <span class="text-xs text-slate-500">Clique e arraste na grelha acima para desenhar ritmos rapidamente</span>
+        <span class="text-xs text-slate-500">Clique no ícone do olho à esquerda de cada linha para esconder instrumentos</span>
       </div>
-      <div id="livePadsContainer" class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2.5">
-        <!-- Gerado via JS -->
-      </div>
+      <div id="livePadsContainer" class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2.5"></div>
     </section>
 
   </div>
@@ -266,256 +303,68 @@
   </footer>
 
   <script>
-    // =========================================================================
-    // 1. CONFIGURAÇÃO DOS ELEMENTOS DE BATERIA
-    //    (Tarola posicionada imediatamente abaixo do Hi-Hat Fechado)
-    // =========================================================================
     const TRACKS = [
-      {
-        id: 'crash',
-        name: 'Crash Cymbal',
-        short: 'CRASH',
-        key: 'Q',
-        activeClass: 'bg-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.65)] border-yellow-200',
-        badgeClass: 'bg-yellow-400/20 text-yellow-300 border-yellow-400/40',
-        padBorder: 'border-yellow-400/50 hover:bg-yellow-400/15',
-        dotClass: 'bg-yellow-400'
-      },
-      {
-        id: 'ride',
-        name: 'Ride Cymbal',
-        short: 'RIDE',
-        key: 'W',
-        activeClass: 'bg-orange-400 shadow-[0_0_12px_rgba(251,146,60,0.6)] border-orange-200',
-        badgeClass: 'bg-orange-400/20 text-orange-300 border-orange-400/40',
-        padBorder: 'border-orange-400/50 hover:bg-orange-400/15',
-        dotClass: 'bg-orange-400'
-      },
-      {
-        id: 'openhat',
-        name: 'Hi-Hat Aberto',
-        short: 'OHAT',
-        key: 'E',
-        activeClass: 'bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.6)] border-cyan-200',
-        badgeClass: 'bg-cyan-400/20 text-cyan-300 border-cyan-400/40',
-        padBorder: 'border-cyan-400/50 hover:bg-cyan-400/15',
-        dotClass: 'bg-cyan-400'
-      },
-      {
-        id: 'closedhat',
-        name: 'Hi-Hat Fechado',
-        short: 'CHAT',
-        key: 'R',
-        activeClass: 'bg-sky-500 shadow-[0_0_12px_rgba(14,165,233,0.6)] border-sky-200',
-        badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-500/40',
-        padBorder: 'border-sky-500/50 hover:bg-sky-500/15',
-        dotClass: 'bg-sky-500'
-      },
-      {
-        id: 'snare',
-        name: 'Tarola (Snare)',
-        short: 'SNARE',
-        key: 'F',
-        activeClass: 'bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.65)] border-rose-200',
-        badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
-        padBorder: 'border-rose-500/50 hover:bg-rose-500/15',
-        dotClass: 'bg-rose-500'
-      },
-      {
-        id: 'tom1',
-        name: 'Tom 1 (Agudo)',
-        short: 'TOM 1',
-        key: 'A',
-        activeClass: 'bg-fuchsia-400 shadow-[0_0_12px_rgba(232,121,249,0.65)] border-fuchsia-200',
-        badgeClass: 'bg-fuchsia-400/20 text-fuchsia-300 border-fuchsia-400/40',
-        padBorder: 'border-fuchsia-400/50 hover:bg-fuchsia-400/15',
-        dotClass: 'bg-fuchsia-400'
-      },
-      {
-        id: 'tom2',
-        name: 'Tom 2 (Médio)',
-        short: 'TOM 2',
-        key: 'S',
-        activeClass: 'bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.65)] border-purple-200',
-        badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-        padBorder: 'border-purple-500/50 hover:bg-purple-500/15',
-        dotClass: 'bg-purple-500'
-      },
-      {
-        id: 'floortom',
-        name: 'Floor Tom (Surdo)',
-        short: 'FLOOR',
-        key: 'D',
-        activeClass: 'bg-violet-600 shadow-[0_0_12px_rgba(124,58,237,0.7)] border-violet-300',
-        badgeClass: 'bg-violet-600/25 text-violet-300 border-violet-500/40',
-        padBorder: 'border-violet-500/50 hover:bg-violet-600/15',
-        dotClass: 'bg-violet-600'
-      },
-      {
-        id: 'kick',
-        name: 'Bombo (Kick)',
-        short: 'KICK',
-        key: 'Z',
-        activeClass: 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.65)] border-emerald-200',
-        badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-        padBorder: 'border-emerald-500/50 hover:bg-emerald-500/15',
-        dotClass: 'bg-emerald-500'
-      }
+      { id: 'crash', name: 'Crash Cymbal', short: 'CRASH', key: 'Q', activeClass: 'bg-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.65)] border-yellow-200', badgeClass: 'bg-yellow-400/20 text-yellow-300 border-yellow-400/40', padBorder: 'border-yellow-400/50 hover:bg-yellow-400/15', dotClass: 'bg-yellow-400' },
+      { id: 'ride', name: 'Ride Cymbal', short: 'RIDE', key: 'W', activeClass: 'bg-orange-400 shadow-[0_0_12px_rgba(251,146,60,0.6)] border-orange-200', badgeClass: 'bg-orange-400/20 text-orange-300 border-orange-400/40', padBorder: 'border-orange-400/50 hover:bg-orange-400/15', dotClass: 'bg-orange-400' },
+      { id: 'openhat', name: 'Hi-Hat Aberto', short: 'OHAT', key: 'E', activeClass: 'bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.6)] border-cyan-200', badgeClass: 'bg-cyan-400/20 text-cyan-300 border-cyan-400/40', padBorder: 'border-cyan-400/50 hover:bg-cyan-400/15', dotClass: 'bg-cyan-400' },
+      { id: 'closedhat', name: 'Hi-Hat Fechado', short: 'CHAT', key: 'R', activeClass: 'bg-sky-500 shadow-[0_0_12px_rgba(14,165,233,0.6)] border-sky-200', badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-500/40', padBorder: 'border-sky-500/50 hover:bg-sky-500/15', dotClass: 'bg-sky-500' },
+      { id: 'snare', name: 'Tarola (Snare)', short: 'SNARE', key: 'F', activeClass: 'bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.65)] border-rose-200', badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40', padBorder: 'border-rose-500/50 hover:bg-rose-500/15', dotClass: 'bg-rose-500' },
+      { id: 'tom1', name: 'Tom 1 (Agudo)', short: 'TOM 1', key: 'A', activeClass: 'bg-fuchsia-400 shadow-[0_0_12px_rgba(232,121,249,0.65)] border-fuchsia-200', badgeClass: 'bg-fuchsia-400/20 text-fuchsia-300 border-fuchsia-400/40', padBorder: 'border-fuchsia-400/50 hover:bg-fuchsia-400/15', dotClass: 'bg-fuchsia-400' },
+      { id: 'tom2', name: 'Tom 2 (Médio)', short: 'TOM 2', key: 'S', activeClass: 'bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.65)] border-purple-200', badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/40', padBorder: 'border-purple-500/50 hover:bg-purple-500/15', dotClass: 'bg-purple-500' },
+      { id: 'floortom', name: 'Floor Tom (Surdo)', short: 'FLOOR', key: 'D', activeClass: 'bg-violet-600 shadow-[0_0_12px_rgba(124,58,237,0.7)] border-violet-300', badgeClass: 'bg-violet-600/25 text-violet-300 border-violet-500/40', padBorder: 'border-violet-500/50 hover:bg-violet-600/15', dotClass: 'bg-violet-600' },
+      { id: 'kick', name: 'Bombo (Kick)', short: 'KICK', key: 'Z', activeClass: 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.65)] border-emerald-200', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', padBorder: 'border-emerald-500/50 hover:bg-emerald-500/15', dotClass: 'bg-emerald-500' }
     ];
 
-    // =========================================================================
-    // 2. RITMOS PREDEFINIDOS
-    // =========================================================================
     const PRESETS = {
-      rock: {
-        bpm: 120,
-        steps: 16,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,0],
-          closedhat: [0,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,0,0],
-          snare:     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,0,0, 0,0,0,1, 1,0,1,0, 0,0,0,0]
-        }
-      },
-      pop: {
-        bpm: 112,
-        steps: 16,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,0,0],
-          closedhat: [1,0,1,0, 1,0,1,0, 1,0,0,0, 1,0,1,0],
-          snare:     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,0,1, 0,0,1,0, 0,0,1,0, 0,0,0,0]
-        }
-      },
-      funk: {
-        bpm: 105,
-        steps: 16,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          openhat:   [0,0,0,0, 0,0,1,0, 0,0,0,0, 0,0,1,0],
-          closedhat: [1,1,1,1, 1,1,0,1, 1,1,1,1, 1,1,0,1],
-          snare:     [0,0,0,0, 1,0,0,1, 0,1,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,1,0, 0,0,0,0, 1,0,0,1, 0,0,1,0]
-        }
-      },
-      disco: {
-        bpm: 124,
-        steps: 16,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          openhat:   [0,0,1,0, 0,0,1,0, 0,0,1,0, 0,0,1,0],
-          closedhat: [1,1,0,1, 1,1,0,1, 1,1,0,1, 1,1,0,1],
-          snare:     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0]
-        }
-      },
-      hiphop: {
-        bpm: 92,
-        steps: 16,
-        pattern: {
-          crash:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,0],
-          closedhat: [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,0,0],
-          snare:     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,1],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,0,1, 0,0,0,1, 0,0,1,0, 0,0,0,0]
-        }
-      },
-      metal: {
-        bpm: 155,
-        steps: 16,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
-          ride:      [0,0,1,0, 1,0,1,0, 0,0,1,0, 1,0,0,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          closedhat: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          snare:     [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,1,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1],
-          kick:      [1,1,1,1, 1,1,1,1, 1,1,1,1, 1,0,0,0]
-        }
-      },
-      bossa: {
-        bpm: 128,
-        steps: 16,
-        pattern: {
-          crash:     [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          closedhat: [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0],
-          snare:     [1,0,0,1, 0,0,1,0, 0,0,1,0, 0,1,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
-          kick:      [1,0,0,1, 1,0,0,1, 1,0,0,1, 1,0,0,1]
-        }
-      },
-      waltz: {
-        bpm: 130,
-        steps: 12,
-        pattern: {
-          crash:     [1,0,0,0, 0,0,0,0, 0,0,0,0],
-          ride:      [0,0,1,0, 1,0,1,0, 1,0,1,0],
-          openhat:   [0,0,0,0, 0,0,0,0, 0,0,0,0],
-          closedhat: [0,0,0,0, 0,0,0,0, 0,0,0,0],
-          snare:     [0,0,0,0, 1,0,0,0, 1,0,0,0],
-          tom1:      [0,0,0,0, 0,0,0,0, 0,0,0,0],
-          tom2:      [0,0,0,0, 0,0,0,0, 0,0,1,0],
-          floortom:  [0,0,0,0, 0,0,0,0, 0,0,0,1],
-          kick:      [1,0,0,0, 0,0,0,0, 0,0,0,0]
-        }
-      }
+      rock: { bpm: 120, stepsPerBar: 16, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0], closedhat: [0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0], snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0] } },
+      pop: { bpm: 112, stepsPerBar: 16, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0], closedhat: [1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0], snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0] } },
+      funk: { bpm: 105, stepsPerBar: 16, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0], closedhat: [1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1], snare: [0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0] } },
+      disco: { bpm: 124, stepsPerBar: 16, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0], closedhat: [1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1], snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0] } },
+      hiphop: { bpm: 92, stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0], closedhat: [1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0], snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0] } },
+      metal: { bpm: 155, stepsPerBar: 16, pattern: { crash: [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0], ride: [0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1], kick: [1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0] } },
+      bossa: { bpm: 128, stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], snare: [1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], kick: [1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1] } },
+      waltz: { bpm: 130, stepsPerBar: 12, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,1,0,1,0,1,0,1,0,1,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0], snare: [0,0,0,0,1,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,1,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,1], kick: [1,0,0,0,0,0,0,0,0,0,0,0] } }
     };
 
-    // =========================================================================
-    // 3. ESTADO DA APLICAÇÃO
-    // =========================================================================
     let state = {
       isPlaying: false,
       bpm: 120,
-      numSteps: 16,
+      stepsPerBar: 16,
+      numBars: 1,
       swing: 0,
       masterVolume: 0.85,
       metronome: false,
+      autoScroll: true,
       currentStep: 0,
       grid: {},
       volumes: {},
       muted: {},
-      soloed: {}
+      soloed: {},
+      hidden: {}
     };
 
+    function getTotalSteps() {
+      return state.stepsPerBar * state.numBars;
+    }
+
     TRACKS.forEach(t => {
-      state.grid[t.id] = Array(16).fill(0);
+      state.grid[t.id] = Array(getTotalSteps()).fill(0);
       state.volumes[t.id] = 0.85;
       state.muted[t.id] = false;
       state.soloed[t.id] = false;
+      state.hidden[t.id] = false;
     });
 
-    // =========================================================================
-    // 4. MOTOR DE ÁUDIO SINTETIZADO (WEB AUDIO API)
-    // =========================================================================
+    function ensureGridLength() {
+      const targetLen = getTotalSteps();
+      TRACKS.forEach(t => {
+        const arr = state.grid[t.id];
+        if (arr.length < targetLen) {
+          state.grid[t.id] = arr.concat(Array(targetLen - arr.length).fill(0));
+        }
+      });
+    }
+
     let audioCtx = null;
     let noiseBuffer = null;
 
@@ -557,28 +406,23 @@
           osc.frequency.setValueAtTime(150, now);
           osc.frequency.exponentialRampToValueAtTime(42, now + 0.12);
           osc.frequency.exponentialRampToValueAtTime(28, now + 0.35);
-
           gain.gain.setValueAtTime(gainLevel * 1.15, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-
           osc.connect(gain);
           gain.connect(audioCtx.destination);
           osc.start(now);
           osc.stop(now + 0.4);
           break;
         }
-
         case 'snare': {
           const noise = audioCtx.createBufferSource();
           noise.buffer = noiseBuffer;
           const noiseFilter = audioCtx.createBiquadFilter();
           noiseFilter.type = 'highpass';
           noiseFilter.frequency.setValueAtTime(1000, now);
-
           const noiseGain = audioCtx.createGain();
           noiseGain.gain.setValueAtTime(gainLevel * 0.85, now);
           noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
-
           noise.connect(noiseFilter);
           noiseFilter.connect(noiseGain);
           noiseGain.connect(audioCtx.destination);
@@ -590,28 +434,23 @@
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(185, now);
           osc.frequency.exponentialRampToValueAtTime(95, now + 0.12);
-
           oscGain.gain.setValueAtTime(gainLevel * 0.65, now);
           oscGain.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
-
           osc.connect(oscGain);
           oscGain.connect(audioCtx.destination);
           osc.start(now);
           osc.stop(now + 0.15);
           break;
         }
-
         case 'closedhat': {
           const noise = audioCtx.createBufferSource();
           noise.buffer = noiseBuffer;
           const filter = audioCtx.createBiquadFilter();
           filter.type = 'highpass';
           filter.frequency.setValueAtTime(7500, now);
-
           const gain = audioCtx.createGain();
           gain.gain.setValueAtTime(gainLevel * 0.55, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
-
           noise.connect(filter);
           filter.connect(gain);
           gain.connect(audioCtx.destination);
@@ -619,18 +458,15 @@
           noise.stop(now + 0.07);
           break;
         }
-
         case 'openhat': {
           const noise = audioCtx.createBufferSource();
           noise.buffer = noiseBuffer;
           const filter = audioCtx.createBiquadFilter();
           filter.type = 'highpass';
           filter.frequency.setValueAtTime(6500, now);
-
           const gain = audioCtx.createGain();
           gain.gain.setValueAtTime(gainLevel * 0.55, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
-
           noise.connect(filter);
           filter.connect(gain);
           gain.connect(audioCtx.destination);
@@ -638,24 +474,19 @@
           noise.stop(now + 0.38);
           break;
         }
-
         case 'crash': {
           const noise = audioCtx.createBufferSource();
           noise.buffer = noiseBuffer;
-
           const bandpass = audioCtx.createBiquadFilter();
           bandpass.type = 'bandpass';
           bandpass.frequency.setValueAtTime(5200, now);
           bandpass.Q.setValueAtTime(0.7, now);
-
           const highpass = audioCtx.createBiquadFilter();
           highpass.type = 'highpass';
           highpass.frequency.setValueAtTime(3200, now);
-
           const gain = audioCtx.createGain();
           gain.gain.setValueAtTime(gainLevel * 0.75, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 1.15);
-
           noise.connect(bandpass);
           bandpass.connect(highpass);
           highpass.connect(gain);
@@ -664,20 +495,16 @@
           noise.stop(now + 1.2);
           break;
         }
-
         case 'ride': {
           const noise = audioCtx.createBufferSource();
           noise.buffer = noiseBuffer;
-
           const bandpass = audioCtx.createBiquadFilter();
           bandpass.type = 'bandpass';
           bandpass.frequency.setValueAtTime(8200, now);
           bandpass.Q.setValueAtTime(2.5, now);
-
           const gain = audioCtx.createGain();
           gain.gain.setValueAtTime(gainLevel * 0.6, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-
           noise.connect(bandpass);
           bandpass.connect(gain);
           gain.connect(audioCtx.destination);
@@ -685,19 +512,9 @@
           noise.stop(now + 0.58);
           break;
         }
-
-        case 'tom1': {
-          playTom(now, 240, 130, 0.25, gainLevel);
-          break;
-        }
-        case 'tom2': {
-          playTom(now, 175, 95, 0.28, gainLevel);
-          break;
-        }
-        case 'floortom': {
-          playTom(now, 125, 62, 0.34, gainLevel);
-          break;
-        }
+        case 'tom1': playTom(now, 240, 130, 0.25, gainLevel); break;
+        case 'tom2': playTom(now, 175, 95, 0.28, gainLevel); break;
+        case 'floortom': playTom(now, 125, 62, 0.34, gainLevel); break;
       }
     }
 
@@ -707,103 +524,107 @@
       osc.type = 'sine';
       osc.frequency.setValueAtTime(startFreq, now);
       osc.frequency.exponentialRampToValueAtTime(endFreq, now + duration);
-
       gain.gain.setValueAtTime(gainLevel * 0.95, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + duration + 0.03);
-
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(now);
       osc.stop(now + duration + 0.05);
     }
 
-    // =========================================================================
-    // METRÓNOMO: TOCA NAS POSIÇÕES 1 (0), 2 (4), 3 (8) E 4 (12)
-    // COM ACENTUAÇÃO FORTE NA POSIÇÃO 1 (ÍNDICE 0)
-    // =========================================================================
-    function playMetronomeClick(time, isPositionOne) {
+    function playMetronomeClick(time, isBeatOneOfBar) {
       initAudio();
       const startTime = time !== null ? time : audioCtx.currentTime;
-
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
-      // Onda quadrada/triangular filtrada para um clique tipo woodblock/metrónomo bem audível
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(isPositionOne ? 1650 : 880, startTime);
-      osc.frequency.exponentialRampToValueAtTime(isPositionOne ? 950 : 520, startTime + 0.09);
-
+      osc.frequency.setValueAtTime(isBeatOneOfBar ? 1650 : 880, startTime);
+      osc.frequency.exponentialRampToValueAtTime(isBeatOneOfBar ? 950 : 520, startTime + 0.09);
       const master = Math.max(0.25, state.masterVolume);
-      const peakGain = master * (isPositionOne ? 1.0 : 0.35);
-
+      const peakGain = master * (isBeatOneOfBar ? 1.0 : 0.35);
       gain.gain.setValueAtTime(0.001, startTime);
       gain.gain.linearRampToValueAtTime(peakGain, startTime + 0.005);
       gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.11);
-
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-
       osc.start(startTime);
       osc.stop(startTime + 0.12);
     }
 
-    // =========================================================================
-    // 5. SCHEDULER DE PRECISÃO
-    // =========================================================================
     let nextNoteTime = 0.0;
     let schedulerTimer = null;
-    const lookahead = 25.0; // ms
-    const scheduleAheadTime = 0.1; // s
+    const lookahead = 25.0;
+    const scheduleAheadTime = 0.1;
 
     function nextStep() {
       const secondsPerBeat = 60.0 / state.bpm;
       const sixteenthTime = 0.25 * secondsPerBeat;
-
-      // Aplicar Swing nos passos ímpares (e, a)
       const swingFactor = (state.swing / 100) * sixteenthTime * 0.65;
       if (state.currentStep % 2 === 0) {
         nextNoteTime += sixteenthTime + swingFactor;
       } else {
         nextNoteTime += sixteenthTime - swingFactor;
       }
+      state.currentStep = (state.currentStep + 1) % getTotalSteps();
+    }
 
-      state.currentStep = (state.currentStep + 1) % state.numSteps;
+    function scrollSequencerToStep(stepNumber) {
+      if (!state.autoScroll) return;
+      const container = document.getElementById('sequencerScrollContainer');
+      const headerCell = document.getElementById(`beat-header-${stepNumber}`);
+      if (!container || !headerCell) return;
+
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (maxScroll <= 0) return;
+
+      if (stepNumber === 0) {
+        container.scrollLeft = 0;
+        return;
+      }
+
+      const stickyWidth = 285;
+      const cellLeft = headerCell.offsetLeft;
+      const visibleGridWidth = container.clientWidth - stickyWidth;
+      const targetScroll = Math.min(maxScroll, Math.max(0, cellLeft - stickyWidth - (visibleGridWidth * 0.25)));
+      container.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
     }
 
     function scheduleNote(stepNumber, time) {
-      // Posições exatas na linha ELEMENTO / MISTURA:
-      // Posição 1 -> passo 0
-      // Posição 2 -> passo 4
-      // Posição 3 -> passo 8
-      // Posição 4 -> passo 12
-      const METRONOME_POSITIONS = [0, 4, 8, 12];
-      const isMetronomeBeat = METRONOME_POSITIONS.includes(stepNumber);
-      const isPositionOne = (stepNumber === 0);
+      const stepInBar = stepNumber % state.stepsPerBar;
+      const barIndex = Math.floor(stepNumber / state.stepsPerBar);
+      const isMetronomeBeat = (stepInBar % 4 === 0);
+      const isBeatOneOfBar = (stepInBar === 0);
 
-      // Tocar som do metrónomo exclusivamente nas posições 1, 2, 3 e 4
       if (state.metronome && isMetronomeBeat) {
-        playMetronomeClick(time, isPositionOne);
+        playMetronomeClick(time, isBeatOneOfBar);
       }
 
-      // Sincronização visual
       const delay = Math.max(0, (time - audioCtx.currentTime) * 1000);
       setTimeout(() => {
         if (!state.isPlaying) return;
         highlightStep(stepNumber);
+        scrollSequencerToStep(stepNumber);
 
-        // Destaque visual nos números 1, 2, 3 e 4 do cabeçalho
+        const barInd = document.getElementById('currentBarIndicator');
+        if (barInd) {
+          barInd.textContent = `Barra ${barIndex + 1} / ${state.numBars}`;
+        }
+
         if (state.metronome && isMetronomeBeat) {
           const beatHeaderCell = document.getElementById(`beat-header-${stepNumber}`);
           if (beatHeaderCell) {
-            const cls = isPositionOne ? 'beat-pulse-1' : 'beat-pulse-other';
+            const cls = isBeatOneOfBar ? 'beat-pulse-1' : 'beat-pulse-other';
             beatHeaderCell.classList.add(cls);
             setTimeout(() => beatHeaderCell.classList.remove(cls), 140);
           }
 
           const dot = document.getElementById('metronomeDot');
           if (dot) {
-            dot.style.transform = isPositionOne ? 'scale(1.65)' : 'scale(1.25)';
-            dot.style.backgroundColor = isPositionOne ? '#fbbf24' : '#38bdf8';
+            dot.style.transform = isBeatOneOfBar ? 'scale(1.65)' : 'scale(1.25)';
+            dot.style.backgroundColor = isBeatOneOfBar ? '#fbbf24' : '#38bdf8';
             setTimeout(() => {
               dot.style.transform = 'scale(1)';
               dot.style.backgroundColor = state.metronome ? '#34d399' : '#64748b';
@@ -812,9 +633,7 @@
         }
       }, delay);
 
-      // Verificar se existe alguma pista em Solo
       const anySolo = Object.values(state.soloed).some(Boolean);
-
       TRACKS.forEach(track => {
         if (state.grid[track.id][stepNumber]) {
           const isAudible = anySolo ? state.soloed[track.id] : !state.muted[track.id];
@@ -837,7 +656,6 @@
       initAudio();
       if (state.isPlaying) return;
       state.isPlaying = true;
-      state.currentStep = 0;
       nextNoteTime = audioCtx.currentTime + 0.05;
       scheduler();
       updatePlayButtonUI();
@@ -855,60 +673,139 @@
       state.currentStep = 0;
       clearStepHighlights();
       updatePlayButtonUI();
+
+      const container = document.getElementById('sequencerScrollContainer');
+      if (container) container.scrollTo({ left: 0, behavior: 'smooth' });
+
+      const barInd = document.getElementById('currentBarIndicator');
+      if (barInd) barInd.textContent = `Barra 1 / ${state.numBars}`;
     }
 
-    // =========================================================================
-    // 6. RENDERIZAÇÃO DA INTERFACE (GRELHA E PADS)
-    // =========================================================================
     let isDrawing = false;
-    let drawMode = 1; // 1 = ativar, 0 = desativar
-
-    window.addEventListener('mouseup', () => {
-      isDrawing = false;
-    });
+    let drawMode = 1;
+    window.addEventListener('mouseup', () => { isDrawing = false; });
 
     const SUBDIVISION_LABELS = ['1', 'e', '&', 'a', '2', 'e', '&', 'a', '3', 'e', '&', 'a', '4', 'e', '&', 'a'];
 
+    function renderHiddenTracksBar() {
+      const bar = document.getElementById('hiddenTracksBar');
+      const chips = document.getElementById('hiddenTracksChips');
+      const hiddenTracks = TRACKS.filter(t => state.hidden[t.id]);
+
+      if (hiddenTracks.length === 0) {
+        bar.classList.add('hidden');
+        bar.classList.remove('flex');
+        return;
+      }
+
+      bar.classList.remove('hidden');
+      bar.classList.add('flex');
+      chips.innerHTML = '';
+
+      hiddenTracks.forEach(track => {
+        const chip = document.createElement('button');
+        chip.className = 'flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-medium transition cursor-pointer';
+        chip.title = `Mostrar ${track.name}`;
+        chip.innerHTML = `
+          <span class="w-2 h-2 rounded-full ${track.dotClass}"></span>
+          <span>${track.name}</span>
+          <span class="text-sky-400 font-bold ml-0.5">+</span>
+        `;
+        chip.onclick = () => {
+          state.hidden[track.id] = false;
+          renderSequencer();
+        };
+        chips.appendChild(chip);
+      });
+    }
+
     function renderSequencer() {
+      ensureGridLength();
+      renderHiddenTracksBar();
+
+      const totalSteps = getTotalSteps();
+      const stepsPerBar = state.stepsPerBar;
+      const numBars = state.numBars;
+
+      document.getElementById('barsCountDisplay').textContent = `${numBars} ${numBars === 1 ? 'Barra' : 'Barras'}`;
+      document.getElementById('currentBarIndicator').textContent = `Barra ${Math.floor(state.currentStep / stepsPerBar) + 1} / ${numBars}`;
+
+      const barLabelsRow = document.getElementById('barLabelsRow');
       const headerGrid = document.getElementById('stepHeaderGrid');
       const rowsContainer = document.getElementById('sequencerRows');
-      const cols = state.numSteps;
 
-      headerGrid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+      const colTemplate = `repeat(${totalSteps}, minmax(42px, 1fr))`;
+
+      barLabelsRow.style.gridTemplateColumns = colTemplate;
+      barLabelsRow.innerHTML = '';
+
+      for (let b = 0; b < numBars; b++) {
+        const barBadge = document.createElement('div');
+        barBadge.style.gridColumn = `span ${stepsPerBar}`;
+        barBadge.className = `text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border flex items-center justify-between ${
+          b % 2 === 0
+            ? 'bg-slate-800/80 text-slate-300 border-slate-700/80'
+            : 'bg-violet-950/60 text-violet-300 border-violet-500/40'
+        } ${b > 0 ? 'ml-1.5' : ''}`;
+        barBadge.innerHTML = `<span>Barra ${b + 1}</span><span class="mono text-[10px] text-slate-400">Passos ${b * stepsPerBar + 1}-${(b + 1) * stepsPerBar}</span>`;
+        barLabelsRow.appendChild(barBadge);
+      }
+
+      headerGrid.style.gridTemplateColumns = colTemplate;
       headerGrid.innerHTML = '';
 
-      for (let i = 0; i < cols; i++) {
-        const isBeatStart = i % 4 === 0;
-        const label = SUBDIVISION_LABELS[i] || '•';
+      for (let i = 0; i < totalSteps; i++) {
+        const stepInBar = i % stepsPerBar;
+        const isBeatStart = stepInBar % 4 === 0;
+        const isBarStart = stepInBar === 0;
+        const label = SUBDIVISION_LABELS[stepInBar] || '•';
+
         const cell = document.createElement('div');
         cell.id = `beat-header-${i}`;
         cell.className = `text-center mono text-xs py-1 rounded transition-all duration-75 ${
-          i === 0
+          isBarStart
             ? 'bg-amber-500/20 text-amber-300 font-extrabold border border-amber-400/50'
             : isBeatStart
               ? 'bg-slate-800 text-amber-400 font-bold border border-slate-700'
               : 'text-slate-500'
-        }`;
+        } ${isBarStart && i > 0 ? 'ml-1.5' : ''}`;
         cell.textContent = label;
         headerGrid.appendChild(cell);
       }
 
       rowsContainer.innerHTML = '';
+      const visibleTracks = TRACKS.filter(t => !state.hidden[t.id]);
 
-      TRACKS.forEach(track => {
+      visibleTracks.forEach(track => {
         const row = document.createElement('div');
-        row.className = 'grid grid-cols-[240px_1fr] gap-3 items-center bg-slate-950/60 border border-slate-800/80 rounded-xl p-2 hover:border-slate-700/80 transition';
+        row.className = 'flex items-center gap-3 bg-slate-950/60 border border-slate-800/80 rounded-xl p-1.5 hover:border-slate-700/80 transition';
 
-        // Coluna esquerda: Nome, Mute, Solo, Volume
         const infoCol = document.createElement('div');
-        infoCol.className = 'flex items-center justify-between gap-2 pr-2 border-r border-slate-800';
+        infoCol.className = 'sticky left-0 z-10 w-[270px] shrink-0 bg-slate-950 flex items-center justify-between gap-1.5 pr-2.5 py-1 border-r border-slate-800';
 
-        const leftInfo = document.createElement('div');
-        leftInfo.className = 'flex items-center gap-2 min-w-0 cursor-pointer';
-        leftInfo.title = `Testar som: ${track.name}`;
-        leftInfo.onclick = () => playDrumSound(track.id);
+        const leftGroup = document.createElement('div');
+        leftGroup.className = 'flex items-center gap-1.5 min-w-0';
 
-        leftInfo.innerHTML = `
+        const hideBtn = document.createElement('button');
+        hideBtn.title = `Esconder ${track.name}`;
+        hideBtn.className = 'w-6 h-6 rounded-md bg-slate-900 hover:bg-rose-950 text-slate-400 hover:text-rose-400 border border-slate-700/80 flex items-center justify-center shrink-0 transition cursor-pointer';
+        hideBtn.innerHTML = `
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        `;
+        hideBtn.onclick = (e) => {
+          e.stopPropagation();
+          state.hidden[track.id] = true;
+          renderSequencer();
+        };
+
+        const nameBtn = document.createElement('div');
+        nameBtn.className = 'flex items-center gap-2 min-w-0 cursor-pointer';
+        nameBtn.title = `Testar som: ${track.name}`;
+        nameBtn.onclick = () => playDrumSound(track.id);
+        nameBtn.innerHTML = `
           <span class="w-2.5 h-2.5 rounded-full shrink-0 ${track.dotClass}"></span>
           <div class="truncate">
             <div class="text-xs font-bold text-slate-200 truncate">${track.name}</div>
@@ -916,10 +813,11 @@
           </div>
         `;
 
+        leftGroup.append(hideBtn, nameBtn);
+
         const controlsDiv = document.createElement('div');
         controlsDiv.className = 'flex items-center gap-1 shrink-0';
 
-        // Mute
         const muteBtn = document.createElement('button');
         muteBtn.textContent = 'M';
         muteBtn.title = 'Mute';
@@ -933,7 +831,6 @@
           renderSequencer();
         };
 
-        // Solo
         const soloBtn = document.createElement('button');
         soloBtn.textContent = 'S';
         soloBtn.title = 'Solo';
@@ -947,29 +844,29 @@
           renderSequencer();
         };
 
-        // Volume slider
         const volInput = document.createElement('input');
         volInput.type = 'range';
         volInput.min = 0;
         volInput.max = 100;
         volInput.value = Math.round(state.volumes[track.id] * 100);
         volInput.title = `Volume ${track.name}`;
-        volInput.className = 'w-12 ml-1';
+        volInput.className = 'w-11 ml-0.5';
         volInput.oninput = (e) => {
           state.volumes[track.id] = parseInt(e.target.value, 10) / 100;
         };
 
         controlsDiv.append(muteBtn, soloBtn, volInput);
-        infoCol.append(leftInfo, controlsDiv);
+        infoCol.append(leftGroup, controlsDiv);
 
-        // Coluna direita: Retângulos dos passos
         const stepsCol = document.createElement('div');
-        stepsCol.className = 'grid gap-1.5';
-        stepsCol.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+        stepsCol.className = 'flex-1 grid gap-1.5';
+        stepsCol.style.gridTemplateColumns = colTemplate;
 
-        for (let stepIdx = 0; stepIdx < cols; stepIdx++) {
+        for (let stepIdx = 0; stepIdx < totalSteps; stepIdx++) {
           const isActive = state.grid[track.id][stepIdx] === 1;
-          const isBeatGroupEven = Math.floor(stepIdx / 4) % 2 === 0;
+          const stepInBar = stepIdx % stepsPerBar;
+          const isBarStart = stepInBar === 0 && stepIdx > 0;
+          const isBeatGroupEven = Math.floor(stepInBar / 4) % 2 === 0;
 
           const btn = document.createElement('button');
           btn.dataset.track = track.id;
@@ -981,7 +878,7 @@
 
           btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
             isActive ? track.activeClass : baseInactive
-          }`;
+          } ${isBarStart ? 'ml-1.5' : ''}`;
 
           btn.onmousedown = (e) => {
             e.preventDefault();
@@ -1016,14 +913,16 @@
       const track = TRACKS.find(t => t.id === trackId);
       const btn = document.querySelector(`.step-btn[data-track="${trackId}"][data-step="${stepIdx}"]`);
       if (btn && track) {
-        const isBeatGroupEven = Math.floor(stepIdx / 4) % 2 === 0;
+        const stepInBar = stepIdx % state.stepsPerBar;
+        const isBarStart = stepInBar === 0 && stepIdx > 0;
+        const isBeatGroupEven = Math.floor(stepInBar / 4) % 2 === 0;
         const baseInactive = isBeatGroupEven
           ? 'bg-slate-800/90 border-slate-700/80 hover:bg-slate-700'
           : 'bg-slate-900 border-slate-800 hover:bg-slate-800';
 
         btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
           newVal === 1 ? track.activeClass : baseInactive
-        }`;
+        } ${isBarStart ? 'ml-1.5' : ''}`;
       }
     }
 
@@ -1070,9 +969,39 @@
       }
     }
 
-    // =========================================================================
-    // 7. CONTROLOS E EVENTOS DE INTERFACE
-    // =========================================================================
+    function addBar(copyFirstBar = false) {
+      if (state.numBars >= 16) return;
+      const oldTotal = getTotalSteps();
+      state.numBars += 1;
+      const newTotal = getTotalSteps();
+
+      TRACKS.forEach(t => {
+        const arr = state.grid[t.id];
+        if (arr.length < newTotal) {
+          const extra = copyFirstBar
+            ? arr.slice(0, state.stepsPerBar)
+            : Array(state.stepsPerBar).fill(0);
+          state.grid[t.id] = arr.concat(extra);
+        } else if (copyFirstBar) {
+          for (let i = 0; i < state.stepsPerBar; i++) {
+            arr[oldTotal + i] = arr[i];
+          }
+        }
+      });
+
+      renderSequencer();
+    }
+
+    function removeBar() {
+      if (state.numBars <= 1) return;
+      state.numBars -= 1;
+      const newTotal = getTotalSteps();
+      if (state.currentStep >= newTotal) {
+        state.currentStep = 0;
+      }
+      renderSequencer();
+    }
+
     function updatePlayButtonUI() {
       const playIcon = document.getElementById('playIcon');
       const pauseIcon = document.getElementById('pauseIcon');
@@ -1099,15 +1028,17 @@
       if (!preset) return;
 
       state.bpm = preset.bpm;
-      state.numSteps = preset.steps;
+      state.stepsPerBar = preset.stepsPerBar;
+      state.numBars = 1;
+      state.currentStep = 0;
 
       document.getElementById('bpmSlider').value = preset.bpm;
       document.getElementById('bpmNumber').value = preset.bpm;
-      document.getElementById('timeSignatureSelect').value = String(preset.steps);
+      document.getElementById('timeSignatureSelect').value = String(preset.stepsPerBar);
 
       TRACKS.forEach(track => {
         const src = preset.pattern[track.id] || [];
-        const newArr = Array(16).fill(0);
+        const newArr = Array(state.stepsPerBar).fill(0);
         for (let i = 0; i < src.length; i++) {
           newArr[i] = src[i];
         }
@@ -1117,7 +1048,6 @@
       renderSequencer();
     }
 
-    // Listeners
     document.getElementById('playPauseBtn').onclick = () => {
       if (state.isPlaying) pausePlayback();
       else startPlayback();
@@ -1126,10 +1056,24 @@
     document.getElementById('stopBtn').onclick = stopPlayback;
 
     document.getElementById('clearAllBtn').onclick = () => {
+      const total = getTotalSteps();
       TRACKS.forEach(t => {
-        state.grid[t.id] = Array(16).fill(0);
+        state.grid[t.id] = Array(total).fill(0);
       });
       renderSequencer();
+    };
+
+    document.getElementById('addBarBtn').onclick = () => addBar(false);
+    document.getElementById('duplicateBarBtn').onclick = () => addBar(true);
+    document.getElementById('removeBarBtn').onclick = removeBar;
+
+    document.getElementById('showAllTracksBtn').onclick = () => {
+      TRACKS.forEach(t => state.hidden[t.id] = false);
+      renderSequencer();
+    };
+
+    document.getElementById('autoScrollToggle').onchange = (e) => {
+      state.autoScroll = e.target.checked;
     };
 
     document.getElementById('metronomeBtn').onclick = () => {
@@ -1140,7 +1084,6 @@
       if (state.metronome) {
         dot.style.backgroundColor = '#34d399';
         btn.classList.add('border-emerald-500/60', 'text-emerald-300');
-        // Toca um clique de confirmação ao ativar
         playMetronomeClick(null, true);
       } else {
         dot.style.backgroundColor = '#64748b';
@@ -1162,8 +1105,8 @@
     };
 
     document.getElementById('timeSignatureSelect').onchange = (e) => {
-      state.numSteps = parseInt(e.target.value, 10);
-      if (state.currentStep >= state.numSteps) state.currentStep = 0;
+      state.stepsPerBar = parseInt(e.target.value, 10);
+      if (state.currentStep >= getTotalSteps()) state.currentStep = 0;
       renderSequencer();
     };
 
@@ -1182,25 +1125,25 @@
       loadPreset(e.target.value);
     };
 
-    // Exportar JSON
     document.getElementById('exportBtn').onclick = () => {
       const data = {
         bpm: state.bpm,
-        numSteps: state.numSteps,
+        stepsPerBar: state.stepsPerBar,
+        numBars: state.numBars,
         swing: state.swing,
         grid: state.grid,
-        volumes: state.volumes
+        volumes: state.volumes,
+        hidden: state.hidden
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `drum-studio-ritmo-${state.bpm}bpm.json`;
+      a.download = `drum-studio-${state.numBars}barras-${state.bpm}bpm.json`;
       a.click();
       URL.revokeObjectURL(url);
     };
 
-    // Importar JSON
     document.getElementById('importInput').onchange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -1213,9 +1156,12 @@
             document.getElementById('bpmSlider').value = state.bpm;
             document.getElementById('bpmNumber').value = state.bpm;
           }
-          if (parsed.numSteps) {
-            state.numSteps = parsed.numSteps;
-            document.getElementById('timeSignatureSelect').value = String(state.numSteps);
+          if (parsed.stepsPerBar || parsed.numSteps) {
+            state.stepsPerBar = parsed.stepsPerBar || parsed.numSteps;
+            document.getElementById('timeSignatureSelect').value = String(state.stepsPerBar);
+          }
+          if (parsed.numBars) {
+            state.numBars = parsed.numBars;
           }
           if (typeof parsed.swing === 'number') {
             state.swing = parsed.swing;
@@ -1232,6 +1178,9 @@
           if (parsed.volumes) {
             state.volumes = { ...state.volumes, ...parsed.volumes };
           }
+          if (parsed.hidden) {
+            state.hidden = { ...state.hidden, ...parsed.hidden };
+          }
           renderSequencer();
         } catch (err) {
           alert('Ficheiro JSON inválido.');
@@ -1240,17 +1189,14 @@
       reader.readAsText(file);
     };
 
-    // Atalhos de teclado (Espaço = Play/Pause, Teclas Q-Z = Pads)
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-
       if (e.code === 'Space') {
         e.preventDefault();
         if (state.isPlaying) pausePlayback();
         else startPlayback();
         return;
       }
-
       const key = e.key.toUpperCase();
       const matchedTrack = TRACKS.find(t => t.key === key);
       if (matchedTrack && !e.repeat) {
@@ -1258,7 +1204,6 @@
       }
     });
 
-    // Inicialização
     renderLivePads();
     loadPreset('rock');
   </script>
