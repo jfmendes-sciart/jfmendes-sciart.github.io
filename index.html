@@ -22,14 +22,15 @@
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
-      height: 8px;
+      height: 10px;
     }
     ::-webkit-scrollbar-track {
       background: #0f172a;
+      border-radius: 6px;
     }
     ::-webkit-scrollbar-thumb {
       background: #334155;
-      border-radius: 4px;
+      border-radius: 6px;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: #475569;
@@ -68,7 +69,8 @@
     .step-current {
       outline: 2px solid #ffffff;
       outline-offset: 1px;
-      filter: brightness(1.25);
+      filter: brightness(1.3);
+      z-index: 5;
     }
 
     .beat-pulse-1 {
@@ -114,7 +116,7 @@
             <h1 class="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
               DRUM STUDIO PRO
             </h1>
-            <p class="text-xs text-slate-400">Sequenciador Rítmico &amp; Sintetizador de Percussão</p>
+            <p class="text-xs text-slate-400">Sequenciador Multi-Barras &amp; Sintetizador de Percussão</p>
           </div>
         </div>
 
@@ -173,15 +175,15 @@
         </div>
 
         <!-- Compassos / Barras -->
-        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex flex-col justify-between">
+        <div class="bg-violet-950/30 border border-violet-700/50 rounded-xl p-3 flex flex-col justify-between">
           <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Barras</span>
-            <span id="barsCountDisplay" class="mono text-xs font-bold text-violet-400">1 Barra</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-violet-300">Barras</span>
+            <span id="barsCountDisplay" class="mono text-xs font-bold text-amber-400">1 Barra</span>
           </div>
           <div class="flex items-center gap-1.5">
             <button id="removeBarBtn" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition cursor-pointer" title="Remover última barra">-1</button>
-            <button id="addBarBtn" class="flex-1 py-1 px-2 rounded-md bg-violet-600/30 hover:bg-violet-600/50 border border-violet-500/50 text-xs font-bold text-violet-200 transition cursor-pointer" title="Adicionar nova barra">+ Barra</button>
-            <button id="duplicateBarBtn" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] font-semibold text-slate-300 transition cursor-pointer" title="Duplicar a 1ª barra para a nova barra">Dup</button>
+            <button id="addBarBtn" class="flex-1 py-1 px-2 rounded-md bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white transition cursor-pointer shadow-sm" title="Adicionar nova barra vazia">+ Barra</button>
+            <button id="duplicateBarBtn" class="px-2 py-1 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] font-semibold text-slate-200 transition cursor-pointer" title="Duplicar a 1ª barra">Dup</button>
           </div>
         </div>
 
@@ -225,7 +227,7 @@
 
       </div>
 
-      <!-- LEGENDA DE CORES POR ELEMENTO -->
+      <!-- LEGENDA E OPÇÃO DE DESLIZAMENTO -->
       <div class="mt-4 pt-3 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
         <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
           <span class="font-semibold text-slate-400 uppercase tracking-wider">Cores:</span>
@@ -238,9 +240,9 @@
           <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-violet-600"></span> Floor Tom</div>
           <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-emerald-500"></span> Bombo</div>
         </div>
-        <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer">
+        <label class="flex items-center gap-2 text-xs font-medium text-sky-300 cursor-pointer bg-sky-950/40 px-2.5 py-1 rounded-lg border border-sky-800/50">
           <input id="autoScrollToggle" type="checkbox" checked class="accent-sky-400 rounded cursor-pointer">
-          Deslizar barras automaticamente ao tocar
+          Deslizar barras para a esquerda ao tocar
         </label>
       </div>
     </header>
@@ -248,33 +250,33 @@
     <!-- GRELHA DO SEQUENCIADOR -->
     <main class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-2xl space-y-3">
       
-      <!-- Barra de Instrumentos Escondidos (aparece apenas se houver instrumentos ocultos) -->
-      <div id="hiddenTracksBar" class="hidden flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+      <!-- Barra de Instrumentos Escondidos -->
+      <div id="hiddenTracksBar" class="hidden flex-wrap items-center gap-2 p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 text-xs">
         <span class="text-slate-400 font-semibold flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/>
           </svg>
-          Instrumentos ocultos:
+          Ocultos (clique para mostrar):
         </span>
         <div id="hiddenTracksChips" class="flex flex-wrap items-center gap-1.5"></div>
-        <button id="showAllTracksBtn" class="ml-auto px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-sky-400 font-semibold border border-slate-700 transition cursor-pointer">
+        <button id="showAllTracksBtn" class="ml-auto px-2.5 py-1 rounded-md bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 font-semibold border border-sky-500/40 transition cursor-pointer">
           Mostrar Todos
         </button>
       </div>
 
       <!-- Área com Scroll Horizontal -->
-      <div id="sequencerScrollContainer" class="overflow-x-auto pb-2 scroll-smooth">
+      <div id="sequencerScrollContainer" class="overflow-x-auto pb-2">
         <div id="sequencerCanvas" class="w-max min-w-full">
           
           <!-- Cabeçalho das Barras e dos Tempos -->
           <div class="flex items-end gap-3 mb-2">
             <!-- Coluna Fixa Esquerda -->
-            <div class="sticky left-0 z-20 w-[265px] shrink-0 bg-slate-900/95 backdrop-blur-sm pr-3 py-1.5 border-r border-slate-800 flex items-center justify-between">
+            <div class="sticky left-0 z-20 w-[275px] shrink-0 bg-slate-900 pr-3 py-1.5 border-r border-slate-800 flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-500 pl-1">
                 Elemento / Mistura
               </span>
               <span id="currentBarIndicator" class="mono text-[11px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">
-                Barra 1
+                Barra 1 / 1
               </span>
             </div>
             
@@ -298,7 +300,7 @@
     <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-xl">
       <div class="flex items-center justify-between mb-3">
         <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300">Pads de Toque ao Vivo (Teclado ou Clique)</h2>
-        <span class="text-xs text-slate-500">Clique e arraste na grelha acima para desenhar ritmos rapidamente</span>
+        <span class="text-xs text-slate-500">Clique no ícone do olho à esquerda de cada linha para esconder instrumentos</span>
       </div>
       <div id="livePadsContainer" class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2.5">
         <!-- Gerado via JS -->
@@ -806,7 +808,7 @@
     }
 
     // =========================================================================
-    // 5. SCHEDULER DE PRECISÃO E DESLOCAMENTO DAS BARRAS
+    // 5. SCHEDULER DE PRECISÃO E DESLOCAMENTO DAS BARRAS PARA A ESQUERDA
     // =========================================================================
     let nextNoteTime = 0.0;
     let schedulerTimer = null;
@@ -828,21 +830,29 @@
     }
 
     function scrollSequencerToStep(stepNumber) {
-      if (!state.autoScroll || state.numBars <= 1) return;
+      if (!state.autoScroll) return;
 
       const container = document.getElementById('sequencerScrollContainer');
       const headerCell = document.getElementById(`beat-header-${stepNumber}`);
       if (!container || !headerCell) return;
 
-      const stickyWidth = 280; // largura aproximada da coluna fixa à esquerda
-      const cellLeft = headerCell.offsetLeft;
-      const visibleWidth = container.clientWidth - stickyWidth;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (maxScroll <= 0) return;
 
-      // Posiciona o passo atual no terço inicial da área visível, fazendo as barras deslocarem-se para a esquerda
-      const targetScroll = Math.max(0, cellLeft - stickyWidth - (visibleWidth * 0.2));
+      if (stepNumber === 0) {
+        container.scrollLeft = 0;
+        return;
+      }
+
+      const stickyWidth = 285;
+      const cellLeft = headerCell.offsetLeft;
+      const visibleGridWidth = container.clientWidth - stickyWidth;
+
+      // Mantém o passo ativo posicionado a ~25% da área visível, fazendo as barras correrem suavemente para a esquerda
+      const targetScroll = Math.min(maxScroll, Math.max(0, cellLeft - stickyWidth - (visibleGridWidth * 0.25)));
       container.scrollTo({
         left: targetScroll,
-        behavior: stepNumber === 0 ? 'auto' : 'smooth'
+        behavior: 'smooth'
       });
     }
 
@@ -995,8 +1005,8 @@
       const headerGrid = document.getElementById('stepHeaderGrid');
       const rowsContainer = document.getElementById('sequencerRows');
 
-      // Cada passo mantém uma largura mínima fixa (34px) para permitir scroll horizontal fluido nas multi-barras
-      const colTemplate = `repeat(${totalSteps}, minmax(34px, 1fr))`;
+      // Largura de 42px por passo garante que 2+ barras criem scroll horizontal real e visível
+      const colTemplate = `repeat(${totalSteps}, minmax(42px, 1fr))`;
 
       barLabelsRow.style.gridTemplateColumns = colTemplate;
       barLabelsRow.innerHTML = '';
@@ -1007,9 +1017,9 @@
         barBadge.className = `text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border flex items-center justify-between ${
           b % 2 === 0
             ? 'bg-slate-800/80 text-slate-300 border-slate-700/80'
-            : 'bg-slate-900/90 text-violet-300 border-violet-500/30'
-        }`;
-        barBadge.innerHTML = `<span>Barra ${b + 1}</span><span class="mono text-[10px] text-slate-500">Compassos ${b * stepsPerBar + 1}-${(b + 1) * stepsPerBar}</span>`;
+            : 'bg-violet-950/60 text-violet-300 border-violet-500/40'
+        } ${b > 0 ? 'ml-1.5' : ''}`;
+        barBadge.innerHTML = `<span>Barra ${b + 1}</span><span class="mono text-[10px] text-slate-400">Passos ${b * stepsPerBar + 1}-${(b + 1) * stepsPerBar}</span>`;
         barLabelsRow.appendChild(barBadge);
       }
 
@@ -1030,7 +1040,7 @@
             : isBeatStart
               ? 'bg-slate-800 text-amber-400 font-bold border border-slate-700'
               : 'text-slate-500'
-        } ${isBarStart && i > 0 ? 'ml-1' : ''}`;
+        } ${isBarStart && i > 0 ? 'ml-1.5' : ''}`;
         cell.textContent = label;
         headerGrid.appendChild(cell);
       }
@@ -1045,7 +1055,7 @@
 
         // Coluna esquerda FIXA (sticky) com botão de esconder, nome, M, S e Volume
         const infoCol = document.createElement('div');
-        infoCol.className = 'sticky left-0 z-10 w-[260px] shrink-0 bg-slate-950/95 backdrop-blur-sm flex items-center justify-between gap-1.5 pr-2.5 py-1 border-r border-slate-800';
+        infoCol.className = 'sticky left-0 z-10 w-[270px] shrink-0 bg-slate-950 flex items-center justify-between gap-1.5 pr-2.5 py-1 border-r border-slate-800';
 
         const leftGroup = document.createElement('div');
         leftGroup.className = 'flex items-center gap-1.5 min-w-0';
@@ -1053,7 +1063,7 @@
         // Botão para esconder a linha deste instrumento
         const hideBtn = document.createElement('button');
         hideBtn.title = `Esconder ${track.name}`;
-        hideBtn.className = 'w-6 h-6 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-rose-400 border border-slate-800 flex items-center justify-center shrink-0 transition cursor-pointer';
+        hideBtn.className = 'w-6 h-6 rounded-md bg-slate-900 hover:bg-rose-950 text-slate-400 hover:text-rose-400 border border-slate-700/80 flex items-center justify-center shrink-0 transition cursor-pointer';
         hideBtn.innerHTML = `
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -1147,7 +1157,7 @@
 
           btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
             isActive ? track.activeClass : baseInactive
-          } ${isBarStart ? 'ml-1' : ''}`;
+          } ${isBarStart ? 'ml-1.5' : ''}`;
 
           btn.onmousedown = (e) => {
             e.preventDefault();
@@ -1191,7 +1201,7 @@
 
         btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
           newVal === 1 ? track.activeClass : baseInactive
-        } ${isBarStart ? 'ml-1' : ''}`;
+        } ${isBarStart ? 'ml-1.5' : ''}`;
       }
     }
 
