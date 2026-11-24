@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #ebedf2;
+      background-color: #0b0f19;
       color: #f1f5f9;
       user-select: none;
     }
@@ -281,6 +281,33 @@
         </div>
       </div>
     </main>
+
+    <!-- PARTITURA / NOTAÇÃO CONVENCIONAL DE BATERIA -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-2xl space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-400/30 flex items-center justify-center text-blue-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200">Partitura Convencional (Notação de Bateria)</h2>
+            <p class="text-[11px] text-slate-400">Atualiza automaticamente conforme o ritmo e os passos selecionados</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
+          <span class="flex items-center gap-1"><strong class="text-blue-400 font-bold">×</strong> Pratos / Hi-Hat</span>
+          <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2 rounded-full bg-blue-500 -rotate-12"></span> Tarola / Toms / Bombo</span>
+        </div>
+      </div>
+
+      <div id="notationScrollContainer" class="overflow-x-auto bg-white rounded-xl border border-slate-300 p-3 shadow-inner">
+        <div id="notationRenderTarget" class="min-w-max"></div>
+      </div>
+    </section>
 
   </div>
 
@@ -665,6 +692,9 @@
       const container = document.getElementById('sequencerScrollContainer');
       if (container) container.scrollTo({ left: 0, behavior: 'smooth' });
 
+      const notationContainer = document.getElementById('notationScrollContainer');
+      if (notationContainer) notationContainer.scrollTo({ left: 0, behavior: 'smooth' });
+
       const barInd = document.getElementById('currentBarIndicator');
       if (barInd) barInd.textContent = `Barra 1 / ${state.numBars}`;
     }
@@ -705,6 +735,213 @@
         };
         chips.appendChild(chip);
       });
+    }
+
+    /* =========================================================================
+       RENDERIZADOR DE PARTITURA CONVENCIONAL DE BATERIA (SVG DINÂMICO)
+       ========================================================================= */
+    function renderDrumNotation() {
+      const target = document.getElementById('notationRenderTarget');
+      if (!target) return;
+
+      const totalSteps = getTotalSteps();
+      const stepsPerBar = state.stepsPerBar;
+      const numBars = state.numBars;
+
+      // Posições verticais na pauta (5 linhas espaçadas por 11px: y = 52, 63, 74, 85, 96)
+      const LINE_GAP = 11;
+      const TOP_LINE_Y = 52;
+      const BOTTOM_LINE_Y = TOP_LINE_Y + 4 * LINE_GAP; // 96
+      const BEAM_Y = 18;
+
+      // Mapeamento convencional da bateria (notação padrão internacional)
+      const NOTE_Y = {
+        crash:     TOP_LINE_Y - 12,          // Acima da linha superior (com linha suplementar)
+        ride:      TOP_LINE_Y - 2,           // Logo acima da 5ª linha
+        openhat:   TOP_LINE_Y - 5.5,         // Espaço acima da 5ª linha (com círculo)
+        closedhat: TOP_LINE_Y - 5.5,         // Espaço acima da 5ª linha
+        tom1:      TOP_LINE_Y + 5.5,         // 4º espaço (Fá)
+        tom2:      TOP_LINE_Y + 11,          // 4ª linha (Ré)
+        snare:     TOP_LINE_Y + 16.5,        // 3º espaço (Dó)
+        floortom:  TOP_LINE_Y + 27.5,        // 2º espaço (Lá)
+        kick:      TOP_LINE_Y + 38.5         // 1º espaço (Fá grave)
+      };
+
+      const STEP_WIDTH = 34;
+      const LEFT_MARGIN = 76;
+      const BAR_GAP = 18;
+      const RIGHT_MARGIN = 22;
+
+      const totalWidth = LEFT_MARGIN + (totalSteps * STEP_WIDTH) + ((numBars - 1) * BAR_GAP) + RIGHT_MARGIN;
+      const totalHeight = 122;
+
+      const getStepX = (stepIdx) => {
+        const barIdx = Math.floor(stepIdx / stepsPerBar);
+        return LEFT_MARGIN + (stepIdx * STEP_WIDTH) + (barIdx * BAR_GAP) + 16;
+      };
+
+      let svg = `<svg id="drumNotationSvg" width="${totalWidth}" height="${totalHeight}" viewBox="0 0 ${totalWidth} ${totalHeight}" xmlns="http://www.w3.org/2000/svg" class="block">`;
+
+      // Fundo branco limpo
+      svg += `<rect x="0" y="0" width="${totalWidth}" height="${totalHeight}" fill="#ffffff"/>`;
+
+      // Marcadores de posição atual (highlight de reprodução)
+      for (let s = 0; s < totalSteps; s++) {
+        const x = getStepX(s);
+        svg += `<rect id="notation-step-hl-${s}" x="${x - 13}" y="8" width="26" height="${totalHeight - 16}" rx="4" fill="#fbbf24" opacity="0"/>`;
+      }
+
+      // 5 Linhas da Pauta Musical
+      const staffStartX = 12;
+      const staffEndX = totalWidth - 10;
+      for (let l = 0; l < 5; l++) {
+        const ly = TOP_LINE_Y + l * LINE_GAP;
+        svg += `<line x1="${staffStartX}" y1="${ly}" x2="${staffEndX}" y2="${ly}" stroke="#52525b" stroke-width="1.2"/>`;
+      }
+
+      // Barra inicial + Clave de Percussão (duas barras verticais) + Fórmula de Compasso
+      svg += `<line x1="${staffStartX}" y1="${TOP_LINE_Y}" x2="${staffStartX}" y2="${BOTTOM_LINE_Y}" stroke="#18181b" stroke-width="1.8"/>`;
+      svg += `<rect x="22" y="${TOP_LINE_Y + 11}" width="3.5" height="22" fill="#18181b"/>`;
+      svg += `<rect x="29" y="${TOP_LINE_Y + 11}" width="3.5" height="22" fill="#18181b"/>`;
+
+      const topNum = stepsPerBar === 12 ? '3' : '4';
+      svg += `<text x="48" y="${TOP_LINE_Y + 18}" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#18181b" text-anchor="middle">${topNum}</text>`;
+      svg += `<text x="48" y="${TOP_LINE_Y + 40}" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#18181b" text-anchor="middle">4</text>`;
+
+      // Barras de divisão de compasso (e barra final dupla)
+      for (let b = 0; b < numBars; b++) {
+        const barStartX = LEFT_MARGIN + (b * stepsPerBar * STEP_WIDTH) + (b * BAR_GAP);
+        if (b > 0) {
+          const dividerX = barStartX - (BAR_GAP / 2);
+          svg += `<line x1="${dividerX}" y1="${TOP_LINE_Y}" x2="${dividerX}" y2="${BOTTOM_LINE_Y}" stroke="#18181b" stroke-width="1.5"/>`;
+        }
+        // Número do compasso discreto no canto superior esquerdo da barra
+        svg += `<text x="${barStartX + 2}" y="12" font-family="Inter, sans-serif" font-size="9.5" font-weight="700" fill="#64748b">Compasso ${b + 1}</text>`;
+      }
+      // Barra dupla final
+      svg += `<line x1="${staffEndX - 4}" y1="${TOP_LINE_Y}" x2="${staffEndX - 4}" y2="${BOTTOM_LINE_Y}" stroke="#18181b" stroke-width="1.2"/>`;
+      svg += `<line x1="${staffEndX}" y1="${TOP_LINE_Y}" x2="${staffEndX}" y2="${BOTTOM_LINE_Y}" stroke="#18181b" stroke-width="3"/>`;
+
+      // Processar cada grupo de 4 semicolcheias (1 tempo / semínima) para agrupar barras (beams) como na imagem
+      const totalBeatGroups = totalSteps / 4;
+
+      for (let g = 0; g < totalBeatGroups; g++) {
+        const groupStartStep = g * 4;
+        const activeEvents = [];
+
+        for (let offset = 0; offset < 4; offset++) {
+          const stepIdx = groupStartStep + offset;
+          const notesAtStep = [];
+
+          TRACKS.forEach(t => {
+            if (state.grid[t.id][stepIdx] === 1) {
+              notesAtStep.push(t.id);
+            }
+          });
+
+          if (notesAtStep.length > 0) {
+            const ys = notesAtStep.map(id => NOTE_Y[id]);
+            activeEvents.push({
+              stepIdx,
+              offset,
+              x: getStepX(stepIdx),
+              notes: notesAtStep,
+              lowestY: Math.max(...ys),
+              highestY: Math.min(...ys)
+            });
+          }
+        }
+
+        // Se não há notas neste tempo, desenhar uma pausa de semínima discreta
+        if (activeEvents.length === 0) {
+          const restX = getStepX(groupStartStep + 1) + 8;
+          svg += `<path d="M ${restX - 2} 62 L ${restX + 3} 69 L ${restX - 2} 75 L ${restX + 3} 82 C ${restX - 1} 81, ${restX - 3} 84, ${restX + 1} 87" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+          continue;
+        }
+
+        // Calcular duração (em semicolcheias) de cada evento dentro do tempo de 4 passos
+        for (let i = 0; i < activeEvents.length; i++) {
+          const curr = activeEvents[i];
+          const nextOffset = (i < activeEvents.length - 1) ? activeEvents[i + 1].offset : 4;
+          curr.durationSixteenths = nextOffset - curr.offset;
+        }
+
+        // Desenhar hastes verticais até à linha de beam (BEAM_Y)
+        activeEvents.forEach(ev => {
+          const stemX = ev.x + 5.2;
+          svg += `<line x1="${stemX}" y1="${ev.lowestY}" x2="${stemX}" y2="${BEAM_Y}" stroke="#18181b" stroke-width="1.45"/>`;
+        });
+
+        // Desenhar barras de ligação (beams) ou bandeirolas
+        if (activeEvents.length === 1) {
+          const ev = activeEvents[0];
+          const stemX = ev.x + 5.2;
+          if (ev.offset > 0 || ev.durationSixteenths < 4) {
+            // Bandeirola de colcheia / semicolcheia
+            svg += `<path d="M ${stemX} ${BEAM_Y} Q ${stemX + 8} ${BEAM_Y + 5} ${stemX + 6} ${BEAM_Y + 13}" fill="none" stroke="#18181b" stroke-width="2"/>`;
+            if (ev.durationSixteenths === 1) {
+              svg += `<path d="M ${stemX} ${BEAM_Y + 6} Q ${stemX + 8} ${BEAM_Y + 11} ${stemX + 6} ${BEAM_Y + 19}" fill="none" stroke="#18181b" stroke-width="2"/>`;
+            }
+          }
+        } else {
+          // 1ª barra (colcheias) une todas as hastes do grupo
+          const firstStemX = activeEvents[0].x + 5.2;
+          const lastStemX = activeEvents[activeEvents.length - 1].x + 5.2;
+          svg += `<line x1="${firstStemX - 0.6}" y1="${BEAM_Y + 2}" x2="${lastStemX + 0.6}" y2="${BEAM_Y + 2}" stroke="#18181b" stroke-width="4.2"/>`;
+
+          // 2ª barra (semicolcheias) para notas com duração de 1 semicolcheia
+          for (let i = 0; i < activeEvents.length; i++) {
+            const ev = activeEvents[i];
+            if (ev.durationSixteenths === 1) {
+              const sX = ev.x + 5.2;
+              const prevEv = i > 0 ? activeEvents[i - 1] : null;
+              const nextEv = i < activeEvents.length - 1 ? activeEvents[i + 1] : null;
+
+              if (nextEv && nextEv.durationSixteenths === 1) {
+                // Liga semicolcheias consecutivas
+                svg += `<line x1="${sX - 0.6}" y1="${BEAM_Y + 8.5}" x2="${nextEv.x + 5.8}" y2="${BEAM_Y + 8.5}" stroke="#18181b" stroke-width="3.6"/>`;
+              } else if (!prevEv || prevEv.durationSixteenths > 1) {
+                // Meia barra (stub) para a esquerda ou direita, igual à imagem de referência
+                if (prevEv) {
+                  svg += `<line x1="${sX - 9}" y1="${BEAM_Y + 8.5}" x2="${sX + 0.6}" y2="${BEAM_Y + 8.5}" stroke="#18181b" stroke-width="3.6"/>`;
+                } else {
+                  svg += `<line x1="${sX - 0.6}" y1="${BEAM_Y + 8.5}" x2="${sX + 9}" y2="${BEAM_Y + 8.5}" stroke="#18181b" stroke-width="3.6"/>`;
+                }
+              }
+            }
+          }
+        }
+
+        // Desenhar cabeças das notas em azul (#2563eb) como na imagem de referência
+        activeEvents.forEach(ev => {
+          ev.notes.forEach(trackId => {
+            const ny = NOTE_Y[trackId];
+            const nx = ev.x;
+            const isCymbal = (trackId === 'crash' || trackId === 'ride' || trackId === 'closedhat' || trackId === 'openhat');
+
+            if (isCymbal) {
+              // Linha suplementar para o Crash acima da pauta
+              if (trackId === 'crash') {
+                svg += `<line x1="${nx - 9}" y1="${ny}" x2="${nx + 9}" y2="${ny}" stroke="#18181b" stroke-width="1.3"/>`;
+              }
+              // Cabeça em X azul
+              svg += `<line x1="${nx - 4.8}" y1="${ny - 4.8}" x2="${nx + 4.8}" y2="${ny + 4.8}" stroke="#2563eb" stroke-width="2.1" stroke-linecap="round"/>`;
+              svg += `<line x1="${nx - 4.8}" y1="${ny + 4.8}" x2="${nx + 4.8}" y2="${ny - 4.8}" stroke="#2563eb" stroke-width="2.1" stroke-linecap="round"/>`;
+
+              // Círculo de Hi-Hat aberto
+              if (trackId === 'openhat') {
+                svg += `<circle cx="${nx}" cy="${ny - 9.5}" r="2.7" fill="none" stroke="#2563eb" stroke-width="1.4"/>`;
+              }
+            } else {
+              // Cabeça oval inclinada azul (Bombo, Tarola, Toms)
+              svg += `<ellipse cx="${nx}" cy="${ny}" rx="5.8" ry="4.2" transform="rotate(-20 ${nx} ${ny})" fill="#2563eb"/>`;
+            }
+          });
+        });
+      }
+
+      svg += `</svg>`;
+      target.innerHTML = svg;
     }
 
     function renderSequencer() {
@@ -886,6 +1123,8 @@
         row.append(infoCol, stepsCol);
         rowsContainer.appendChild(row);
       });
+
+      renderDrumNotation();
     }
 
     function toggleStep(trackId, stepIdx, forcedValue = null) {
@@ -910,6 +1149,8 @@
           newVal === 1 ? track.activeClass : baseInactive
         }`;
       }
+
+      renderDrumNotation();
     }
 
     function highlightStep(stepIdx) {
@@ -917,11 +1158,29 @@
       document.querySelectorAll(`.step-btn[data-step="${stepIdx}"]`).forEach(el => {
         el.classList.add('step-current');
       });
+
+      const notationHl = document.getElementById(`notation-step-hl-${stepIdx}`);
+      if (notationHl) {
+        notationHl.setAttribute('opacity', '0.35');
+        if (state.autoScroll) {
+          const notationContainer = document.getElementById('notationScrollContainer');
+          if (notationContainer && notationContainer.scrollWidth > notationContainer.clientWidth) {
+            const xPos = parseFloat(notationHl.getAttribute('x')) || 0;
+            notationContainer.scrollTo({
+              left: Math.max(0, xPos - notationContainer.clientWidth * 0.35),
+              behavior: 'smooth'
+            });
+          }
+        }
+      }
     }
 
     function clearStepHighlights() {
       document.querySelectorAll('.step-current').forEach(el => {
         el.classList.remove('step-current');
+      });
+      document.querySelectorAll('[id^="notation-step-hl-"]').forEach(el => {
+        el.setAttribute('opacity', '0');
       });
     }
 
@@ -1176,4 +1435,5 @@
   </script>
 </body>
 </html>
+
 
