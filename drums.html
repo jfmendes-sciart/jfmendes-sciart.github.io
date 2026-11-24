@@ -244,6 +244,7 @@
               <option value="fill2">Fill 2</option>
               <option value="fill3">Fill 3</option>
               <option value="fill4">Fill 4</option>
+              <option value="fill5">Fill 5</option>
             </select>
           </div>
 
@@ -360,7 +361,6 @@
 
     // Ritmos extraídos fielmente das 6 partituras enviadas
     const CUSTOM_RHYTHMS = {
-      // Ritmo 1 (Screenshot 21.56.36): HH colcheias; Snare em 2 e 4; Kick em 1, 2a, 3, 3&
       ritmo1: {
         stepsPerBar: 16,
         pattern: {
@@ -375,7 +375,6 @@
           kick:      [1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0]
         }
       },
-      // Ritmo 2 (Screenshot 21.55.36): HH colcheias; Snare em 2, 2e, 4, 4e; Kick em 1, 3, 4&
       ritmo2: {
         stepsPerBar: 16,
         pattern: {
@@ -390,7 +389,6 @@
           kick:      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0]
         }
       },
-      // Ritmo 3 (Screenshot 21.54.31): HH colcheias; Snare em 2 e 4; Kick em 1, 1a, 3, 3a
       ritmo3: {
         stepsPerBar: 16,
         pattern: {
@@ -405,7 +403,6 @@
           kick:      [1,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0]
         }
       },
-      // Ritmo 4 (Screenshot 21.53.20): HH colcheias; Snare em 2, 2a, 4; Kick em 1, 3, 3&, 4&
       ritmo4: {
         stepsPerBar: 16,
         pattern: {
@@ -420,7 +417,6 @@
           kick:      [1,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0]
         }
       },
-      // Ritmo 5 (Screenshot 21.47.11): HH colcheias; Snare em 2 e 4; Kick em 1, 1a, 2a, 3&, 4a
       ritmo5: {
         stepsPerBar: 16,
         pattern: {
@@ -435,7 +431,6 @@
           kick:      [1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1]
         }
       },
-      // Ritmo 6 (Screenshot 21.50.45): Crash no 1; HH colcheias; Snare em 2, 2a, 3e, 4; Kick em 1, 3&
       ritmo6: {
         stepsPerBar: 16,
         pattern: {
@@ -452,11 +447,83 @@
       }
     };
 
+    // 5 Fills extraídos fielmente da imagem anexa (Screenshot 22.04.47)
     const CUSTOM_FILLS = {
-      fill1: { stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], snare: [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0], tom1: [0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0], kick: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] } },
-      fill2: { stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], snare: [1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0], tom1: [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1], kick: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] } },
-      fill3: { stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], snare: [1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0], tom1: [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1], kick: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] } },
-      fill4: { stepsPerBar: 16, pattern: { crash: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], snare: [1,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1], kick: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] } }
+      // Fill 1 (1ª pauta): Snare(1,2) OHat+Kick(3) Snare(4) | Snare(5) Kick(6,7) Snare(8) | Snare(9,10) OHat+Kick(11) Snare(12) | Snare(13) Kick(14,15) Snare(16)
+      fill1: {
+        stepsPerBar: 16,
+        pattern: {
+          crash:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          ride:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          openhat:   [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
+          closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          snare:     [1,1,0,1,1,0,0,1,1,1,0,1,1,0,0,1],
+          tom1:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          tom2:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          floortom:  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          kick:      [0,0,1,0,0,1,1,0,0,0,1,0,0,1,1,0]
+        }
+      },
+      // Fill 2 (2ª pauta): HH+Kick(1) Snare(3,4) | Snare(5) Kick(6,8) | Snare+FloorTom em uníssono (9..16)
+      fill2: {
+        stepsPerBar: 16,
+        pattern: {
+          crash:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          ride:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          openhat:   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          closedhat: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          snare:     [0,0,1,1,1,0,0,0,1,1,1,1,1,1,1,1],
+          tom1:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          tom2:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          floortom:  [0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
+          kick:      [1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0]
+        }
+      },
+      // Fill 3 (3ª pauta): Tom1(1) Floor(2) Kick(3) Floor(4) | Floor(5) Tom1(6) Floor(7) Kick(8) | Floor(9,10) Tom1(11) Floor(12) | Kick(13) Floor(14,15,16)
+      fill3: {
+        stepsPerBar: 16,
+        pattern: {
+          crash:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          ride:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          openhat:   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          snare:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          tom1:      [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
+          tom2:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          floortom:  [0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,1],
+          kick:      [0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0]
+        }
+      },
+      // Fill 4 (4ª pauta): Snare(1) Kick(2,3) Snare(4) | Snare(5) Kick(6) Snare(7) Kick(8) | Snare(9,10) Floor(11) | Snare(13,14) Floor(15,16)
+      fill4: {
+        stepsPerBar: 16,
+        pattern: {
+          crash:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          ride:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          openhat:   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          snare:     [1,0,0,1,1,0,1,0,1,1,0,0,1,1,0,0],
+          tom1:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          tom2:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          floortom:  [0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1],
+          kick:      [0,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0]
+        }
+      },
+      // Fill 5 (5ª pauta): Floor(1) Tom1(2) Kick(3) Floor(4) | Tom1(5) Kick(6) Floor(7) Tom1(8) | Kick(9) Floor(10) Tom1(11) Kick(12) | Floor(13) Tom1(14) Kick(15) Tom2(16)
+      fill5: {
+        stepsPerBar: 16,
+        pattern: {
+          crash:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          ride:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          openhat:   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          closedhat: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          snare:     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          tom1:      [0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0],
+          tom2:      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+          floortom:  [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0],
+          kick:      [0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0]
+        }
+      }
     };
 
     let state = {
@@ -1392,6 +1459,14 @@
       const item = CUSTOM_FILLS[fillKey];
       if (!item) return;
 
+      if (item.stepsPerBar && item.stepsPerBar !== state.stepsPerBar) {
+        state.stepsPerBar = item.stepsPerBar;
+        document.getElementById('timeSignatureSelect').value = String(item.stepsPerBar);
+        TRACKS.forEach(t => {
+          state.grid[t.id] = Array(getTotalSteps()).fill(0);
+        });
+      }
+
       const targetBar = state.numBars - 1;
       applyPatternToBar(item.pattern, targetBar);
 
@@ -1589,6 +1664,7 @@
   </script>
 </body>
 </html>
+
 
 
 
