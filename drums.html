@@ -280,23 +280,23 @@
           
           <!-- Cabeçalho das Barras e dos Tempos -->
           <div class="flex items-end gap-3 mb-2">
-            <div class="sticky left-0 z-20 w-[275px] shrink-0 bg-slate-900 pr-3 py-1.5 border-r border-slate-800 flex items-center justify-between">
+            <div class="sticky left-0 z-20 w-[235px] shrink-0 bg-slate-900 pr-3 py-1.5 border-r border-slate-800 flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-500 pl-1">
-                Elemento / Mistura
+                Instrumento
               </span>
               <span id="currentBarIndicator" class="mono text-[11px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">
                 Barra 1 / 1
               </span>
             </div>
             
-            <div id="stepHeaderWrapper" class="flex-1 space-y-1.5">
-              <div id="barLabelsRow" class="grid gap-1.5"></div>
-              <div id="stepHeaderGrid" class="grid gap-1.5"></div>
+            <div id="stepHeaderWrapper" class="flex-1 space-y-1">
+              <div id="barLabelsRow" class="grid gap-1"></div>
+              <div id="stepHeaderGrid" class="grid gap-1"></div>
             </div>
           </div>
 
           <!-- Linhas dos Instrumentos -->
-          <div id="sequencerRows" class="space-y-2"></div>
+          <div id="sequencerRows" class="space-y-1.5"></div>
 
         </div>
       </div>
@@ -337,15 +337,15 @@
 
   <script>
     const TRACKS = [
-      { id: 'crash', name: 'Crash Cymbal', short: 'CRASH', key: 'Q', activeClass: 'bg-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.65)] border-yellow-200', dotClass: 'bg-yellow-400' },
-      { id: 'ride', name: 'Ride Cymbal', short: 'RIDE', key: 'W', activeClass: 'bg-orange-400 shadow-[0_0_12px_rgba(251,146,60,0.6)] border-orange-200', dotClass: 'bg-orange-400' },
-      { id: 'openhat', name: 'Hi-Hat Aberto', short: 'OHAT', key: 'E', activeClass: 'bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.6)] border-cyan-200', dotClass: 'bg-cyan-400' },
-      { id: 'closedhat', name: 'Hi-Hat Fechado', short: 'CHAT', key: 'R', activeClass: 'bg-sky-500 shadow-[0_0_12px_rgba(14,165,233,0.6)] border-sky-200', dotClass: 'bg-sky-500' },
-      { id: 'snare', name: 'Tarola (Snare)', short: 'SNARE', key: 'F', activeClass: 'bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.65)] border-rose-200', dotClass: 'bg-rose-500' },
-      { id: 'tom1', name: 'Tom 1 (Agudo)', short: 'TOM 1', key: 'A', activeClass: 'bg-fuchsia-400 shadow-[0_0_12px_rgba(232,121,249,0.65)] border-fuchsia-200', dotClass: 'bg-fuchsia-400' },
-      { id: 'tom2', name: 'Tom 2 (Médio)', short: 'TOM 2', key: 'S', activeClass: 'bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.65)] border-purple-200', dotClass: 'bg-purple-500' },
-      { id: 'floortom', name: 'Floor Tom (Surdo)', short: 'FLOOR', key: 'D', activeClass: 'bg-violet-600 shadow-[0_0_12px_rgba(124,58,237,0.7)] border-violet-300', dotClass: 'bg-violet-600' },
-      { id: 'kick', name: 'Bombo (Kick)', short: 'KICK', key: 'Z', activeClass: 'bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.65)] border-emerald-200', dotClass: 'bg-emerald-500' }
+      { id: 'crash', name: 'Crash Cymbal', short: 'CRASH', key: 'Q', activeClass: 'bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.65)] border-yellow-200', dotClass: 'bg-yellow-400' },
+      { id: 'ride', name: 'Ride Cymbal', short: 'RIDE', key: 'W', activeClass: 'bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.6)] border-orange-200', dotClass: 'bg-orange-400' },
+      { id: 'openhat', name: 'Hi-Hat Aberto', short: 'OHAT', key: 'E', activeClass: 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.6)] border-cyan-200', dotClass: 'bg-cyan-400' },
+      { id: 'closedhat', name: 'Hi-Hat Fechado', short: 'CHAT', key: 'R', activeClass: 'bg-sky-500 shadow-[0_0_10px_rgba(14,165,233,0.6)] border-sky-200', dotClass: 'bg-sky-500' },
+      { id: 'snare', name: 'Tarola (Snare)', short: 'SNARE', key: 'F', activeClass: 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.65)] border-rose-200', dotClass: 'bg-rose-500' },
+      { id: 'tom1', name: 'Tom 1 (Agudo)', short: 'TOM 1', key: 'A', activeClass: 'bg-fuchsia-400 shadow-[0_0_10px_rgba(232,121,249,0.65)] border-fuchsia-200', dotClass: 'bg-fuchsia-400' },
+      { id: 'tom2', name: 'Tom 2 (Médio)', short: 'TOM 2', key: 'S', activeClass: 'bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.65)] border-purple-200', dotClass: 'bg-purple-500' },
+      { id: 'floortom', name: 'Floor Tom (Surdo)', short: 'FLOOR', key: 'D', activeClass: 'bg-violet-600 shadow-[0_0_10px_rgba(124,58,237,0.7)] border-violet-300', dotClass: 'bg-violet-600' },
+      { id: 'kick', name: 'Bombo (Kick)', short: 'KICK', key: 'Z', activeClass: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.65)] border-emerald-200', dotClass: 'bg-emerald-500' }
     ];
 
     const PRESETS = {
@@ -533,8 +533,6 @@
       currentStep: 0,
       grid: {},
       volumes: {},
-      muted: {},
-      soloed: {},
       hidden: {}
     };
 
@@ -545,8 +543,6 @@
     TRACKS.forEach(t => {
       state.grid[t.id] = Array(getTotalSteps()).fill(0);
       state.volumes[t.id] = 0.85;
-      state.muted[t.id] = false;
-      state.soloed[t.id] = false;
       state.hidden[t.id] = false;
     });
 
@@ -779,7 +775,7 @@
         return;
       }
 
-      const stickyWidth = 285;
+      const stickyWidth = 245;
       const cellLeft = headerCell.offsetLeft;
       const visibleGridWidth = container.clientWidth - stickyWidth;
       const targetScroll = Math.min(maxScroll, Math.max(0, cellLeft - stickyWidth - (visibleGridWidth * 0.25)));
@@ -830,13 +826,9 @@
         }
       }, delay);
 
-      const anySolo = Object.values(state.soloed).some(Boolean);
       TRACKS.forEach(track => {
         if (state.grid[track.id][stepNumber]) {
-          const isAudible = anySolo ? state.soloed[track.id] : !state.muted[track.id];
-          if (isAudible) {
-            playDrumSound(track.id, time);
-          }
+          playDrumSound(track.id, time);
         }
       });
     }
@@ -1116,7 +1108,7 @@
       const headerGrid = document.getElementById('stepHeaderGrid');
       const rowsContainer = document.getElementById('sequencerRows');
 
-      const colTemplate = `repeat(${totalSteps}, minmax(42px, 1fr))`;
+      const colTemplate = `repeat(${totalSteps}, minmax(30px, 1fr))`;
 
       barLabelsRow.style.gridTemplateColumns = colTemplate;
       barLabelsRow.innerHTML = '';
@@ -1144,7 +1136,7 @@
 
         const cell = document.createElement('div');
         cell.id = `beat-header-${i}`;
-        cell.className = `text-center mono text-xs py-1 rounded transition-all duration-75 ${
+        cell.className = `text-center mono text-[11px] py-0.5 rounded transition-all duration-75 ${
           isBarStart
             ? 'bg-amber-500/20 text-amber-300 font-extrabold border border-amber-400/50'
             : isBeatStart
@@ -1160,19 +1152,19 @@
 
       visibleTracks.forEach(track => {
         const row = document.createElement('div');
-        row.className = 'flex items-center gap-3 bg-slate-950/60 border border-slate-800/80 rounded-xl p-1.5 hover:border-slate-700/80 transition';
+        row.className = 'flex items-center gap-3 bg-slate-950/60 border border-slate-800/80 rounded-xl px-2 py-1 hover:border-slate-700/80 transition';
 
         const infoCol = document.createElement('div');
-        infoCol.className = 'sticky left-0 z-10 w-[270px] shrink-0 bg-slate-950 flex items-center justify-between gap-1.5 pr-2.5 py-1 border-r border-slate-800';
+        infoCol.className = 'sticky left-0 z-10 w-[230px] shrink-0 bg-slate-950 flex items-center justify-between gap-2 pr-2.5 py-0.5 border-r border-slate-800';
 
         const leftGroup = document.createElement('div');
         leftGroup.className = 'flex items-center gap-1.5 min-w-0';
 
         const hideBtn = document.createElement('button');
         hideBtn.title = `Esconder ${track.name}`;
-        hideBtn.className = 'w-6 h-6 rounded-md bg-slate-900 hover:bg-rose-950 text-slate-400 hover:text-rose-400 border border-slate-700/80 flex items-center justify-center shrink-0 transition cursor-pointer';
+        hideBtn.className = 'w-5 h-5 rounded-md bg-slate-900 hover:bg-rose-950 text-slate-400 hover:text-rose-400 border border-slate-700/80 flex items-center justify-center shrink-0 transition cursor-pointer';
         hideBtn.innerHTML = `
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
             <circle cx="12" cy="12" r="3"/>
           </svg>
@@ -1189,42 +1181,13 @@
         nameBtn.onclick = () => playDrumSound(track.id);
         nameBtn.innerHTML = `
           <span class="w-2.5 h-2.5 rounded-full shrink-0 ${track.dotClass}"></span>
-          <div class="truncate">
-            <div class="text-xs font-bold text-slate-200 truncate">${track.name}</div>
-            <div class="text-[10px] mono text-slate-500">Tecla [${track.key}]</div>
-          </div>
+          <div class="text-xs font-bold text-slate-200 truncate">${track.name}</div>
         `;
 
         leftGroup.append(hideBtn, nameBtn);
 
         const controlsDiv = document.createElement('div');
-        controlsDiv.className = 'flex items-center gap-1 shrink-0';
-
-        const muteBtn = document.createElement('button');
-        muteBtn.textContent = 'M';
-        muteBtn.title = 'Mute';
-        muteBtn.className = `w-6 h-6 rounded text-[10px] font-bold border transition cursor-pointer ${
-          state.muted[track.id]
-            ? 'bg-rose-500 text-white border-rose-400'
-            : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-white'
-        }`;
-        muteBtn.onclick = () => {
-          state.muted[track.id] = !state.muted[track.id];
-          renderSequencer();
-        };
-
-        const soloBtn = document.createElement('button');
-        soloBtn.textContent = 'S';
-        soloBtn.title = 'Solo';
-        soloBtn.className = `w-6 h-6 rounded text-[10px] font-bold border transition cursor-pointer ${
-          state.soloed[track.id]
-            ? 'bg-amber-400 text-slate-950 border-amber-300'
-            : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-white'
-        }`;
-        soloBtn.onclick = () => {
-          state.soloed[track.id] = !state.soloed[track.id];
-          renderSequencer();
-        };
+        controlsDiv.className = 'flex items-center shrink-0';
 
         const volInput = document.createElement('input');
         volInput.type = 'range';
@@ -1232,16 +1195,16 @@
         volInput.max = 100;
         volInput.value = Math.round(state.volumes[track.id] * 100);
         volInput.title = `Volume ${track.name}`;
-        volInput.className = 'w-11 ml-0.5';
+        volInput.className = 'w-14';
         volInput.oninput = (e) => {
           state.volumes[track.id] = parseInt(e.target.value, 10) / 100;
         };
 
-        controlsDiv.append(muteBtn, soloBtn, volInput);
+        controlsDiv.append(volInput);
         infoCol.append(leftGroup, controlsDiv);
 
         const stepsCol = document.createElement('div');
-        stepsCol.className = 'flex-1 grid gap-1.5';
+        stepsCol.className = 'flex-1 grid gap-1';
         stepsCol.style.gridTemplateColumns = colTemplate;
 
         for (let stepIdx = 0; stepIdx < totalSteps; stepIdx++) {
@@ -1257,7 +1220,7 @@
             ? 'bg-slate-800/90 border-slate-700/80 hover:bg-slate-700'
             : 'bg-slate-900 border-slate-800 hover:bg-slate-800';
 
-          btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
+          btn.className = `step-btn h-6 rounded border cursor-pointer ${
             isActive ? track.activeClass : baseInactive
           }`;
 
@@ -1302,7 +1265,7 @@
           ? 'bg-slate-800/90 border-slate-700/80 hover:bg-slate-700'
           : 'bg-slate-900 border-slate-800 hover:bg-slate-800';
 
-        btn.className = `step-btn h-9 rounded-md border cursor-pointer ${
+        btn.className = `step-btn h-6 rounded border cursor-pointer ${
           newVal === 1 ? track.activeClass : baseInactive
         }`;
       }
