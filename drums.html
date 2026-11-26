@@ -217,14 +217,14 @@
 
       </div>
 
-      <!-- CAIXAS DE SELEÇÃO DE RITMO (BARRA 1) E FILL (BARRA SEGUINTE) + DESLIZAMENTO -->
+      <!-- CAIXAS DE SELEÇÃO DE RITMO (BARRA 1), FILL (BARRA SEGUINTE), ÁUDIO PARA PAUTA E DESLIZAMENTO -->
       <div class="mt-4 pt-3 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
         <div class="flex flex-wrap items-center gap-3">
           
           <!-- Caixa 1: Escolher Ritmo -->
           <div class="flex items-center gap-2 bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-1.5">
             <label for="rhythmSelect" class="font-semibold uppercase tracking-wider text-sky-400">Barra 1 (Ritmo):</label>
-            <select id="rhythmSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-200 focus:outline-none focus:border-sky-500 min-w-[165px]">
+            <select id="rhythmSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-200 focus:outline-none focus:border-sky-500 min-w-[155px]">
               <option value="">-- Selecionar Ritmo --</option>
               <option value="ritmo1">Ritmo 1</option>
               <option value="ritmo2">Ritmo 2</option>
@@ -238,7 +238,7 @@
           <!-- Caixa 2: Escolher Fill -->
           <div class="flex items-center gap-2 bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-1.5">
             <label for="fillSelect" class="font-semibold uppercase tracking-wider text-violet-400">Barra Seguinte (Fill):</label>
-            <select id="fillSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-200 focus:outline-none focus:border-violet-500 min-w-[165px]">
+            <select id="fillSelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-200 focus:outline-none focus:border-violet-500 min-w-[155px]">
               <option value="">-- Selecionar Fill --</option>
               <option value="fill1">Fill 1</option>
               <option value="fill2">Fill 2</option>
@@ -246,6 +246,20 @@
               <option value="fill4">Fill 4</option>
               <option value="fill5">Fill 5</option>
             </select>
+          </div>
+
+          <!-- Caixa 3: Transcrever Áudio (.wav / .mp3) para Barras & Partitura -->
+          <div class="flex items-center gap-2 bg-amber-950/35 border border-amber-500/40 rounded-xl px-3 py-1.5">
+            <label id="audioUploadLabel" class="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3 py-1 rounded-lg transition cursor-pointer shadow-sm">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+              <span id="audioUploadText">Áudio &rarr; Pauta (.wav/.mp3)</span>
+              <input id="audioFileInput" type="file" accept=".wav,.mp3,audio/wav,audio/mpeg,audio/*" class="hidden">
+            </label>
+            <span id="audioAnalysisStatus" class="text-[11px] text-amber-300/90 font-medium hidden"></span>
           </div>
 
         </div>
@@ -359,7 +373,6 @@
       waltz: { bpm: 130, stepsPerBar: 12, pattern: { crash: [1,0,0,0,0,0,0,0,0,0,0,0], ride: [0,0,1,0,1,0,1,0,1,0,1,0], openhat: [0,0,0,0,0,0,0,0,0,0,0,0], closedhat: [0,0,0,0,0,0,0,0,0,0,0,0], snare: [0,0,0,0,1,0,0,0,1,0,0,0], tom1: [0,0,0,0,0,0,0,0,0,0,0,0], tom2: [0,0,0,0,0,0,0,0,0,0,1,0], floortom: [0,0,0,0,0,0,0,0,0,0,0,1], kick: [1,0,0,0,0,0,0,0,0,0,0,0] } }
     };
 
-    // Ritmos extraídos fielmente das 6 partituras enviadas
     const CUSTOM_RHYTHMS = {
       ritmo1: {
         stepsPerBar: 16,
@@ -447,7 +460,6 @@
       }
     };
 
-    // 5 Fills extraídos fielmente da imagem anexa
     const CUSTOM_FILLS = {
       fill1: {
         stepsPerBar: 16,
@@ -742,6 +754,242 @@
       gain.connect(audioCtx.destination);
       osc.start(startTime);
       osc.stop(startTime + 0.12);
+    }
+
+    /* =========================================================================
+       TRANSCRIÇÃO AUTOMÁTICA DE ÁUDIO (.WAV / .MP3) PARA BARRAS E PARTITURA
+       ========================================================================= */
+    async function analyzeAndTranscribeAudio(file) {
+      const statusEl = document.getElementById('audioAnalysisStatus');
+      const uploadText = document.getElementById('audioUploadText');
+
+      try {
+        initAudio();
+        uploadText.textContent = 'A analisar áudio...';
+        statusEl.textContent = 'A descodificar faixas...';
+        statusEl.classList.remove('hidden');
+
+        const arrayBuffer = await file.arrayBuffer();
+        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+        // Mistura para mono
+        const sampleRate = audioBuffer.sampleRate;
+        const length = audioBuffer.length;
+        const monoData = new Float32Array(length);
+        const numChannels = audioBuffer.numberOfChannels;
+
+        for (let ch = 0; ch < numChannels; ch++) {
+          const chData = audioBuffer.getChannelData(ch);
+          for (let i = 0; i < length; i++) {
+            monoData[i] += chData[i] / numChannels;
+          }
+        }
+
+        // Remove silêncio inicial e final
+        let startSample = 0;
+        let endSample = length - 1;
+        const silenceThreshold = 0.015;
+        while (startSample < length && Math.abs(monoData[startSample]) < silenceThreshold) startSample++;
+        while (endSample > startSample && Math.abs(monoData[endSample]) < silenceThreshold) endSample--;
+
+        if (endSample - startSample < sampleRate * 0.25) {
+          throw new Error('O ficheiro parece estar em silêncio.');
+        }
+
+        // Filtra o sinal em 3 bandas de frequência via filtros IIR simples (1ª/2ª ordem)
+        // 1. Graves (Kick): Passa-baixo ~150Hz
+        // 2. Agudos (Pratos / Hi-Hat): Passa-alto ~5000Hz
+        // 3. Médios (Tarola / Toms): Restante energia entre 180Hz e 3500Hz
+        const lowBand = new Float32Array(length);
+        const highBand = new Float32Array(length);
+        const midBand = new Float32Array(length);
+
+        const dt = 1 / sampleRate;
+        const rcLow = 1 / (2 * Math.PI * 150);
+        const alphaLow = dt / (rcLow + dt);
+
+        const rcHigh = 1 / (2 * Math.PI * 5200);
+        const alphaHigh = rcHigh / (rcHigh + dt);
+
+        const rcMidLP = 1 / (2 * Math.PI * 3000);
+        const alphaMidLP = dt / (rcMidLP + dt);
+
+        let prevLow = 0;
+        let prevHigh = 0;
+        let prevIn = 0;
+        let prevMidLP = 0;
+
+        for (let i = 0; i < length; i++) {
+          const x = monoData[i];
+          prevLow = prevLow + alphaLow * (x - prevLow);
+          lowBand[i] = prevLow;
+
+          prevHigh = alphaHigh * (prevHigh + x - prevIn);
+          highBand[i] = prevHigh;
+
+          const hpMid = x - prevLow;
+          prevMidLP = prevMidLP + alphaMidLP * (hpMid - prevMidLP);
+          midBand[i] = prevMidLP;
+
+          prevIn = x;
+        }
+
+        // Deteção de picos (onsets) em janelas de 10ms
+        const hopSize = Math.floor(sampleRate * 0.01);
+        const numFrames = Math.floor((endSample - startSample) / hopSize);
+        const envTotal = new Float32Array(numFrames);
+        const envLow = new Float32Array(numFrames);
+        const envMid = new Float32Array(numFrames);
+        const envHigh = new Float32Array(numFrames);
+
+        let maxTotal = 0;
+        for (let f = 0; f < numFrames; f++) {
+          const offset = startSample + f * hopSize;
+          let sTot = 0, sL = 0, sM = 0, sH = 0;
+          for (let j = 0; j < hopSize && (offset + j) < endSample; j++) {
+            const idx = offset + j;
+            sTot += monoData[idx] * monoData[idx];
+            sL += lowBand[idx] * lowBand[idx];
+            sM += midBand[idx] * midBand[idx];
+            sH += highBand[idx] * highBand[idx];
+          }
+          envTotal[f] = Math.sqrt(sTot / hopSize);
+          envLow[f] = Math.sqrt(sL / hopSize);
+          envMid[f] = Math.sqrt(sM / hopSize);
+          envHigh[f] = Math.sqrt(sH / hopSize);
+          if (envTotal[f] > maxTotal) maxTotal = envTotal[f];
+        }
+
+        // Fluxo espectral positivo (ataques)
+        const onsetTimes = [];
+        const onsetFrames = [];
+        const minGapFrames = Math.max(3, Math.floor(0.065 / 0.01)); // min 65ms entre notas
+
+        for (let f = 2; f < numFrames - 1; f++) {
+          const diff = envTotal[f] - envTotal[f - 1];
+          const localAvg = (envTotal[f - 2] + envTotal[f - 1] + envTotal[f] + envTotal[f + 1]) / 4;
+          if (
+            diff > maxTotal * 0.08 &&
+            envTotal[f] > localAvg * 1.28 &&
+            envTotal[f] > maxTotal * 0.12
+          ) {
+            if (onsetFrames.length === 0 || (f - onsetFrames[onsetFrames.length - 1]) >= minGapFrames) {
+              onsetFrames.push(f);
+              onsetTimes.push(f * 0.01);
+            }
+          }
+        }
+
+        if (onsetTimes.length < 2) {
+          throw new Error('Não foram detetadas batidas suficientes.');
+        }
+
+        // Estimativa de BPM pelos intervalos entre ataques (IOI histogram)
+        const bpmVotes = {};
+        for (let i = 0; i < onsetTimes.length; i++) {
+          for (let j = i + 1; j < Math.min(i + 8, onsetTimes.length); j++) {
+            const dtSec = onsetTimes[j] - onsetTimes[i];
+            if (dtSec < 0.22 || dtSec > 1.6) continue;
+            let candidateBpm = 60 / dtSec;
+            while (candidateBpm < 75) candidateBpm *= 2;
+            while (candidateBpm > 165) candidateBpm /= 2;
+            const rounded = Math.round(candidateBpm);
+            bpmVotes[rounded] = (bpmVotes[rounded] || 0) + 1;
+          }
+        }
+
+        let detectedBpm = state.bpm;
+        let bestVotes = 0;
+        for (const [bpmStr, votes] of Object.entries(bpmVotes)) {
+          if (votes > bestVotes) {
+            bestVotes = votes;
+            detectedBpm = parseInt(bpmStr, 10);
+          }
+        }
+
+        // Calcula duração de 1 semicolcheia e número de barras
+        const activeDurationSec = (endSample - startSample) / sampleRate;
+        const sixteenthSec = (60 / detectedBpm) / 4;
+        const stepsPerBar = state.stepsPerBar;
+        const barDurationSec = sixteenthSec * stepsPerBar;
+
+        let neededBars = Math.round(activeDurationSec / barDurationSec);
+        neededBars = Math.max(1, Math.min(16, neededBars));
+
+        state.bpm = detectedBpm;
+        state.numBars = neededBars;
+        state.currentStep = 0;
+
+        document.getElementById('bpmSlider').value = detectedBpm;
+        document.getElementById('bpmNumber').value = detectedBpm;
+        document.getElementById('rhythmSelect').value = '';
+        document.getElementById('fillSelect').value = '';
+
+        const totalSteps = getTotalSteps();
+        TRACKS.forEach(t => {
+          state.grid[t.id] = Array(totalSteps).fill(0);
+        });
+
+        // Mapeia cada ataque detetado para o passo mais próximo e classifica o instrumento
+        const firstOnsetSec = onsetTimes[0];
+
+        // Normaliza energias das 3 bandas
+        let maxL = 0.0001, maxM = 0.0001, maxH = 0.0001;
+        onsetFrames.forEach(f => {
+          if (envLow[f] > maxL) maxL = envLow[f];
+          if (envMid[f] > maxM) maxM = envMid[f];
+          if (envHigh[f] > maxH) maxH = envHigh[f];
+        });
+
+        onsetFrames.forEach((f, idx) => {
+          const relTime = onsetTimes[idx] - firstOnsetSec;
+          const stepIdx = Math.round(relTime / sixteenthSec);
+          if (stepIdx < 0 || stepIdx >= totalSteps) return;
+
+          // Pico nas janelas f e f+1
+          const eL = Math.max(envLow[f], envLow[Math.min(numFrames - 1, f + 1)]) / maxL;
+          const eM = Math.max(envMid[f], envMid[Math.min(numFrames - 1, f + 1)]) / maxM;
+          const eH = Math.max(envHigh[f], envHigh[Math.min(numFrames - 1, f + 1)]) / maxH;
+
+          // Classificação percussiva
+          if (eL > 0.42 && eL >= eM * 0.85) {
+            state.grid.kick[stepIdx] = 1;
+          }
+          if (eM > 0.44 && eM > eL * 0.95) {
+            // Se houver pouco agudo, pode ser Tom; com agudo é Tarola
+            if (eH < 0.25 && eM < 0.65) {
+              state.grid.tom2[stepIdx] = 1;
+            } else {
+              state.grid.snare[stepIdx] = 1;
+            }
+          }
+          if (eH > 0.24) {
+            // Se for no início da barra com muita energia total, marca Crash; senão Hi-Hat fechado
+            if (stepIdx % stepsPerBar === 0 && eH > 0.72 && eL > 0.5) {
+              state.grid.crash[stepIdx] = 1;
+            } else {
+              state.grid.closedhat[stepIdx] = 1;
+            }
+          }
+
+          // Garante que pelo menos um instrumento fica marcado no passo detetado
+          const anyMarked = TRACKS.some(t => state.grid[t.id][stepIdx] === 1);
+          if (!anyMarked) {
+            if (eL >= eM && eL >= eH) state.grid.kick[stepIdx] = 1;
+            else if (eM >= eH) state.grid.snare[stepIdx] = 1;
+            else state.grid.closedhat[stepIdx] = 1;
+          }
+        });
+
+        renderSequencer();
+
+        uploadText.textContent = 'Áudio → Pauta (.wav/.mp3)';
+        statusEl.textContent = `✓ ${neededBars} ${neededBars === 1 ? 'barra' : 'barras'} (~${detectedBpm} BPM)`;
+      } catch (err) {
+        console.error(err);
+        uploadText.textContent = 'Áudio → Pauta (.wav/.mp3)';
+        statusEl.textContent = `Erro: ${err.message || 'não foi possível ler o áudio'}`;
+      }
     }
 
     let nextNoteTime = 0.0;
@@ -1426,7 +1674,6 @@
         });
       }
 
-      // Se existir apenas 1 barra (com o ritmo), adiciona automaticamente a barra seguinte para o fill
       if (state.numBars === 1) {
         state.numBars = 2;
         ensureGridLength();
@@ -1452,6 +1699,7 @@
       });
       document.getElementById('rhythmSelect').value = '';
       document.getElementById('fillSelect').value = '';
+      document.getElementById('audioAnalysisStatus').classList.add('hidden');
       renderSequencer();
     };
 
@@ -1531,19 +1779,29 @@
     document.getElementById('presetSelect').onchange = (e) => {
       document.getElementById('rhythmSelect').value = '';
       document.getElementById('fillSelect').value = '';
+      document.getElementById('audioAnalysisStatus').classList.add('hidden');
       loadPreset(e.target.value);
     };
 
     document.getElementById('rhythmSelect').onchange = (e) => {
       if (e.target.value) {
+        document.getElementById('audioAnalysisStatus').classList.add('hidden');
         loadRhythm(e.target.value);
       }
     };
 
     document.getElementById('fillSelect').onchange = (e) => {
       if (e.target.value) {
+        document.getElementById('audioAnalysisStatus').classList.add('hidden');
         loadFill(e.target.value);
       }
+    };
+
+    document.getElementById('audioFileInput').onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      analyzeAndTranscribeAudio(file);
+      e.target.value = '';
     };
 
     document.getElementById('exportBtn').onclick = () => {
